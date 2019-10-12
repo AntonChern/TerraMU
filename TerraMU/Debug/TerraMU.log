@@ -1,0 +1,20 @@
+﻿LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
+LINK : warning LNK4098: библиотека по умолчанию "LIBCMT" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ _SOIL_load_image в функции "void __cdecl loadTexture(void)" (?loadTexture@@YAXXZ)
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ _SOIL_free_image_data в функции "void __cdecl loadTexture(void)" (?loadTexture@@YAXXZ)
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall ShaderProgram::ShaderProgram(char const * const,char const * const)" (??0ShaderProgram@@QAE@QBD0@Z) в функции "public: __thiscall StreamShader::StreamShader(void)" (??0StreamShader@@QAE@XZ)
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall ShaderProgram::start(void)" (?start@ShaderProgram@@QAEXXZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall ShaderProgram::stop(void)" (?stop@ShaderProgram@@QAEXXZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall ShaderProgram::cleanUp(void)" (?cleanUp@ShaderProgram@@QAEXXZ) в функции _main
+Main.obj : error LNK2001: неразрешенный внешний символ ""protected: virtual void __thiscall StreamShader::bindAttributes(void)" (?bindAttributes@StreamShader@@MAEXXZ)"
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall Display::Display(void)" (??0Display@@QAE@XZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall Display::update(void)" (?update@Display@@QAEXXZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: bool __thiscall Display::isCloseRequested(void)" (?isCloseRequested@Display@@QAE_NXZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall Renderer::prepare(void)" (?prepare@Renderer@@QAEXXZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall Renderer::render(class TexturedModel *,struct glm::detail::tmat4x4<float,0>)" (?render@Renderer@@QAEXPAVTexturedModel@@U?$tmat4x4@M$0A@@detail@glm@@@Z) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall Loader::Loader(void)" (??0Loader@@QAE@XZ) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall Loader::~Loader(void)" (??1Loader@@QAE@XZ) в функции "public: void * __thiscall Loader::`scalar deleting destructor'(unsigned int)" (??_GLoader@@QAEPAXI@Z)
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: class RawModel * __thiscall Loader::loadToVao(float * const,int,int * const,int,float * const,int)" (?loadToVao@Loader@@QAEPAVRawModel@@QAMHQAHH0H@Z) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: unsigned int __thiscall Loader::loadTexture(char const * const)" (?loadTexture@Loader@@QAEIQBD@Z) в функции _main
+Main.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall Loader::cleanUp(void)" (?cleanUp@Loader@@QAEXXZ) в функции _main
+C:\Users\User\source\repos\TerraMU\Debug\TerraMU.exe : fatal error LNK1120: неразрешенных внешних элементов: 17

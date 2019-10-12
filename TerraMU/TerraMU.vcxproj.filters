@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\shaders">
+      <UniqueIdentifier>{220facb4-ce1e-45c3-b451-a48dcafcabd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\main">
+      <UniqueIdentifier>{b6d4d60b-fe60-43ee-84df-eb349e3116ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\models">
+      <UniqueIdentifier>{c8b56ae3-094b-44a7-b242-858b8660df93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\renderEngine">
+      <UniqueIdentifier>{7df86fc9-07aa-4762-9515-f0950af63ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\textures">
+      <UniqueIdentifier>{fdcf966a-21c1-47cb-8355-e25e206622f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\models">
+      <UniqueIdentifier>{9a0ee08f-e197-4b21-85c8-30fec17665a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\textures">
+      <UniqueIdentifier>{efb1b4db-a105-4e07-b770-9c8b4ba546e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\renderEngine">
+      <UniqueIdentifier>{84595377-ffe8-4d35-9265-3fd2e2b8d294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\shaders">
+      <UniqueIdentifier>{9d76dabe-86c9-4bd3-9d09-23da18b11eae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Display.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Loader.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RawModel.cpp">
+      <Filter>Исходные файлы\models</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedModel.cpp">
+      <Filter>Исходные файлы\models</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Исходные файлы\main</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelTexture.cpp">
+      <Filter>Исходные файлы\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>Исходные файлы\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticShader.cpp">
+      <Filter>Исходные файлы\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="StreamShader.cpp">
+      <Filter>Исходные файлы\shaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RawModel.h">
+      <Filter>Файлы заголовков\models</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedModel.h">
+      <Filter>Файлы заголовков\models</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelTexture.h">
+      <Filter>Файлы заголовков\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.h">
+      <Filter>Файлы заголовков\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticShader.h">
+      <Filter>Файлы заголовков\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamShader.h">
+      <Filter>Файлы заголовков\shaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
