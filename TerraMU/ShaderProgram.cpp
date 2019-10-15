@@ -12,8 +12,9 @@ ShaderProgram::ShaderProgram(char const vertexFile[], char const fragmentFile[])
 
 	glAttachShader(programID, vertexShaderID);
 	glAttachShader(programID, fragmentShaderID);
-	bindAttributes();
+	//bindAttributes();
 	glLinkProgram(programID);
+	//getAllUniformLocations();
 }
 
 GLuint ShaderProgram::loadShader(char const filePath[], int type) {
@@ -76,4 +77,13 @@ void ShaderProgram::bindAttribute(GLuint index, const GLchar* name) {
 	glBindAttribLocation(programID, index, name);
 }
 
+int ShaderProgram::getUniformLocation(const GLchar* uniformName) {
+	return glGetUniformLocation(programID, uniformName);
+}
+
+void ShaderProgram::loadMatrix(int location, mat4 matrix) {
+	glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(matrix));
+}
+
 void ShaderProgram::bindAttributes() {};
+void ShaderProgram::getAllUniformLocations() {};

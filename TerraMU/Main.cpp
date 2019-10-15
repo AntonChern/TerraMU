@@ -10,6 +10,10 @@
 #include "Loader.h"
 #include "ModelTexture.h"
 #include "TexturedModel.h"
+#include "Camera.h"
+//#include "KeyboardController.h"
+#include "Entity.h"
+#include "EntityBuilder.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -22,18 +26,26 @@ static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos)
 	mousePosition = vec2((float)xPos, (float)yPos);
 }
 
+static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode) {
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
 void initializeGLFW();
 void initializeGLEW();
+
+list<Entity *> *EntityBuilder::entities = new list<Entity *>();
 
 int main() {
 	initializeGLFW();
 	Display *display = new Display();
 	initializeGLEW();
-	glfwSetCursorPosCallback(display->getWindow(), cursorPositionCallback);
 
 	Loader *loader = new Loader();
-	Renderer *renderer = new Renderer();
-	ShaderProgram *shader = new StreamShader();
+	StreamShader *shader = new StreamShader();
+	Renderer *renderer = new Renderer(shader);
+
+	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	float positions[] = {
 		-0.5f, 0.5f, 0.0f,
@@ -54,19 +66,52 @@ int main() {
 		1.0f, 0.0f,
 	};
 
-	RawModel *rawModel = loader->loadToVao(positions, 12, indices, 6, textureCoords, 8);
-	ModelTexture *texture = new ModelTexture(loader->loadTexture("Player.png"));
-	TexturedModel *model = new TexturedModel(rawModel, texture);
+	Entity* map = EntityBuilder::createEntity(loader, "map.png", positions, 12, indices, 6, textureCoords, 8,
+		vec3(0.0f, 0.0f, -2.0f), 0.0f, 0.0f, 0.0f, 20.0f);
+
+	Entity *player = EntityBuilder::createEntity(loader, "Player.png", positions, 12, indices, 6, textureCoords, 8,
+		vec3(0.0f, 0.0f, -2.0f), 0.0f, 0.0f, 0.0f, 0.2f);
+
+	Camera *camera = new Camera();
+
+	//KeyboardController *controller = new KeyboardController(camera, display);
+
+	//glfwSetCursorPosCallback(display->getWindow(), cursorPositionCallback);
+	glfwSetKeyCallback(display->getWindow(), keyCallback);
 
 	while (!display->isCloseRequested())
 	{
+		//entity->increaseRotationY(50.0f);
+		//entity->increasePosition(0.0f, 0.0f, -0.01f);
+		//controller->process();
+	
 		renderer->prepare();
 
+		vec4 direction(0.0f);
+		if (glfwGetKey(display->getWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
+			direction += vec4(0.0f, -1.0f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(display->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
+			direction += vec4(0.0f, 1.0f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(display->getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS) {
+			direction += vec4(1.0f, 0.0f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(display->getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS) {
+			direction += vec4(-1.0f, 0.0f, 0.0f, 0.0f);
+		}
+
+		if (direction != vec4(0.0f)) {
+			direction = normalize(direction);
+		}
+
+		vec4 move = scale(mat4(1.0f), vec3(0.01f)) * direction;
+		map->increasePosition(move.x, move.y, move.z);
+
 		shader->start();
-		mat4 transform(1.0f);
-		transform = translate(transform, vec3((mousePosition.x - 640)/640, (360 - mousePosition.y)/360, 0.0));
-		transform = rotate(transform, (GLfloat)glfwGetTime() * 50.0f, vec3(0.0f, 0.1f, 0.0f));
-		renderer->render(model, transform);
+		shader->loadViewMatrix(camera);
+		renderer->render(map, shader);
+		renderer->render(player, shader);
 		glfwPollEvents();
 		shader->stop();
 
@@ -79,9 +124,9 @@ int main() {
 	delete renderer;
 	delete loader;
 
-	delete rawModel;
-	delete texture;
-	delete model;
+	EntityBuilder::cleanUp();
+
+	delete camera;
 
 	delete display;
 

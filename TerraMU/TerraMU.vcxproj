@@ -129,9 +129,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Camera.h" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityBuilder.cpp" />
+    <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Maths.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -142,7 +148,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityBuilder.h" />
+    <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />
@@ -151,6 +161,16 @@
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="StreamShader.h" />
     <ClInclude Include="TexturedModel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="StaticFragmentShader.txt" />
+    <Text Include="StaticVertexShader.txt" />
+    <Text Include="StreamFragmentShader.txt" />
+    <Text Include="StreamVertexShader.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="map.png" />
+    <Image Include="Player.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

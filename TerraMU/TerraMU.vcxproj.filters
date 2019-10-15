@@ -40,6 +40,27 @@
     <Filter Include="Файлы заголовков\shaders">
       <UniqueIdentifier>{9d76dabe-86c9-4bd3-9d09-23da18b11eae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\shaders\glsl">
+      <UniqueIdentifier>{12328fb8-5697-453a-bcac-96c5e2902f8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\entities">
+      <UniqueIdentifier>{de4cf2bd-9bfe-4409-be9e-dd4dfc311676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities">
+      <UniqueIdentifier>{313adb7b-4495-4b5e-b513-c47b52589834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\toolbox">
+      <UniqueIdentifier>{df1c8414-49ed-4859-9f9f-f0f391f3751d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\toolbox">
+      <UniqueIdentifier>{c7d888bb-cef7-40f6-a59b-2680ef08c1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\controllers">
+      <UniqueIdentifier>{4fbea57c-a8c5-44b7-b0c0-664bc60ee8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\controllers">
+      <UniqueIdentifier>{16a2d7c0-ddf1-403c-9cfd-cc2b4d2dab28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -71,6 +92,24 @@
     </ClCompile>
     <ClCompile Include="StreamShader.cpp">
       <Filter>Исходные файлы\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>Исходные файлы\toolbox</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardController.cpp">
+      <Filter>Исходные файлы\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBuilder.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,5 +143,39 @@
     <ClInclude Include="StreamShader.h">
       <Filter>Файлы заголовков\shaders</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Файлы заголовков\toolbox</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardController.h">
+      <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBuilder.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="StaticFragmentShader.txt">
+      <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+    <Text Include="StaticVertexShader.txt">
+      <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+    <Text Include="StreamFragmentShader.txt">
+      <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+    <Text Include="StreamVertexShader.txt">
+      <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="map.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Player.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>

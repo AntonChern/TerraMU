@@ -1,9 +1,12 @@
 #pragma once
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+using namespace glm;
 
 class ShaderProgram {
 private:
-	int programID;
 	int vertexShaderID;
 	int fragmentShaderID;
 
@@ -17,6 +20,11 @@ public:
 	int getProgramID();
 
 protected:
+	int programID;
+
+	void loadMatrix(int location, mat4 matrix);
+	int getUniformLocation(const GLchar* uniformName);
+	virtual void getAllUniformLocations() = 0;
 	virtual void bindAttributes() = 0;
 	void bindAttribute(GLuint index, const GLchar *name);
 };

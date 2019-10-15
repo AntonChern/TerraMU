@@ -1,20 +1,30 @@
 #include "Renderer.h"
+#include "Maths.h"
+#include "Display.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+Renderer::Renderer(StreamShader *shader) {
+	createProjectionMatrix();
+	shader->start();
+	shader->loadProjectionMatrix(projection);
+	shader->stop();
+}
 
 void Renderer::prepare() {
 	glClearColor(0.07843f, 0.07843f, 0.07843f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::render(TexturedModel *texturedModel, mat4 transform) {
+void Renderer::render(Entity *entity, StreamShader *shader) {
+	TexturedModel* texturedModel = entity->getTexturedModel();
 	RawModel *model = texturedModel->getRawModel();
 	glBindVertexArray(model->getVaoID());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	GLuint transformLoc = glGetUniformLocation(3, "transform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, value_ptr(transform));
+	shader->loadTransormMatrix(Maths::createTransformMatrix(entity->getPosition(),
+		entity->getRotationX(), entity->getRotationY(), entity->getRotationZ(), entity->getScale()));
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturedModel->getTexture()->getID());
@@ -23,4 +33,10 @@ void Renderer::render(TexturedModel *texturedModel, mat4 transform) {
 	glDisableVertexAttribArray(1);
 	
 	glBindVertexArray(0);
+}
+
+void Renderer::createProjectionMatrix() {
+	/*float aspect = Display::getWidth() / Display::getHeight();
+	projection = ortho(-1.0f, 1.0f, -1.0f * aspect, 1.0f * aspect, 0.01f, 100.0f);*/
+	projection = perspective(45.0f, (float)Display::getWidth() / Display::getHeight(), 0.1f, 100.0f);
 }

@@ -1,14 +1,15 @@
 #pragma once
-#include "TexturedModel.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-using namespace glm;
+#include "Entity.h"
+#include "StreamShader.h"
 
 class Renderer {
 private:
+	mat4 projection;
+
+	void createProjectionMatrix();
 
 public:
+	Renderer(StreamShader *shader);
 	void prepare();
-	void render(TexturedModel *texturedModel, mat4 transform);
+	void render(Entity *entity, StreamShader *shader);
 };

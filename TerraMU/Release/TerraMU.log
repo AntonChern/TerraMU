@@ -1,5 +1,4 @@
-﻿  Loader.cpp
-  Main.cpp
+﻿  Main.cpp
   GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: rotate_slow function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
@@ -12,48 +11,35 @@
   GLM: yaw function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: angle function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: angleAxis function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  Renderer.cpp
-  GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: rotate_slow function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: perspectiveFov function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: infinitePerspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: tweakedInfinitePerspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: roll function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: pitch function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: yaw function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: angle function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GLM: angleAxis function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+Release\Camera.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
 SOIL.lib(SOIL.obj) : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/OPT:ICF"
 LINK : warning LNK4098: библиотека по умолчанию "LIBCMT" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
 LINK : warning LNK4098: библиотека по умолчанию "MSVCRTD" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
   Создание кода
-  26 of 309 functions ( 8.4%) were compiled, the rest were copied from previous compilation.
-    22 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+  12 of 404 functions ( 3.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
+LINK : warning LNK4286: Символ "___glewBindBuffer", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
+LINK : warning LNK4286: Символ "___glewVertexAttribPointer", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
+LINK : warning LNK4286: Символ "___glewBindVertexArray", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewDeleteBuffers", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewGenerateMipmap", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewGenBuffers", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewGenVertexArrays", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewBufferData", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewDeleteVertexArrays", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
-LINK : warning LNK4286: Символ "___glewBindBuffer", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
-LINK : warning LNK4286: Символ "___glewVertexAttribPointer", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
-LINK : warning LNK4286: Символ "___glewBindVertexArray", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
-LINK : warning LNK4286: Символ "___glewUniformMatrix4fv", определенный в "GLEW32s.lib(glew.obj)", импортирован "Renderer.obj".
 LINK : warning LNK4286: Символ "___glewDisableVertexAttribArray", определенный в "GLEW32s.lib(glew.obj)", импортирован "Renderer.obj".
 LINK : warning LNK4286: Символ "___glewActiveTexture", определенный в "GLEW32s.lib(glew.obj)", импортирован "Renderer.obj".
-LINK : warning LNK4286: Символ "___glewGetUniformLocation", определенный в "GLEW32s.lib(glew.obj)", импортирован "Renderer.obj".
 LINK : warning LNK4286: Символ "___glewEnableVertexAttribArray", определенный в "GLEW32s.lib(glew.obj)", импортирован "Renderer.obj".
 LINK : warning LNK4286: Символ "___glewLinkProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewDeleteShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewDetachShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewUniformMatrix4fv", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewShaderSource", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewDeleteProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewAttachShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewGetUniformLocation", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewGetShaderInfoLog", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewCreateProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewBindAttribLocation", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
