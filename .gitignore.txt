@@ -1,5 +1,5 @@
-.vs/*
-Debug/*
-Release/*
-TerraMU/Debug/*
-TerraMU/Release/*
+.vs/
+Debug/
+Release/
+TerraMU/Debug/
+TerraMU/Release/
