@@ -1,0 +1,5 @@
+.vc/*
+Debug/*
+Release/*
+TerraMU/Debug/*
+TerraMU/Release/*
