@@ -11,6 +11,7 @@ private:
 	int transformLocation;
 	int projectionLocation;
 	int viewLocation;
+	int textureLocation;
 
 public:
 	//using ShaderProgram::ShaderProgram;
@@ -18,6 +19,7 @@ public:
 	void loadTransormMatrix(mat4 matrix);
 	void loadProjectionMatrix(mat4 matrix);
 	void loadViewMatrix(Camera *camera);
+	void loadTextureMatrix(mat3 matrix);
 
 protected:
 	void bindAttributes() override;

@@ -111,6 +111,9 @@
     <ClCompile Include="EntityBuilder.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -155,6 +158,12 @@
     <ClInclude Include="EntityBuilder.h">
       <Filter>Файлы заголовков\renderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="StaticFragmentShader.txt">
@@ -175,6 +184,9 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="Player.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="magicGladiator.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

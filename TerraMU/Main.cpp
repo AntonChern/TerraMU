@@ -11,11 +11,13 @@
 #include "ModelTexture.h"
 #include "TexturedModel.h"
 #include "Camera.h"
+#include "Controller.h"
 //#include "KeyboardController.h"
 #include "Entity.h"
 #include "EntityBuilder.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_transform_2d.hpp>
 #include <glm/gtc/type_ptr.hpp>
 using namespace std;
 using namespace glm;
@@ -23,7 +25,9 @@ using namespace glm;
 vec2 mousePosition;
 
 static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos) {
-	mousePosition = vec2((float)xPos, (float)yPos);
+	float aspect = (float)Display::getWidth() / (float)Display::getHeight();
+	mousePosition = vec2(aspect * (2 * (float)xPos/Display::getWidth() - 1.0f), -2 * (float)yPos/Display::getHeight() + 1.0f);
+	//cout << mousePosition.x << " : " << mousePosition.y << endl;
 }
 
 static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode) {
@@ -45,7 +49,6 @@ int main() {
 	StreamShader *shader = new StreamShader();
 	Renderer *renderer = new Renderer(shader);
 
-	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	float positions[] = {
 		-0.5f, 0.5f, 0.0f,
@@ -67,21 +70,27 @@ int main() {
 	};
 
 	Entity* map = EntityBuilder::createEntity(loader, "map.png", positions, 12, indices, 6, textureCoords, 8,
-		vec3(0.0f, 0.0f, -2.0f), 0.0f, 0.0f, 0.0f, 20.0f);
+		vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 25.0f);
 
-	Entity *player = EntityBuilder::createEntity(loader, "Player.png", positions, 12, indices, 6, textureCoords, 8,
-		vec3(0.0f, 0.0f, -2.0f), 0.0f, 0.0f, 0.0f, 0.2f);
+	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", positions, 12, indices, 6, textureCoords, 8,
+		vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.2f);
+
+	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", positions, 12, indices, 6, textureCoords, 8,
+		vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f);
 
 	Camera *camera = new Camera();
+	camera->setPosition(0.0f, 0.0f, 1.0f);
 
 	//KeyboardController *controller = new KeyboardController(camera, display);
-
-	//glfwSetCursorPosCallback(display->getWindow(), cursorPositionCallback);
+	
+	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetCursorPosCallback(display->getWindow(), cursorPositionCallback);
 	glfwSetKeyCallback(display->getWindow(), keyCallback);
 
+	vec2 textureTranslate;
 	while (!display->isCloseRequested())
 	{
-		//entity->increaseRotationY(50.0f);
+		//player->increaseRotationY(50.0f);
 		//entity->increasePosition(0.0f, 0.0f, -0.01f);
 		//controller->process();
 	
@@ -103,15 +112,44 @@ int main() {
 
 		if (direction != vec4(0.0f)) {
 			direction = normalize(direction);
+			textureTranslate += vec2(1.0f/3.0f, 0.0f);
+			textureTranslate = vec2(textureTranslate.x > 1.0f ? textureTranslate.x - 1.0f : textureTranslate.x, textureTranslate.y);
+		}
+		else {
+			textureTranslate = vec2(0.0f, textureTranslate.y);
 		}
 
-		vec4 move = scale(mat4(1.0f), vec3(0.01f)) * direction;
+		vec4 move = scale(mat4(1.0f), vec3(0.02f)) * direction;
 		map->increasePosition(move.x, move.y, move.z);
+
+
+		if (direction.x < 0) {
+			textureTranslate = vec2(textureTranslate.x, 0.5f);
+		}
+		if (direction.x > 0) {
+			textureTranslate = vec2(textureTranslate.x, 0.25f);
+		}
+		if (direction.x == 0) {
+		    if (direction.y < 0) {
+			    textureTranslate = vec2(textureTranslate.x, 0.75f);
+		    }
+		    if (direction.y > 0) {
+		    	textureTranslate = vec2(textureTranslate.x, 0.0f);
+		    }
+		}
+
+		mat3 texture(1.0f);
+		texture = translate(texture, vec2(1.0f / 3.0f, 0.0f) + textureTranslate);
+		texture = scale(texture, vec2(1.0f/3.0f, 0.25f));
+		player->getTexturedModel()->setTextureMatrix(texture);
+
+		cursor->setPosition(mousePosition.x, mousePosition.y, 0.0f);
 
 		shader->start();
 		shader->loadViewMatrix(camera);
 		renderer->render(map, shader);
 		renderer->render(player, shader);
+		renderer->render(cursor, shader);
 		glfwPollEvents();
 		shader->stop();
 

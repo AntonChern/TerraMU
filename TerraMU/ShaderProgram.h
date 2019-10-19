@@ -23,6 +23,7 @@ protected:
 	int programID;
 
 	void loadMatrix(int location, mat4 matrix);
+	void loadMatrix(int location, mat3 matrix);
 	int getUniformLocation(const GLchar* uniformName);
 	virtual void getAllUniformLocations() = 0;
 	virtual void bindAttributes() = 0;

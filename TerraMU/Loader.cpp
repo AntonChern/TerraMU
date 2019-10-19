@@ -42,7 +42,7 @@ void Loader::bindIndicesBuffer(int indices[], int indicesCount) {
 	glGenBuffers(1, &vboID);
 	vbos->push_back(vboID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * indicesCount, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * indicesCount, indices, GL_STATIC_DRAW); //STATIC
 }
 
 void Loader::cleanUp() {
@@ -77,7 +77,7 @@ GLuint Loader::loadTexture(char const filePath[]) {
 
 	int width;
 	int height;
-	unsigned char* image = SOIL_load_image(filePath, &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image(filePath, &width, &height, 0, SOIL_LOAD_RGBA);
 	/*GLuint image = SOIL_load_OGL_texture(
 		fileName,
 		SOIL_LOAD_RGB,
@@ -85,7 +85,7 @@ GLuint Loader::loadTexture(char const filePath[]) {
 		SOIL_FLAG_INVERT_Y
 	);*/
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	SOIL_free_image_data(image);

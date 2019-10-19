@@ -137,6 +137,7 @@
     <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -147,11 +148,13 @@
     <ClCompile Include="TexturedModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityBuilder.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="RawModel.h" />
@@ -169,6 +172,7 @@
     <Text Include="StreamVertexShader.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="magicGladiator.png" />
     <Image Include="map.png" />
     <Image Include="Player.png" />
   </ItemGroup>

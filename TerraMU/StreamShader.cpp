@@ -17,6 +17,7 @@ void StreamShader::getAllUniformLocations() {
 	transformLocation = glGetUniformLocation(programID, "transform");
 	projectionLocation = glGetUniformLocation(programID, "projection");
 	viewLocation = glGetUniformLocation(programID, "view");
+	textureLocation = glGetUniformLocation(programID, "texture");
 }
 
 void StreamShader::loadTransormMatrix(mat4 matrix) {
@@ -30,4 +31,8 @@ void StreamShader::loadProjectionMatrix(mat4 matrix) {
 void StreamShader::loadViewMatrix(Camera *camera) {
 	//lookAt(position, aimCoord, upVector);
 	loadMatrix(viewLocation, Maths::createViewMatrix(camera));
+}
+
+void StreamShader::loadTextureMatrix(mat3 matrix) {
+	loadMatrix(textureLocation, matrix);
 }

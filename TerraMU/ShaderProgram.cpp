@@ -85,5 +85,9 @@ void ShaderProgram::loadMatrix(int location, mat4 matrix) {
 	glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(matrix));
 }
 
+void ShaderProgram::loadMatrix(int location, mat3 matrix) {
+	glUniformMatrix3fv(location, 1, GL_FALSE, value_ptr(matrix));
+}
+
 void ShaderProgram::bindAttributes() {};
 void ShaderProgram::getAllUniformLocations() {};

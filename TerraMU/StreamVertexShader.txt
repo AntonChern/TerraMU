@@ -9,9 +9,15 @@ uniform mat4 transform;
 uniform mat4 projection;
 uniform mat4 view;
 
+uniform mat3 texture;
+
 void main(void) {
 
     gl_Position = projection * view * transform * vec4(position.xyz, 1.0);
-    pass_textureCoords = textureCoords;
+
+	vec3 newTextureCoords = vec3(textureCoords.xy, 1.0);
+	newTextureCoords = texture * newTextureCoords;
+	pass_textureCoords = vec2(newTextureCoords.xy);
+
 
 }
