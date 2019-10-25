@@ -61,6 +61,15 @@
     <Filter Include="Исходные файлы\controllers">
       <UniqueIdentifier>{16a2d7c0-ddf1-403c-9cfd-cc2b4d2dab28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\entities\map">
+      <UniqueIdentifier>{8225358e-db29-4541-bf48-cb2f4064c27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\entities\map">
+      <UniqueIdentifier>{424eef58-3f09-4246-b9d1-9faa4b8ba8ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\map\staticMapObjects">
+      <UniqueIdentifier>{ea346cdb-61a0-464f-a513-cd3eb239792f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -112,7 +121,10 @@
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Исходные файлы\entities</Filter>
+      <Filter>Исходные файлы\entities\map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Исходные файлы\entities\map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +174,28 @@
       <Filter>Файлы заголовков\controllers</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Файлы заголовков\entities</Filter>
+      <Filter>Файлы заголовков\entities\map</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTile.h">
+      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Файлы заголовков\entities\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Monument.h">
+      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

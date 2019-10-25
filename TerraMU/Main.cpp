@@ -15,10 +15,12 @@
 //#include "KeyboardController.h"
 #include "Entity.h"
 #include "EntityBuilder.h"
+#include "Map.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <map>
 using namespace std;
 using namespace glm;
 
@@ -38,8 +40,6 @@ static void keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 void initializeGLFW();
 void initializeGLEW();
 
-list<Entity *> *EntityBuilder::entities = new list<Entity *>();
-
 int main() {
 	initializeGLFW();
 	Display *display = new Display();
@@ -49,34 +49,49 @@ int main() {
 	StreamShader *shader = new StreamShader();
 	Renderer *renderer = new Renderer(shader);
 
+	//Entity* map = EntityBuilder::createEntity(loader, "map.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 25.0f);
 
-	float positions[] = {
-		-0.5f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f,
-	};
+	int size = 4;
+	Tile** base = new Tile*[size];
+	for (int i = 0; i < size; i++) {
+		base[i] = new Tile[size];
+	}
+	Tile** hat = new Tile * [size];
+	for (int i = 0; i < size; i++) {
+		hat[i] = new Tile[size];
+	}
 
-	int indices[] = {
-		2, 1, 0,
-		3, 2, 0,
-	};
+	base[0][0] = GRASS_0;
+	base[0][1] = GRASS_0;
+	base[0][2] = STONE_0;
+	base[0][3] = STONE_0;
+	base[1][0] = STONE_0;
+	base[1][1] = STONE_0;
+	base[1][2] = STONE_0;
+	base[1][3] = STONE_0;
+	base[2][0] = GRASS_0;
+	base[2][1] = GRASS_0;
+	base[2][2] = STONE_0;
+	base[2][3] = STONE_0;
+	base[3][0] = STONE_0;
+	base[3][1] = STONE_0;
+	base[3][2] = STONE_0;
+	base[3][3] = STONE_0;
 
-	float textureCoords[] = {
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-	};
 
-	Entity* map = EntityBuilder::createEntity(loader, "map.png", positions, 12, indices, 6, textureCoords, 8,
-		vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 25.0f);
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			hat[i][j] = EMPTY;
+		}
+	}
+	hat[0][3] = MONUMENT;
 
-	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", positions, 12, indices, 6, textureCoords, 8,
-		vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.2f);
+	//Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, /*0.25f * 128*/1.0f);
+	Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
 
-	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", positions, 12, indices, 6, textureCoords, 8,
-		vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f);
+	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.2f);
+
+	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f);
 
 	Camera *camera = new Camera();
 	camera->setPosition(0.0f, 0.0f, 1.0f);
@@ -120,7 +135,11 @@ int main() {
 		}
 
 		vec4 move = scale(mat4(1.0f), vec3(0.02f)) * direction;
+		//map->increasePosition(move.x, move.y, move.z);
 		map->increasePosition(move.x, move.y, move.z);
+		/*camera->increasePosition(-move.x, -move.y, -move.z);
+		player->increasePosition(-move.x, -move.y, -move.z);
+		cursor->increasePosition(-move.x, -move.y, -move.z);*/
 
 
 		if (direction.x < 0) {
@@ -141,13 +160,14 @@ int main() {
 		mat3 texture(1.0f);
 		texture = translate(texture, vec2(1.0f / 3.0f, 0.0f) + textureTranslate);
 		texture = scale(texture, vec2(1.0f/3.0f, 0.25f));
-		player->getTexturedModel()->setTextureMatrix(texture);
+		player->setTextureMatrix(texture);
 
 		cursor->setPosition(mousePosition.x, mousePosition.y, 0.0f);
 
 		shader->start();
 		shader->loadViewMatrix(camera);
-		renderer->render(map, shader);
+		map->draw(renderer, loader, shader);
+		//renderer->render(map, shader);
 		renderer->render(player, shader);
 		renderer->render(cursor, shader);
 		glfwPollEvents();

@@ -10,15 +10,11 @@ class TexturedModel {
 private:
 	RawModel *rawModel;
 	ModelTexture *texture;
-	mat3 textureMatrix;
 
 public:
-	TexturedModel(RawModel *model, ModelTexture *texture) : rawModel(model), texture(texture), textureMatrix(mat3(1.0f)) {};
+	TexturedModel(RawModel *model, ModelTexture *texture) : rawModel(model), texture(texture) {};
 	RawModel *getRawModel() { return rawModel; };
 	ModelTexture *getTexture() { return texture; };
-
-	void setTextureMatrix(mat3 matrix) { textureMatrix = matrix; };
-	mat3 getTextureMatrix() { return textureMatrix; };
 
 };
 

@@ -138,6 +138,7 @@
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -148,15 +149,21 @@
     <ClCompile Include="TexturedModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="Chest.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityBuilder.h" />
+    <ClInclude Include="BaseTile.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapObject.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
+    <ClInclude Include="Monument.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
@@ -164,6 +171,7 @@
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="StreamShader.h" />
     <ClInclude Include="TexturedModel.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="StaticFragmentShader.txt" />
