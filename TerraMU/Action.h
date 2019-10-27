@@ -1,8 +1,12 @@
 #pragma once
+#include "GameController.h"
 
-enum Action {
-	NONE,
-	GO,
-	OPEN_CHEST,
-	COME_IN_BUILDING
+class Action {
+protected:
+	//GameController receiver;
+
+public:
+	void execute() {};
+	void unexecute() {};
+
 };

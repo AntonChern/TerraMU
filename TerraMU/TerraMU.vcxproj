@@ -129,11 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Camera.h" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityBuilder.cpp" />
+    <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="GoAction.cpp" />
     <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -150,20 +153,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
-    <ClInclude Include="Chest.h" />
-    <ClInclude Include="Controller.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
-    <ClInclude Include="Door.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityBuilder.h" />
-    <ClInclude Include="BaseTile.h" />
+    <ClInclude Include="GoAction.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
-    <ClInclude Include="Monument.h" />
+    <ClInclude Include="OpenChestAction.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />

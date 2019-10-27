@@ -70,6 +70,12 @@
     <Filter Include="Файлы заголовков\entities\map\staticMapObjects">
       <UniqueIdentifier>{ea346cdb-61a0-464f-a513-cd3eb239792f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\controllers\actions">
+      <UniqueIdentifier>{a87078e7-c431-4926-b88a-814c03720cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\controllers\actions">
+      <UniqueIdentifier>{215415dc-ab67-4a92-8e9e-50312395d4bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -126,6 +132,15 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Исходные файлы\entities\map</Filter>
     </ClCompile>
+    <ClCompile Include="GoAction.cpp">
+      <Filter>Исходные файлы\controllers\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Исходные файлы\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Исходные файлы\controllers\actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -170,31 +185,25 @@
     <ClInclude Include="EntityBuilder.h">
       <Filter>Файлы заголовков\renderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Файлы заголовков\controllers</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Файлы заголовков\entities\map</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseTile.h">
-      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Chest.h">
-      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
+      <Filter>Файлы заголовков\controllers\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenChestAction.h">
+      <Filter>Файлы заголовков\controllers\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="GoAction.h">
+      <Filter>Файлы заголовков\controllers\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
       <Filter>Файлы заголовков\controllers</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Файлы заголовков\entities\map</Filter>
-    </ClInclude>
-    <ClInclude Include="Monument.h">
       <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
     </ClInclude>
   </ItemGroup>

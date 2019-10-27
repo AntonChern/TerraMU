@@ -1,9 +1,11 @@
 #include "MapObject.h"
 
-Action MapObject::interact() {
-	if (isReachable) {
-		return GO;
-	}
+MapObject::~MapObject() {
+	/*if (action) {
+		delete action;
+	}*/
+}
 
-	return NONE;
+void MapObject::interact() {
+	action->execute();
 }

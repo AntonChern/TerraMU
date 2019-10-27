@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+class MapObject;
 #include "MapObject.h"
 #include "TexturedModel.h"
 #include "EntityBuilder.h"
@@ -19,12 +20,11 @@ private:
 
 	Tile** base;
 	Tile** hat;
-	//list<int> textureIDs;
-	//map<const char*, int> *textureIDs;
-	map<Tile, Entity*> *entities = new map<Tile, Entity*>();
-	//list<Entity*> *entities;
 
-	//add mob spawners
+	map<Tile, Entity*> *entities = new map<Tile, Entity*>();
+	static map<Tile, MapObject*> mapObjects;
+
+	//add mob spawners and NPCs
 
 	vec3 position;
 	float rotationX;
@@ -34,9 +34,6 @@ private:
 
 	void drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader,
 		float posX, float posY, int horyzontalSide, int verticalSide);
-
-protected:
-	static map<Tile, MapObject> mapObjects;
 
 public:
 	Map(int columns, int rows, Tile** base, Tile** hat, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) : 
@@ -55,7 +52,7 @@ public:
 	int getColumns() { return columns; };
 	int getRows() { return rows; };
 
-	Action getAction(float x, float y);
+	void interact(float x, float y);
 
 	vec3 getPosition() { return position; };
 	float getRotationX() { return rotationX; };
@@ -82,3 +79,15 @@ public:
 	void increaseRotationZ(float dr) { rotationZ += dr; };
 
 };
+
+//map<Tile, MapObject> Map::mapObjects = {
+//	{GRASS_0, MapObject(true, true, "grass_0.png", 32, 32)},
+//	{GRASS_1, MapObject(true, true, "grass_1.png", 32, 32)},
+//	{GRASS_2, MapObject(true, true, "grass_2.png", 32, 32)},
+//	{STONE_0, MapObject(true, true, "stone_0.png", 32, 32)},
+//	{STONE_1, MapObject(true, true, "stone_1.png", 32, 32)},
+//	{STONE_2, MapObject(true, true, "stone_2.png", 32, 32)},
+//	{STONE_3, MapObject(true, true, "stone_3.png", 32, 32)},
+//	{STONE_4, MapObject(true, true, "stone_4.png", 32, 32)},
+//	{MONUMENT, MapObject(false, true, "monument.png", 32, 64)}
+//};

@@ -1,44 +1,10 @@
 #include "Map.h"
-#include "BaseTile.h"
-#include "Chest.h"
-#include "Door.h"
-#include "Monument.h"
 #include <fstream> // beg delete
 #include <iostream>
 #include <sstream>
 using namespace std; // end delete
 
-map<Tile, MapObject> Map::mapObjects = {
-	{GRASS_0, BaseTile("grass_0.png")},
-	{GRASS_1, BaseTile("grass_1.png")},
-	{GRASS_2, BaseTile("grass_2.png")},
-	{STONE_0, BaseTile("stone_0.png")},
-	{STONE_1, BaseTile("stone_1.png")},
-	{STONE_2, BaseTile("stone_2.png")},
-	{STONE_3, BaseTile("stone_3.png")},
-	{STONE_4, BaseTile("stone_4.png")},
-    {MONUMENT, Monument()}
-};
-
 Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) {
-	/*ifstream fin(sourcePath);
-	char currSymb = 0;
-	int columns = -1;
-	while (!fin.eof() && currSymb != '\n') {
-		columns++;
-		fin.get(currSymb);
-	}
-	fin.close();
-
-	ifstream fin2(sourcePath);
-	int rows = 1;
-	while (!fin.eof()) {
-		fin.get(currSymb);
-		if (currSymb == '\n') {
-			rows++;
-		}
-	}
-	fin2.close();*/
 
 	columns = 255;
 	rows = 255;
@@ -139,7 +105,7 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 
 			MapObject* currMapObject = nullptr;
 			try {
-				currMapObject = &mapObjects.at(currTile);
+				currMapObject = mapObjects.at(currTile);
 			}
 			catch (const out_of_range & exc) {
 				cerr << "Out of Range error: " << exc.what() << endl;
@@ -183,4 +149,14 @@ void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *sh
 	float posX, float posY, int horyzontalSide, int verticalSide) {
 	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
 	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+}
+
+void Map::interact(float x, float y) {
+	int coordX = (int)(x + 0.5f);
+	int coordY = (int)(y + 0.5f);
+
+	for (int i = rows - 1; i >= coordY; i--) {
+
+	}
+
 }

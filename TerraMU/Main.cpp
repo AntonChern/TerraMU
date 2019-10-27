@@ -11,11 +11,11 @@
 #include "ModelTexture.h"
 #include "TexturedModel.h"
 #include "Camera.h"
-#include "Controller.h"
-//#include "KeyboardController.h"
+//#include "GameController.h"
 #include "Entity.h"
 #include "EntityBuilder.h"
 #include "Map.h"
+#include "GoAction.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -32,13 +32,25 @@ static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos)
 	//cout << mousePosition.x << " : " << mousePosition.y << endl;
 }
 
-static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode) {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
 void initializeGLFW();
 void initializeGLEW();
+
+map<Tile, MapObject*> Map::mapObjects = {
+	{GRASS_0, new MapObject(new GoAction(), true, "grass_0.png", 32, 32)},
+	{GRASS_1, new MapObject(new GoAction(), true, "grass_1.png", 32, 32)},
+	{GRASS_2, new MapObject(new GoAction(), true, "grass_2.png", 32, 32)},
+	{STONE_0, new MapObject(new GoAction(), true, "stone_0.png", 32, 32)},
+	{STONE_1, new MapObject(new GoAction(), true, "stone_1.png", 32, 32)},
+	{STONE_2, new MapObject(new GoAction(), true, "stone_2.png", 32, 32)},
+	{STONE_3, new MapObject(new GoAction(), true, "stone_3.png", 32, 32)},
+	{STONE_4, new MapObject(new GoAction(), true, "stone_4.png", 32, 32)},
+	{MONUMENT, new MapObject(new Action(), true, "monument.png", 32, 64)}
+};
+
+Map* GameController::map = nullptr;
+Entity* GameController::player = nullptr;
+vec2 GameController::mousePosition = vec2(0.0f);
+vec2 GameController::lastMouseClick = vec2(0.0f);
 
 int main() {
 	initializeGLFW();
@@ -99,8 +111,13 @@ int main() {
 	//KeyboardController *controller = new KeyboardController(camera, display);
 	
 	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-	glfwSetCursorPosCallback(display->getWindow(), cursorPositionCallback);
-	glfwSetKeyCallback(display->getWindow(), keyCallback);
+	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
+	glfwSetMouseButtonCallback(display->getWindow(), GameController::mouseButtonCallback);
+	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);
+	glfwSetKeyCallback(display->getWindow(), GameController::keyCallback);
+
+	GameController::setMap(map);
+	GameController::setPlayer(player);
 
 	vec2 textureTranslate;
 	while (!display->isCloseRequested())
