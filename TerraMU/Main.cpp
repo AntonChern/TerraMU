@@ -110,7 +110,7 @@ int main() {
 
 	//KeyboardController *controller = new KeyboardController(camera, display);
 	
-	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
 	glfwSetMouseButtonCallback(display->getWindow(), GameController::mouseButtonCallback);
 	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);

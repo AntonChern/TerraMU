@@ -6,7 +6,7 @@ protected:
 	//GameController receiver;
 
 public:
-	void execute() {};
-	void unexecute() {};
+	virtual void execute() {};
+	virtual void unexecute() {};
 
 };

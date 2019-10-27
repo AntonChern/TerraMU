@@ -155,6 +155,13 @@ void Map::interact(float x, float y) {
 	int coordX = (int)(x + 0.5f);
 	int coordY = (int)(y + 0.5f);
 
+	if (coordX < 0 || coordX >= columns || coordY < 0 || coordY >= rows) {
+		return;
+	}
+
+	cout << coordX << " : " << coordY << endl;
+	mapObjects.at(base[coordX][coordY])->interact();
+
 	for (int i = rows - 1; i >= coordY; i--) {
 
 	}
