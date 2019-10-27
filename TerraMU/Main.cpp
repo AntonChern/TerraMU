@@ -86,8 +86,8 @@ int main() {
 	}
 	hat[0][3] = MONUMENT;
 
-	//Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, /*0.25f * 128*/1.0f);
-	Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
+	Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 128);
+	//Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
 
 	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.2f);
 
@@ -166,7 +166,9 @@ int main() {
 
 		shader->start();
 		shader->loadViewMatrix(camera);
-		map->draw(renderer, loader, shader);
+		map->drawRectangleArea(renderer, loader, shader,
+			map->getColumns() * (map->getScale().x - map->getPosition().x) / (2 * map->getScale().x),
+			map->getRows() * (map->getScale().y + map->getPosition().y) / (2 * map->getScale().y), 16, 10);
 		//renderer->render(map, shader);
 		renderer->render(player, shader);
 		renderer->render(cursor, shader);

@@ -94,7 +94,7 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 			base[i % columns][(i - i % columns) / columns] = STONE_3;
 			break;
 		default:
-			cout << " " << endl;
+			//cout << " " << endl;
 			base[i % columns][(i - i % columns) / columns] = STONE_4;
 			break;
 		}
@@ -109,14 +109,28 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 	this->rotationX = rotationX;
 	this->rotationY = rotationY;
 	this->rotationZ = rotationZ;
-	this->scale = scale;
+	this->scale = vec3(scale);
 
 	//Map::Map(columns, rows, base, hat, position, rotationX, rotationY, rotationZ, scale);
 }
 
-void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader) {
-	for (int j = 0; j < rows; j++) {
-		for (int i = 0; i < columns; i++) {
+void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader,
+	float posX, float posY, int horyzontalSide, int verticalSide) {
+
+	horyzontalSide += (horyzontalSide + 1) % 2;
+	verticalSide += (verticalSide + 1) % 2;
+
+	int centerX = (int)(posX);
+	int centerY = (int)(posY);
+
+	int startX = centerX - horyzontalSide / 2;
+	int startY = centerY - verticalSide / 2;
+
+	int endX = centerX + horyzontalSide / 2;
+	int endY = centerY + verticalSide / 2;
+
+	for (int j = max(0, startY); j < rows && j <= endY; j++) {
+		for (int i = max(0, startX); i < columns && i <= endX; i++) {
 			Tile currTile = layer[i][j];
 
 			if (currTile == EMPTY) {
@@ -128,18 +142,17 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 				currMapObject = &mapObjects.at(currTile);
 			}
 			catch (const out_of_range & exc) {
-				//cout << i << "." << j << endl;
 				cerr << "Out of Range error: " << exc.what() << endl;
 				cerr << "Map::mapObjects doesn't contain this Tile: " << currTile << endl;
 				continue;
 			}
 
-			vec3 currPosition = vec3(position.x + scale * ((float)(2 * i + 1) / columns - 1),
-				position.y + scale * ((-2 * (j + 1) + (float)currMapObject->getHeight() / cellHeight) / rows + 1),
+			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1),
+				position.y + scale.y * ((-2 * (j + 1) + (float)currMapObject->getHeight() / cellHeight) / rows + 1),
 				offset * (j + 1));
 
-			vec3 currScale = vec3(2 * this->scale * currMapObject->getWidth() / (columns * cellWidth),
-				2 * this->scale * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
+			vec3 currScale = vec3(2 * this->scale.x * currMapObject->getWidth() / (columns * cellWidth),
+				2 * this->scale.y * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
 
 			Entity* currEntity = nullptr;
 			try {
@@ -166,7 +179,8 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 	}
 }
 
-void Map::draw(Renderer *renderer, Loader* loader, StreamShader *shader) {
-	drawLayer(base, 0.0f, renderer, loader, shader);
-	drawLayer(hat, 0.001f, renderer, loader, shader);
+void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *shader,
+	float posX, float posY, int horyzontalSide, int verticalSide) {
+	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
 }

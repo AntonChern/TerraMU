@@ -30,9 +30,10 @@ private:
 	float rotationX;
 	float rotationY;
 	float rotationZ;
-	float scale;
+	vec3 scale;
 
-	void drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader);
+	void drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader,
+		float posX, float posY, int horyzontalSide, int verticalSide);
 
 protected:
 	static map<Tile, MapObject> mapObjects;
@@ -40,29 +41,42 @@ protected:
 public:
 	Map(int columns, int rows, Tile** base, Tile** hat, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) : 
 		columns(columns), rows(rows), base(base), hat(hat),
+		position(position), rotationX(rotationX), rotationY(rotationY), rotationZ(rotationZ), scale(vec3(scale)) {};
+
+	Map(int columns, int rows, Tile** base, Tile** hat, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
+		columns(columns), rows(rows), base(base), hat(hat),
 		position(position), rotationX(rotationX), rotationY(rotationY), rotationZ(rotationZ), scale(scale) {};
 
 	Map(const char* sourcePath, vec3 position, float rotationX, float rotationY, float rotationZ, float scale);
 
-	void draw(Renderer *renderer, Loader* loader, StreamShader* shader);
+	void drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader* shader,
+		float posX, float posY, int horyzontalSide, int verticalSide);
+
+	int getColumns() { return columns; };
+	int getRows() { return rows; };
+
 	Action getAction(float x, float y);
 
 	vec3 getPosition() { return position; };
 	float getRotationX() { return rotationX; };
 	float getRotationY() { return rotationY; };
 	float getRotationZ() { return rotationZ; };
-	float getScale() { return scale; };
+	vec3 getScale() { return scale; };
 
 	void setPosition(float x, float y, float z) { position = vec3(x, y, z); };
 	void setPosition(vec3 position) { this->position = position; };
-	void setScale(float s) { scale = s; };
+	void setScale(vec3 s) { scale = s; };
+	void setScale(float s) { scale = vec3(s); };
+	void setScale(float xScale, float yScale, float zScale) { scale = vec3(xScale, yScale, zScale); };
 	void setRotationX(float r) { rotationX = r; };
 	void setRotationY(float r) { rotationY = r; };
 	void setRotationZ(float r) { rotationZ = r; };
 
 	void increasePosition(float dx, float dy, float dz) { position += vec3(dx, dy, dz); };
 	void increasePosition(vec3 dv) { position += dv; };
-	void increaseScale(float ds) { scale += ds; };
+	void increaseScale(vec3 ds) { scale += ds; };
+	void increaseScale(float ds) { scale += vec3(ds); };
+	void increaseScale(float dxScale, float dyScale, float dzScale) { scale += vec3(dxScale, dyScale, dzScale); };
 	void increaseRotationX(float dr) { rotationX += dr; };
 	void increaseRotationY(float dr) { rotationY += dr; };
 	void increaseRotationZ(float dr) { rotationZ += dr; };
