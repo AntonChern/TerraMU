@@ -2,5 +2,5 @@
 #include "GameController.h"
 
 void GoAction::execute() {
-	GameController::go();
+	GameController::go(coordX, coordY);
 }

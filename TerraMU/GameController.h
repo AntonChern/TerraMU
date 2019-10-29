@@ -23,7 +23,7 @@ public:
 	static void setMap(Map* map) { GameController::map = map; };
 	static void setPlayer(Entity* player) { GameController::player = player; };
 
-	static void go();
+	static void go(float coordX, float coordY);
 	static void changeVisibility(int posX, int posY);
 
 	static void showInventory();

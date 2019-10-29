@@ -35,6 +35,8 @@ private:
 	void drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader,
 		float posX, float posY, int horyzontalSide, int verticalSide);
 
+	MapObject* getMapObject(Tile tile);
+
 public:
 	Map(int columns, int rows, Tile** base, Tile** hat, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) : 
 		columns(columns), rows(rows), base(base), hat(hat),

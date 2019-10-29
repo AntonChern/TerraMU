@@ -98,8 +98,8 @@ int main() {
 	}
 	hat[0][3] = MONUMENT;
 
-	Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 128);
-	//Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
+	//Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 128);
+	Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
 
 	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.2f);
 
@@ -180,6 +180,8 @@ int main() {
 		player->setTextureMatrix(texture);
 
 		cursor->setPosition(mousePosition.x, mousePosition.y, 0.0f);
+
+
 
 		shader->start();
 		shader->loadViewMatrix(camera);

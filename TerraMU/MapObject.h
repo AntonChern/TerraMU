@@ -23,6 +23,5 @@ public:
 	int getWidth() { return width; };
 	int getHeight() { return height; };
 
-	void interact();
-
+	void interact(float x, float y);
 };

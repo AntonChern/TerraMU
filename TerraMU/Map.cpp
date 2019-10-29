@@ -103,13 +103,8 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 				continue;
 			}
 
-			MapObject* currMapObject = nullptr;
-			try {
-				currMapObject = mapObjects.at(currTile);
-			}
-			catch (const out_of_range & exc) {
-				cerr << "Out of Range error: " << exc.what() << endl;
-				cerr << "Map::mapObjects doesn't contain this Tile: " << currTile << endl;
+			MapObject* currMapObject = getMapObject(currTile);
+			if (!currMapObject) {
 				continue;
 			}
 
@@ -151,19 +146,30 @@ void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *sh
 	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
 }
 
-void Map::interact(float x, float y) {
-	int coordX = (int)(x + 0.5f);
-	int coordY = (int)(y + 0.5f);
+MapObject* Map::getMapObject(Tile tile) {
+	try {
+		return mapObjects.at(tile);
+	}
+	catch (const out_of_range & exc) {
+		cerr << "Out of Range error: " << exc.what() << endl;
+		cerr << "Map::mapObjects doesn't contain this Tile: " << tile << endl;
+		return nullptr;
+	}
+}
 
-	if (coordX < 0 || coordX >= columns || coordY < 0 || coordY >= rows) {
+void Map::interact(float x, float y) {
+	if (x < 0 || x > columns|| y < 0 || y > rows) {
 		return;
 	}
 
-	cout << coordX << " : " << coordY << endl;
-	mapObjects.at(base[coordX][coordY])->interact();
+	int coordX = (int)x;
+	int coordY = (int)y;
 
-	for (int i = rows - 1; i >= coordY; i--) {
-
+	Tile tile = hat[coordX][coordY];
+	if (tile == EMPTY) {
+		tile = base[coordX][coordY];
 	}
+	MapObject* mapObject = getMapObject(tile);
 
+	mapObject->interact(x, y);
 }
