@@ -1,8 +1,22 @@
 #include "GameController.h"
 #include "Display.h"
 
+float GameController::getDeltaTime() {
+	float currentTime = glfwGetTime();
+	float deltaTime = currentTime - lastTime;
+	lastTime = currentTime;
+	return deltaTime;
+}
+
+void GameController::initialize() {
+	lastTime = glfwGetTime();
+}
+
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
 	mousePosition = vec2(xPos, yPos);
+	float aspect = (float)Display::getWidth() / (float)Display::getHeight();
+	cursor->setPosition(aspect * (2 * (float)mousePosition.x / Display::getWidth() - 1.0f),
+		-2 * (float)mousePosition.y / Display::getHeight() + 1.0f, 0.0f);
 }
 
 void GameController::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {

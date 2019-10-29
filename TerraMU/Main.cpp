@@ -49,8 +49,11 @@ map<Tile, MapObject*> Map::mapObjects = {
 
 Map* GameController::map = nullptr;
 Entity* GameController::player = nullptr;
+Entity* GameController::cursor = nullptr;
+vec2 GameController::mouseOffset = vec2(0.0f);
 vec2 GameController::mousePosition = vec2(0.0f);
 vec2 GameController::lastMouseClick = vec2(0.0f);
+float GameController::lastTime = 0.0f;
 
 int main() {
 	initializeGLFW();
@@ -74,21 +77,21 @@ int main() {
 	}
 
 	base[0][0] = GRASS_0;
-	base[0][1] = GRASS_0;
-	base[0][2] = STONE_0;
+	base[0][1] = GRASS_1;
+	base[0][2] = GRASS_2;
 	base[0][3] = STONE_0;
-	base[1][0] = STONE_0;
-	base[1][1] = STONE_0;
-	base[1][2] = STONE_0;
-	base[1][3] = STONE_0;
+	base[1][0] = STONE_1;
+	base[1][1] = STONE_2;
+	base[1][2] = STONE_3;
+	base[1][3] = STONE_4;
 	base[2][0] = GRASS_0;
-	base[2][1] = GRASS_0;
-	base[2][2] = STONE_0;
+	base[2][1] = GRASS_1;
+	base[2][2] = GRASS_2;
 	base[2][3] = STONE_0;
-	base[3][0] = STONE_0;
-	base[3][1] = STONE_0;
-	base[3][2] = STONE_0;
-	base[3][3] = STONE_0;
+	base[3][0] = STONE_1;
+	base[3][1] = STONE_2;
+	base[3][2] = STONE_3;
+	base[3][3] = STONE_4;
 
 
 	for (int i = 0; i < size; i++) {
@@ -98,10 +101,10 @@ int main() {
 	}
 	hat[0][3] = MONUMENT;
 
-	//Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 128);
-	Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
+	Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 128);
+	//Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 2);
 
-	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.2f);
+	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.4f);
 
 	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f);
 
@@ -110,7 +113,7 @@ int main() {
 
 	//KeyboardController *controller = new KeyboardController(camera, display);
 	
-	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
 	glfwSetMouseButtonCallback(display->getWindow(), GameController::mouseButtonCallback);
 	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);
@@ -118,10 +121,12 @@ int main() {
 
 	GameController::setMap(map);
 	GameController::setPlayer(player);
+	GameController::setCursor(cursor);
+
+	GameController::initialize();
 
 	vec2 textureTranslate;
-	while (!display->isCloseRequested())
-	{
+	while (!display->isCloseRequested()) {
 		//player->increaseRotationY(50.0f);
 		//entity->increasePosition(0.0f, 0.0f, -0.01f);
 		//controller->process();
@@ -178,9 +183,6 @@ int main() {
 		texture = translate(texture, vec2(1.0f / 3.0f, 0.0f) + textureTranslate);
 		texture = scale(texture, vec2(1.0f/3.0f, 0.25f));
 		player->setTextureMatrix(texture);
-
-		cursor->setPosition(mousePosition.x, mousePosition.y, 0.0f);
-
 
 
 		shader->start();
