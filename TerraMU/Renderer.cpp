@@ -26,7 +26,7 @@ void Renderer::render(Entity *entity, StreamShader *shader) {
 	shader->loadTransormMatrix(Maths::createTransformMatrix(entity->getPosition(),
 		entity->getRotationX(), entity->getRotationY(), entity->getRotationZ(), entity->getScale()));
 
-	shader->loadTextureMatrix(entity->getTexturedModel()->getTextureMatrix());
+	shader->loadTextureMatrix(entity->getTextureMatrix());
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

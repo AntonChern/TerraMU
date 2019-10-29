@@ -7,11 +7,14 @@ using namespace std;
 class EntityBuilder {
 private:
 	static list<Entity *> *entities;
+	static list<TexturedModel*>* models;
+
+	static TexturedModel* createTexturedModel(Loader* loader, char const texturePath[]);
 
 public:
-	static void prepare();
 	static void cleanUp();
-	static Entity *createEntity(Loader *loader, char const texturePath[],
-		float positions[], int positionsCount, int indices[], int indicesCount, float textureCoords[], int textureCoordsCount,
-		vec3 position, float rotationX, float rotationY, float rotationZ, float scale);
+	static Entity *createEntity(Loader *loader, char const texturePath[], vec3 position,
+		float rotationX, float rotationY, float rotationZ, vec3 scale);
+	static Entity* createEntity(Loader* loader, char const texturePath[], vec3 position,
+		float rotationX, float rotationY, float rotationZ, float scale);
 };
