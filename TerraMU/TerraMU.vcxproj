@@ -153,6 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="EntityInstance.h" />
+    <ClInclude Include="EntityWrapper.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
+    <ClInclude Include="Moveable.h" />
     <ClInclude Include="OpenChestAction.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />

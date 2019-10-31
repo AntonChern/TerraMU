@@ -36,14 +36,4 @@ public:
 	static void go(float coordX, float coordY);
 	static void changeVisibility(int posX, int posY);
 
-	static void showInventory();
-	static void hideInventory();
-
-	static void showChest();
-	static void hideChest();
-
-	static void showPoints();
-	static void hidePoints();
-
-
 };

@@ -4,7 +4,8 @@
 #include <sstream>
 using namespace std; // end delete
 
-Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) {
+Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
+	Moveable(position, rotationX, rotationY, rotationZ, scale) {
 
 	columns = 255;
 	rows = 255;
@@ -70,12 +71,6 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 		i++;
 	}
 	fin3.close();
-
-	this->position = position;
-	this->rotationX = rotationX;
-	this->rotationY = rotationY;
-	this->rotationZ = rotationZ;
-	this->scale = vec3(scale);
 
 	//Map::Map(columns, rows, base, hat, position, rotationX, rotationY, rotationZ, scale);
 }

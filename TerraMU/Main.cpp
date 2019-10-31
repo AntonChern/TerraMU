@@ -35,6 +35,9 @@ static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos)
 void initializeGLFW();
 void initializeGLEW();
 
+map<string, Entity*>* EntityBuilder::entities = new map<string, Entity*>();
+list<TexturedModel*>* EntityBuilder::models = new list<TexturedModel*>();
+
 map<Tile, MapObject*> Map::mapObjects = {
 	{GRASS_0, new MapObject(new GoAction(), true, "grass_0.png", 32, 32)},
 	{GRASS_1, new MapObject(new GoAction(), true, "grass_1.png", 32, 32)},
