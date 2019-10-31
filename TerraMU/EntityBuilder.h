@@ -2,12 +2,13 @@
 #include "Entity.h"
 #include "Loader.h"
 #include <iostream>
+#include <map>
 using namespace std;
 
 class EntityBuilder {
 private:
-	static list<Entity *> *entities;
 	static list<TexturedModel*>* models;
+	static map<string, Entity*>* entities;
 
 	static TexturedModel* createTexturedModel(Loader* loader, char const texturePath[]);
 

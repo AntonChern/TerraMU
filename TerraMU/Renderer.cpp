@@ -45,6 +45,6 @@ void Renderer::render(Entity *entity, StreamShader *shader) {
 
 void Renderer::createProjectionMatrix() {
 	float aspect = (float)Display::getWidth() / (float)Display::getHeight();
-	projection = ortho(-1.0f * aspect, 1.0f * aspect, -1.0f, 1.0f, 0.01f, 100.0f);
+	projection = ortho(-1.0f * aspect, 1.0f * aspect, -1.0f, 1.0f, 0.0f, 100.0f);
 	//projection = perspective(45.0f, (float)Display::getWidth() / Display::getHeight(), 0.1f, 100.0f);
 }

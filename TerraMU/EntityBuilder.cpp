@@ -1,7 +1,6 @@
 #include "EntityBuilder.h"
-
-list<Entity*>* EntityBuilder::entities = new list<Entity*>();
-list<TexturedModel*>* EntityBuilder::models = new list<TexturedModel*>();
+#include "EntityInstance.h"
+#include "EntityWrapper.h"
 
 TexturedModel* EntityBuilder::createTexturedModel(Loader* loader, char const texturePath[]) {
 	float positions[] = {
@@ -33,8 +32,20 @@ TexturedModel* EntityBuilder::createTexturedModel(Loader* loader, char const tex
 Entity* EntityBuilder::createEntity(Loader* loader, char const texturePath[],
 	vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) {
 
-	Entity *entity = new Entity(EntityBuilder::createTexturedModel(loader, texturePath), position, rotationX, rotationY, rotationZ, scale);
-	EntityBuilder::entities->push_back(entity);
+	Entity* entity = nullptr;
+
+	for (map<string, Entity*>::iterator it = entities->begin(); it != entities->end(); it++) {
+		if (it->first == texturePath) {
+			entity = new EntityWrapper(it->second, position, rotationX, rotationY, rotationZ, scale);
+			break;
+		}
+	}
+
+	if (!entity) {
+		entity = new EntityInstance(EntityBuilder::createTexturedModel(loader, texturePath), position, rotationX, rotationY, rotationZ, scale);
+		entities->insert(std::pair<string, Entity*>(texturePath, entity));
+	}
+
 	return entity;
 }
 
@@ -52,8 +63,9 @@ void EntityBuilder::cleanUp() {
 	}
 	delete models;
 
-	for (Entity *entity : *EntityBuilder::entities) {
-		delete entity;
+	for (map<string, Entity*>::iterator it = entities->begin(); it != entities->end(); it++) {
+		delete it->second;
 	}
 	delete entities;
+
 }

@@ -76,6 +76,12 @@
     <Filter Include="Исходные файлы\controllers\actions">
       <UniqueIdentifier>{215415dc-ab67-4a92-8e9e-50312395d4bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\entities\gui">
+      <UniqueIdentifier>{9eaf77fb-b0f4-4a58-b892-a6fccb6ee2ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\gui">
+      <UniqueIdentifier>{d258c3b3-293c-4853-82ca-983c779efabf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -209,10 +215,16 @@
     <ClInclude Include="Tile.h">
       <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Moveable.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityInstance.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityWrapper.h">
     <ClInclude Include="WayHandler.h">
       <Filter>Файлы заголовков\controllers</Filter>
     </ClInclude>
-    <ClInclude Include="Moveable.h">
       <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
   </ItemGroup>
