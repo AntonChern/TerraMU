@@ -68,7 +68,9 @@ void GameController::update(float deltaTime) {
 			step = rest;
 		}
 
+		int index = (int)(map->getRows() * (map->getScale().y / 2 - (player->getPosition().y - player->getScale().y / 2)) / map->getScale().y);
 		player->increasePosition(step.x, step.y, 0);
+		player->setPosition(player->getPosition().x, player->getPosition().y, index * 0.001f + 0.0015f);
 		camera->increasePosition(step.x, step.y, 0);
 
 		if (textureTime == 6) {

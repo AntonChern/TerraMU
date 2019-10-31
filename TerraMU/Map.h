@@ -50,6 +50,12 @@ public:
 	void drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader* shader,
 		float posX, float posY, int horyzontalSide, int verticalSide);
 
+	void renderBaseArea(Renderer* renderer, Loader* loader, StreamShader* shader,
+		float posX, float posY, int horyzontalSide, int verticalSide);
+
+	void renderHatArea(Renderer* renderer, Loader* loader, StreamShader* shader,
+		float posX, float posY, int horyzontalSide, int verticalSide);
+
 	int getColumns() { return columns; };
 	int getRows() { return rows; };
 

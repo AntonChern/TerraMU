@@ -142,7 +142,7 @@ int main() {
 
 	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.4f);
 
-	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", vec3(0.125f * (1 - size), 0.125f * (size - 1), 0.0f), 0.0f, 0.0f, 0.0f, 0.25f);
+	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", vec3(0.125f * (1 - size), 0.125f * (size - 1), 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 	mat3 texture(1.0f);
 	texture = translate(texture, vec2(1.0f / 3.0f, 0.0f));
 	texture = scale(texture, vec2(1.0f / 3.0f, 0.25f));
@@ -230,12 +230,23 @@ int main() {
 
 		shader->start();
 		shader->loadViewMatrix(camera);
-		map->drawRectangleArea(renderer, loader, shader,
+
+		/*map->drawRectangleArea(renderer, loader, shader,
 			map->getColumns() * (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
-			map->getRows() * (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);
+			map->getRows() * (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);*/
+
+		map->renderBaseArea(renderer, loader, shader,
+			map->getColumns()* (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
+			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);
+
 		//renderer->render(map, shader);
 		renderer->render(player, shader);
 		//renderer->render(cursor, shader);
+
+		map->renderHatArea(renderer, loader, shader,
+			map->getColumns()* (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
+			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);
+
 		glfwPollEvents();
 		shader->stop();
 
