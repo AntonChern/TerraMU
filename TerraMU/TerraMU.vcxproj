@@ -137,6 +137,7 @@
     <ClCompile Include="EntityBuilder.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GoAction.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -161,6 +162,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityBuilder.h" />
     <ClInclude Include="GoAction.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="InventoryGUI.h" />
+    <ClInclude Include="ItemGUI.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />

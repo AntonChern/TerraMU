@@ -1,136 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Исходные файлы">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Исходные файлы\shaders">
-      <UniqueIdentifier>{220facb4-ce1e-45c3-b451-a48dcafcabd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\main">
-      <UniqueIdentifier>{b6d4d60b-fe60-43ee-84df-eb349e3116ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\models">
-      <UniqueIdentifier>{c8b56ae3-094b-44a7-b242-858b8660df93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\renderEngine">
-      <UniqueIdentifier>{7df86fc9-07aa-4762-9515-f0950af63ab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\textures">
-      <UniqueIdentifier>{fdcf966a-21c1-47cb-8355-e25e206622f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\models">
-      <UniqueIdentifier>{9a0ee08f-e197-4b21-85c8-30fec17665a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\textures">
-      <UniqueIdentifier>{efb1b4db-a105-4e07-b770-9c8b4ba546e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\renderEngine">
-      <UniqueIdentifier>{84595377-ffe8-4d35-9265-3fd2e2b8d294}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\shaders">
-      <UniqueIdentifier>{9d76dabe-86c9-4bd3-9d09-23da18b11eae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\shaders\glsl">
-      <UniqueIdentifier>{12328fb8-5697-453a-bcac-96c5e2902f8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\entities">
-      <UniqueIdentifier>{de4cf2bd-9bfe-4409-be9e-dd4dfc311676}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\entities">
-      <UniqueIdentifier>{313adb7b-4495-4b5e-b513-c47b52589834}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\toolbox">
-      <UniqueIdentifier>{df1c8414-49ed-4859-9f9f-f0f391f3751d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\toolbox">
-      <UniqueIdentifier>{c7d888bb-cef7-40f6-a59b-2680ef08c1b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\controllers">
-      <UniqueIdentifier>{4fbea57c-a8c5-44b7-b0c0-664bc60ee8e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\controllers">
-      <UniqueIdentifier>{16a2d7c0-ddf1-403c-9cfd-cc2b4d2dab28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\entities\map">
-      <UniqueIdentifier>{8225358e-db29-4541-bf48-cb2f4064c27f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\entities\map">
-      <UniqueIdentifier>{424eef58-3f09-4246-b9d1-9faa4b8ba8ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\entities\map\staticMapObjects">
-      <UniqueIdentifier>{ea346cdb-61a0-464f-a513-cd3eb239792f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\controllers\actions">
-      <UniqueIdentifier>{a87078e7-c431-4926-b88a-814c03720cf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\controllers\actions">
-      <UniqueIdentifier>{215415dc-ab67-4a92-8e9e-50312395d4bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\entities\gui">
-      <UniqueIdentifier>{9eaf77fb-b0f4-4a58-b892-a6fccb6ee2ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\entities\gui">
-      <UniqueIdentifier>{d258c3b3-293c-4853-82ca-983c779efabf}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Display.cpp">
+    <ClCompile Include="KeyboardController.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Loader.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Loader.cpp">
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBuilder.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="RawModel.cpp">
-      <Filter>Исходные файлы\models</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturedModel.cpp">
-      <Filter>Исходные файлы\models</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Исходные файлы\main</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelTexture.cpp">
-      <Filter>Исходные файлы\textures</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
+    <ClCompile Include="StreamShader.cpp">
       <Filter>Исходные файлы\shaders</Filter>
     </ClCompile>
     <ClCompile Include="StaticShader.cpp">
       <Filter>Исходные файлы\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="StreamShader.cpp">
+    <ClCompile Include="ShaderProgram.cpp">
       <Filter>Исходные файлы\shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Maths.cpp">
-      <Filter>Исходные файлы\toolbox</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardController.cpp">
-      <Filter>Исходные файлы\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityBuilder.cpp">
-      <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Исходные файлы\entities\map</Filter>
@@ -138,31 +40,74 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Исходные файлы\entities\map</Filter>
     </ClCompile>
-    <ClCompile Include="GoAction.cpp">
-      <Filter>Исходные файлы\controllers\actions</Filter>
-    </ClCompile>
     <ClCompile Include="GameController.cpp">
       <Filter>Исходные файлы\controllers</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
-      <Filter>Исходные файлы\controllers\actions</Filter>
+      <Filter>Исходные файлы\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="GoAction.cpp">
+      <Filter>Исходные файлы\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>Исходные файлы\toolbox</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedModel.cpp">
+      <Filter>Исходные файлы\models</Filter>
+    </ClCompile>
+    <ClCompile Include="RawModel.cpp">
+      <Filter>Исходные файлы\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelTexture.cpp">
+      <Filter>Исходные файлы\textures</Filter>
     </ClCompile>
     <ClCompile Include="WayHandler.cpp">
-      <Filter>Исходные файлы\controllers</Filter>
+      <Filter>Исходные файлы\controllers\moving</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Исходные файлы\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="KeyboardController.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Display.h">
-      <Filter>Файлы заголовков\renderEngine</Filter>
+    <ClInclude Include="OpenChestAction.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Loader.h">
-      <Filter>Файлы заголовков\renderEngine</Filter>
+    <ClInclude Include="Action.h">
+      <Filter>Файлы заголовков\actions</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Файлы заголовков\renderEngine</Filter>
+    <ClInclude Include="GoAction.h">
+      <Filter>Файлы заголовков\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityInstance.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBuilder.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityWrapper.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Файлы заголовков\entities\map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Файлы заголовков\entities\map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="WayHandler.h">
+      <Filter>Файлы заголовков\controllers\moving</Filter>
     </ClInclude>
     <ClInclude Include="RawModel.h">
       <Filter>Файлы заголовков\models</Filter>
@@ -170,8 +115,14 @@
     <ClInclude Include="TexturedModel.h">
       <Filter>Файлы заголовков\models</Filter>
     </ClInclude>
-    <ClInclude Include="ModelTexture.h">
-      <Filter>Файлы заголовков\textures</Filter>
+    <ClInclude Include="Renderer.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Файлы заголовков\shaders</Filter>
@@ -182,51 +133,38 @@
     <ClInclude Include="StreamShader.h">
       <Filter>Файлы заголовков\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClInclude>
     <ClInclude Include="Maths.h">
       <Filter>Файлы заголовков\toolbox</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardController.h">
-      <Filter>Файлы заголовков\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityBuilder.h">
-      <Filter>Файлы заголовков\renderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Файлы заголовков\entities\map</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Action.h">
-      <Filter>Файлы заголовков\controllers\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenChestAction.h">
-      <Filter>Файлы заголовков\controllers\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="GoAction.h">
-      <Filter>Файлы заголовков\controllers\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="GameController.h">
-      <Filter>Файлы заголовков\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
+    <ClInclude Include="ModelTexture.h">
+      <Filter>Файлы заголовков\textures</Filter>
     </ClInclude>
     <ClInclude Include="Moveable.h">
       <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
-    <ClInclude Include="EntityInstance.h">
-      <Filter>Файлы заголовков\entities</Filter>
+    <ClInclude Include="Tile.h">
+      <Filter>Файлы заголовков\entities\map</Filter>
     </ClInclude>
-    <ClInclude Include="EntityWrapper.h">
-    <ClInclude Include="WayHandler.h">
-      <Filter>Файлы заголовков\controllers</Filter>
+    <ClInclude Include="GUI.h">
+      <Filter>Файлы заголовков\gui</Filter>
     </ClInclude>
-      <Filter>Файлы заголовков\entities</Filter>
+    <ClInclude Include="InventoryGUI.h">
+      <Filter>Файлы заголовков\gui</Filter>
     </ClInclude>
+    <ClInclude Include="ItemGUI.h">
+      <Filter>Файлы заголовков\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="magicGladiator.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="map.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Player.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="StaticFragmentShader.txt">
@@ -243,14 +181,83 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="map.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="Player.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="magicGladiator.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{fe8d821b-347c-43d9-8747-b142aa7704b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{91c3906c-6b4f-4e8f-af37-bd005923fcd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{453db3a4-6494-4bd0-88db-a06de347b07c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\renderEngine">
+      <UniqueIdentifier>{c8898e99-2dd6-45ba-b6df-2536d5e46dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\entities">
+      <UniqueIdentifier>{6bf695e3-0ca8-4a99-8839-3c684a95b15f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\shaders">
+      <UniqueIdentifier>{0b1e85a4-9bf4-4d2f-b680-3555716baa12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\shaders\glsl">
+      <UniqueIdentifier>{1e343758-1ee3-4edd-bfca-4ee4f2821bba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\entities\map">
+      <UniqueIdentifier>{cc2f74b9-6ea7-4e5a-8135-d17de329ee4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\controllers">
+      <UniqueIdentifier>{c0fbcce0-5d8b-4712-a7e8-a83512d2708c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\actions">
+      <UniqueIdentifier>{b9982fa9-b10d-4658-8fd0-13be01cb8f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\toolbox">
+      <UniqueIdentifier>{2453061a-a1f2-478d-b17b-da45c50e4068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\models">
+      <UniqueIdentifier>{81fcad73-a87c-44e4-a72f-b0bb4973f1c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\textures">
+      <UniqueIdentifier>{b686a68b-f107-4ea4-acaf-7fd3082050e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\controllers\moving">
+      <UniqueIdentifier>{aa4937c2-788a-47d6-9d6e-fee24d3e324c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\actions">
+      <UniqueIdentifier>{cf18bb7d-6702-4341-8694-aa22c1734295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities">
+      <UniqueIdentifier>{3e4b7603-0bbd-4935-a17b-b67db63d1c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\controllers">
+      <UniqueIdentifier>{3b072c23-312a-413f-a442-40f0ce237588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\models">
+      <UniqueIdentifier>{ebb4f266-b861-4559-b4f0-1cf7690b045e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\textures">
+      <UniqueIdentifier>{2cb02df8-680d-4ceb-ae56-5078e48d23cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\toolbox">
+      <UniqueIdentifier>{76e34cda-c5fc-40db-88a5-98bd205aba59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\shaders">
+      <UniqueIdentifier>{4ab6ab6b-0346-46e0-818d-7a2b29f34627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\renderEngine">
+      <UniqueIdentifier>{21a7f0e6-afd1-47d2-a4c7-65bac14d4395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\map">
+      <UniqueIdentifier>{ac34a9d5-149e-495f-a817-217b87ddb751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\controllers\moving">
+      <UniqueIdentifier>{272893fc-c25b-4be3-9a10-4bfa1793284b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\gui">
+      <UniqueIdentifier>{b16168ee-0b6a-4bc1-ab48-f81df08cbecf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\gui">
+      <UniqueIdentifier>{08fc0458-9634-49b7-8ad3-a042f035a475}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
