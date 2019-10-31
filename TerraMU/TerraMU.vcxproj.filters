@@ -141,6 +141,9 @@
     <ClCompile Include="Action.cpp">
       <Filter>Исходные файлы\controllers\actions</Filter>
     </ClCompile>
+    <ClCompile Include="WayHandler.cpp">
+      <Filter>Исходные файлы\controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -205,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Файлы заголовков\entities\map\staticMapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="WayHandler.h">
+      <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Moveable.h">
+      <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
