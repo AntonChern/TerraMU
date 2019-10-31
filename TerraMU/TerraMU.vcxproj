@@ -150,6 +150,7 @@
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="StreamShader.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
+    <ClCompile Include="WayHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="StreamShader.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="WayHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="StaticFragmentShader.txt" />

@@ -5,12 +5,14 @@ class Map;
 #include "Map.h"
 #include "MapObject.h"
 #include "Entity.h"
+#include "WayHandler.h"
 
 class GameController {
 private:
 	static Map* map;
 	static Entity* player;
 	static Entity* cursor;
+	static Camera* camera;
 
 	static vec2 mouseOffset;
 
@@ -18,6 +20,16 @@ private:
 	static vec2 lastMouseClick;
 
 	static float lastTime;
+
+	static WayHandler* handler;
+	static queue<vec2>* way;
+	static vec3 initialPosition;
+
+	static vec2 textureTranslate;
+	static vec2 textureStep;
+	static int textureTime;
+
+	static float speed;
 
 	static float getDeltaTime();
 	
@@ -32,6 +44,9 @@ public:
 	static void setMap(Map* map) { GameController::map = map; };
 	static void setPlayer(Entity* player) { GameController::player = player; };
 	static void setCursor(Entity* cursor) { GameController::cursor = cursor; };
+	static void setCamera(Camera* camera) { GameController::camera = camera; };
+
+	static void update(float deltaTime);
 
 	static void go(float coordX, float coordY);
 	static void changeVisibility(int posX, int posY);

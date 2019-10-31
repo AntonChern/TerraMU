@@ -5,6 +5,7 @@ class MapObject;
 #include "TexturedModel.h"
 #include "EntityBuilder.h"
 #include "Tile.h"
+#include "Moveable.h"
 #include <list>
 #include <map>
 #include <iostream>
@@ -20,6 +21,8 @@ private:
 
 	Tile** base;
 	Tile** hat;
+
+	bool** reachMap = nullptr;
 
 	map<Tile, Entity*> *entities = new map<Tile, Entity*>();
 	static map<Tile, MapObject*> mapObjects;
@@ -42,6 +45,8 @@ public:
 
 	Map(const char* sourcePath, vec3 position, float rotationX, float rotationY, float rotationZ, float scale);
 
+	~Map();
+
 	void drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader* shader,
 		float posX, float posY, int horyzontalSide, int verticalSide);
 
@@ -49,6 +54,8 @@ public:
 	int getRows() { return rows; };
 
 	void interact(float x, float y);
+
+	bool** getReachMap();
 
 };
 

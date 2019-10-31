@@ -90,8 +90,8 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 	int endX = centerX + horyzontalSide / 2;
 	int endY = centerY + verticalSide / 2;
 
-	for (int j = max(0, startY); j < rows && j <= endY; j++) {
-		for (int i = max(0, startX); i < columns && i <= endX; i++) {
+	for (int j = std::max(0, startY); j < rows && j <= endY; j++) {
+		for (int i = std::max(0, startX); i < columns && i <= endX; i++) {
 			Tile currTile = layer[i][j];
 
 			if (currTile == EMPTY) {
@@ -103,12 +103,12 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 				continue;
 			}
 
-			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1),
-				position.y + scale.y * ((-2 * (j + 1) + (float)currMapObject->getHeight() / cellHeight) / rows + 1),
+			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,
+				position.y + scale.y * ((-2 * (j + 1) + (float)currMapObject->getHeight() / cellHeight) / rows + 1) / 2,
 				offset * (j + 1));
 
-			vec3 currScale = vec3(2 * this->scale.x * currMapObject->getWidth() / (columns * cellWidth),
-				2 * this->scale.y * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
+			vec3 currScale = vec3(this->scale.x * currMapObject->getWidth() / (columns * cellWidth),
+				this->scale.y * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
 
 			Entity* currEntity = nullptr;
 			try {
@@ -141,6 +141,15 @@ void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *sh
 	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
 }
 
+Map::~Map() {
+	if (reachMap) {
+		for (int i = 0; i < columns; i++) {
+			delete[] reachMap[i];
+		}
+		delete[] reachMap;
+	}
+}
+
 MapObject* Map::getMapObject(Tile tile) {
 	try {
 		return mapObjects.at(tile);
@@ -167,4 +176,29 @@ void Map::interact(float x, float y) {
 	MapObject* mapObject = getMapObject(tile);
 
 	mapObject->interact(x, y);
+}
+
+bool** Map::getReachMap() {
+	if (!reachMap) {
+		reachMap = new bool* [columns];
+		for (int i = 0; i < columns; i++) {
+			reachMap[i] = new bool[rows];
+		}
+
+		for (int i = 0; i < columns; i++) {
+			for (int j = 0; j < rows; j++) {
+				Tile currTile = hat[i][j];
+				if (currTile == EMPTY) {
+					currTile = base[i][j];
+				}
+				MapObject* currMapObject = getMapObject(currTile);
+				if (currMapObject == nullptr) {
+					reachMap[i][j] = false;
+				}
+				reachMap[i][j] = currMapObject->getIsReachable();
+			}
+		}
+	}
+
+	return reachMap;
 }
