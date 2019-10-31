@@ -123,8 +123,6 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 				currEntity = EntityBuilder::createEntity(loader, currMapObject->getTexturePath(),
 					currPosition, this->rotationX, this->rotationY, this->rotationZ, currScale);
 
-				//currEntity->increaseScale(2 * this->scale / columns);
-
 				entities->insert(pair<Tile, Entity*>(currTile, currEntity));
 			}
 
@@ -138,6 +136,16 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *shader,
 	float posX, float posY, int horyzontalSide, int verticalSide) {
 	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+}
+
+void Map::renderBaseArea(Renderer* renderer, Loader* loader, StreamShader* shader,
+	float posX, float posY, int horyzontalSide, int verticalSide) {
+	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+}
+
+void Map::renderHatArea(Renderer* renderer, Loader* loader, StreamShader* shader,
+	float posX, float posY, int horyzontalSide, int verticalSide) {
 	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
 }
 
@@ -194,8 +202,9 @@ bool** Map::getReachMap() {
 				MapObject* currMapObject = getMapObject(currTile);
 				if (currMapObject == nullptr) {
 					reachMap[i][j] = false;
+				} else {
+					reachMap[i][j] = currMapObject->getIsReachable();
 				}
-				reachMap[i][j] = currMapObject->getIsReachable();
 			}
 		}
 	}
