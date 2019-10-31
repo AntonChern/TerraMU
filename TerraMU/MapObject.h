@@ -9,14 +9,16 @@ private:
 	int width;
 	int height;
 
+	bool isReachable;
 	bool isVisible;
 	const char* texturePath;
 
 public:
-	MapObject(Action* action, bool isVisible, const char *texturePath, int width, int height) :
-		action(action), isVisible(isVisible), texturePath(texturePath), width(width), height(height) {};
+	MapObject(Action* action, bool isReachable, bool isVisible, const char *texturePath, int width, int height) :
+		action(action), isReachable(isReachable), isVisible(isVisible), texturePath(texturePath), width(width), height(height) {};
 	~MapObject();
 
+	bool getIsReachable() { return isReachable; };
 	bool getIsVisible() { return isVisible; };
 	const char* getTexturePath() { return texturePath; };
 
