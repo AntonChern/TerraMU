@@ -10,7 +10,7 @@ mat4 Maths::createTransformMatrix(vec3 position, float rotX, float rotY, float r
 	return transform;
 }
 
-mat4 Maths::createViewMatrix(Camera *camera) {
+mat4 Maths::createViewMatrix(Camera* camera) {
 	mat4 view(1.0f);
 	view = rotate(view, radians(camera->getPitch()), vec3(1.0f, 0.0f, 0.0f));
 	view = rotate(view, radians(camera->getYaw()), vec3(0.0f, 1.0f, 0.0f));

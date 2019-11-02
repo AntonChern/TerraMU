@@ -13,13 +13,7 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityBuilder.cpp">
       <Filter>Исходные файлы\entities</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
@@ -64,11 +58,17 @@
     <ClCompile Include="WayHandler.cpp">
       <Filter>Исходные файлы\controllers\moving</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClCompile>
     <ClCompile Include="GUI.cpp">
       <Filter>Исходные файлы\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterRenderer.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityFactory.cpp">
+      <Filter>Исходные файлы\entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,15 +84,6 @@
     </ClInclude>
     <ClInclude Include="GoAction.h">
       <Filter>Файлы заголовков\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityInstance.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityBuilder.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityWrapper.h">
-      <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Файлы заголовков\entities</Filter>
@@ -153,6 +144,15 @@
     </ClInclude>
     <ClInclude Include="ItemGUI.h">
       <Filter>Файлы заголовков\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterRenderer.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

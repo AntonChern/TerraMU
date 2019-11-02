@@ -3,8 +3,9 @@
 class MapObject;
 #include "MapObject.h"
 #include "TexturedModel.h"
-#include "EntityBuilder.h"
+#include "EntityFactory.h"
 #include "Tile.h"
+#include "Loader.h"
 #include "Moveable.h"
 #include <list>
 #include <map>
@@ -24,15 +25,15 @@ private:
 
 	bool** reachMap = nullptr;
 
-	map<Tile, Entity*> *entities = new map<Tile, Entity*>();
 	static map<Tile, MapObject*> mapObjects;
 
 	//add mob spawners and NPCs
 
-	void drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader,
-		float posX, float posY, int horyzontalSide, int verticalSide);
+	void processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide);
 
 	MapObject* getMapObject(Tile tile);
+
+	Tile getTile(int x, int y);
 
 public:
 	Map(int columns, int rows, Tile** base, Tile** hat, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
@@ -47,14 +48,7 @@ public:
 
 	~Map();
 
-	void drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader* shader,
-		float posX, float posY, int horyzontalSide, int verticalSide);
-
-	void renderBaseArea(Renderer* renderer, Loader* loader, StreamShader* shader,
-		float posX, float posY, int horyzontalSide, int verticalSide);
-
-	void renderHatArea(Renderer* renderer, Loader* loader, StreamShader* shader,
-		float posX, float posY, int horyzontalSide, int verticalSide);
+	list<Entity*> getRectangleArea(float posX, float posY, int horyzontalSide, int verticalSide);
 
 	int getColumns() { return columns; };
 	int getRows() { return rows; };
@@ -64,15 +58,3 @@ public:
 	bool** getReachMap();
 
 };
-
-//map<Tile, MapObject> Map::mapObjects = {
-//	{GRASS_0, MapObject(true, true, "grass_0.png", 32, 32)},
-//	{GRASS_1, MapObject(true, true, "grass_1.png", 32, 32)},
-//	{GRASS_2, MapObject(true, true, "grass_2.png", 32, 32)},
-//	{STONE_0, MapObject(true, true, "stone_0.png", 32, 32)},
-//	{STONE_1, MapObject(true, true, "stone_1.png", 32, 32)},
-//	{STONE_2, MapObject(true, true, "stone_2.png", 32, 32)},
-//	{STONE_3, MapObject(true, true, "stone_3.png", 32, 32)},
-//	{STONE_4, MapObject(true, true, "stone_4.png", 32, 32)},
-//	{MONUMENT, MapObject(false, true, "monument.png", 32, 64)}
-//};

@@ -28,7 +28,7 @@ void StreamShader::loadProjectionMatrix(mat4 matrix) {
 	loadMatrix(projectionLocation, matrix);
 }
 
-void StreamShader::loadViewMatrix(Camera *camera) {
+void StreamShader::loadViewMatrix(Camera* camera) {
 	//lookAt(position, aimCoord, upVector);
 	loadMatrix(viewLocation, Maths::createViewMatrix(camera));
 }

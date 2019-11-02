@@ -3,8 +3,11 @@
 #include "Display.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
+#include <list>
+using namespace std;
 
-Renderer::Renderer(StreamShader *shader) {
+Renderer::Renderer(StreamShader *shader) : shader(shader) {
 	createProjectionMatrix();
 	shader->start();
 	shader->loadProjectionMatrix(projection);
@@ -18,31 +21,33 @@ void Renderer::prepare() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::render(Entity *entity, StreamShader *shader) {
-	TexturedModel* texturedModel = entity->getTexturedModel();
-	RawModel *model = texturedModel->getRawModel();
-	glBindVertexArray(model->getVaoID());
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
+void Renderer::render(list<Entity*> entities) {
+	for (Entity* entity : entities) {
+		TexturedModel* texturedModel = entity->getTexturedModel();
+		RawModel *model = texturedModel->getRawModel();
+		glBindVertexArray(model->getVaoID());
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
 
-	shader->loadTransormMatrix(Maths::createTransformMatrix(entity->getPosition(),
-		entity->getRotationX(), entity->getRotationY(), entity->getRotationZ(), entity->getScale()));
+		shader->loadTransormMatrix(Maths::createTransformMatrix(entity->getPosition(),
+			entity->getRotationX(), entity->getRotationY(), entity->getRotationZ(), entity->getScale()));
 
-	shader->loadTextureMatrix(entity->getTextureMatrix());
+		shader->loadTextureMatrix(entity->getTextureMatrix());
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texturedModel->getTexture()->getID());
-	glDrawElements(GL_TRIANGLES, model->getVertexCount(), GL_UNSIGNED_INT, 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texturedModel->getTexture()->getID());
+		glDrawElements(GL_TRIANGLES, model->getVertexCount(), GL_UNSIGNED_INT, 0);
 
-	glDisable(GL_BLEND);
+		glDisable(GL_BLEND);
 
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
 	
-	glBindVertexArray(0);
+		glBindVertexArray(0);
+	}
 }
 
 void Renderer::createProjectionMatrix() {
