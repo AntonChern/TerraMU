@@ -68,6 +68,7 @@ WayHandler* GameController::handler = new WayHandler();
 float GameController::speed = 1.0f;
 queue<vec2>* GameController::way = nullptr;
 vec3 GameController::initialPosition = vec3(0);
+Entity* GameController::destination = nullptr;
 
 int main() {
 	initializeGLFW();
@@ -89,6 +90,12 @@ int main() {
 		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
 		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 
+	Entity* destination = EntityFactory::createEntity("destination.png", new AnimationPendulum(INFINITY, 5, vec2(7.0f / 8.0f, 0.0f), vec2(1.0f / 8.0f, 1.0f), 1.0f / 8.0f), vec3(0.0f, 0.0f, 0.0004f), 0.0f, 0.0f, 0.0f, 0.45f);
+	texture = mat3(1.0f);
+	texture = translate(texture, vec2(7.0f / 8.0f, 0.0f));
+	texture = scale(texture, vec2(1.0f / 8.0f, 1.0f));
+	destination->setTextureMatrix(texture);
+
 	Camera* camera = new Camera();
 	camera->setPosition(x, y, 1.0f);
 	
@@ -103,6 +110,7 @@ int main() {
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
 
+	GameController::setDestination(destination);
 	float lastTime = glfwGetTime();
 
 	MasterRenderer* renderer = new MasterRenderer();
@@ -112,6 +120,11 @@ int main() {
 			map->getRows()* (map->getScale().y / 2 - player->getPosition().y) / map->getScale().y, 16, 10));
 
 		renderer->processEntity(player);
+
+		Entity* destination = GameController::getDestination();
+		if (GameController::isInMotion()) {
+			renderer->processEntity(destination);
+		}
 
 		renderer->render(camera);
 

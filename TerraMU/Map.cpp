@@ -127,7 +127,7 @@ Tile Map::getTile(int x, int y) {
 }
 
 void Map::interact(float x, float y) {
-	if (x < 0 || x > columns|| y < 0 || y > rows) {
+	if (x < 0 || x >= columns || y < 0 || y >= rows) {
 		return;
 	}
 

@@ -2,8 +2,6 @@
 #include <cmath>
 using namespace std;
 
-const float maxValue = 2147483647;
-
 void WayHandler::printMap() {
 	cout << "+";
 	for (int i = 0; i < mapLength; i++)
@@ -128,7 +126,7 @@ WayHandler::Point* WayHandler::getPoint(int x, int y) {
 }
 
 WayHandler::Point* WayHandler::min_F(list<Point*> list) {
-	float resultF = maxValue;
+	float resultF = INFINITY;
 	Point* result = nullptr;
 	for (Point* cell : list) {
 		if (cell->F < resultF) {

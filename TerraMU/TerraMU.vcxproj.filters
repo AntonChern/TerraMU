@@ -58,9 +58,6 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Исходные файлы\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
     <ClCompile Include="MasterRenderer.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
@@ -96,9 +93,6 @@
     </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Файлы заголовков\entities\map</Filter>
-    </ClInclude>
-    <ClInclude Include="GameController.h">
-      <Filter>Файлы заголовков\controllers</Filter>
     </ClInclude>
     <ClInclude Include="WayHandler.h">
       <Filter>Файлы заголовков\controllers\moving</Filter>
@@ -147,9 +141,6 @@
     </ClInclude>
     <ClInclude Include="ItemGUI.h">
       <Filter>Файлы заголовков\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
     <ClInclude Include="MasterRenderer.h">
       <Filter>Файлы заголовков\renderEngine</Filter>

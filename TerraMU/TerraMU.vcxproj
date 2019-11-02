@@ -136,7 +136,6 @@
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GoAction.cpp" />
     <ClCompile Include="GUI.cpp" />

@@ -12,6 +12,7 @@ private:
 	static Map* map;
 	static Entity* player;
 	static Entity* cursor;
+	static Entity* destination;
 	static Camera* camera;
 
 	static vec2 mousePosition;
@@ -24,6 +25,10 @@ private:
 	static float speed;
 	
 public:
+	static Entity* getDestination() { return destination; };
+
+	static bool isInMotion() { return way && !way->empty(); };
+
 	static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 	static void cursorEnterCallback(GLFWwindow* window, int entered);
@@ -33,6 +38,7 @@ public:
 	static void setPlayer(Entity* player) { GameController::player = player; };
 	static void setCursor(Entity* cursor) { GameController::cursor = cursor; };
 	static void setCamera(Camera* camera) { GameController::camera = camera; };
+	static void setDestination(Entity* destination) { GameController::destination = destination; };
 
 	static void update(float deltaTime);
 

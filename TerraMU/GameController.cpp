@@ -16,7 +16,7 @@ void GameController::mouseButtonCallback(GLFWwindow* window, int button, int act
 			delete way;
 			way = nullptr;
 		}
-		
+
 		lastMouseClick = mousePosition;
 		float aspect = (float)Display::getWidth() / (float)Display::getHeight();
 		map->interact((2 * lastMouseClick.x / Display::getWidth() * aspect + player->getPosition().x + map->getScale().x / 2 - aspect) * map->getColumns() / map->getScale().x,
@@ -40,6 +40,10 @@ void GameController::go(float coordX, float coordY) {
 	way = handler->buildWay((map->getScale().x / 2 + player->getPosition().x) * map->getColumns() / map->getScale().x,
 		(map->getScale().y / 2 - (player->getPosition().y - player->getScale().y / 2)) * map->getRows() / map->getScale().y, coordX, coordY,
 		map->getReachMap(), map->getColumns());
+
+	destination->setPosition((coordX - (float)map->getColumns() / 2) * map->getScale().x / map->getColumns() + map->getPosition().x,
+		((float)map->getRows() / 2 - coordY) * map->getScale().y / map->getRows() + map->getPosition().y,
+		destination->getPosition().z);
 }
 
 void GameController::update(float deltaTime) {
@@ -78,6 +82,8 @@ void GameController::update(float deltaTime) {
 		}
 
 	} else {
+    destination->getAnimation()->stop();
+    destination->getAnimation()->reset();
 		player->getAnimation()->stop();
 		player->getAnimation()->reset();
 	}
