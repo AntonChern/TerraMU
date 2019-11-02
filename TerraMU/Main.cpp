@@ -68,6 +68,10 @@ vec3 GameController::initialPosition = vec3(0);
 vec2 GameController::textureTranslate = vec2(1.0f / 3.0f, 0.0f);
 vec2 GameController::textureStep = vec2(1.0f / 3.0f, 0.0f);
 int GameController::textureTime = 6;
+Entity* GameController::destination = nullptr;
+vec2 GameController::destinationTextureTranslate = vec2(7.0f / 8.0f, 0.0f);
+vec2 GameController::destinationTextureStep = vec2(1.0f / 8.0f, 0.0f);
+int GameController::destinationTextureTime = 5;
 
 int main() {
 	initializeGLFW();
@@ -151,6 +155,12 @@ int main() {
 	Camera* camera = new Camera();
 	camera->setPosition(0.125f * (1 - size), 0.125f * (size - 1), 1.0f);
 
+	Entity* destination = EntityFactory::createEntity("destination.png", vec3(0.0f, 0.0f, 0.0004f), 0.0f, 0.0f, 0.0f, 0.45f);
+	texture = mat3(1.0f);
+	texture = translate(texture, vec2(7.0f / 8.0f, 0.0f));
+	texture = scale(texture, vec2(1.0f / 8.0f, 1.0f));
+	destination->setTextureMatrix(texture);
+
 	//KeyboardController *controller = new KeyboardController(camera, display);
 	
 	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -163,6 +173,9 @@ int main() {
 	GameController::setPlayer(player);
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
+
+	GameController::setDestination(destination);
+
 
 	GameController::initialize();
 
@@ -177,6 +190,11 @@ int main() {
 			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10));
 
 		renderer->processEntity(player);
+
+		Entity* destination = GameController::getDestination();
+		if (GameController::isInMotion()) {
+			renderer->processEntity(destination);
+		}
 
 		renderer->render(camera);
 

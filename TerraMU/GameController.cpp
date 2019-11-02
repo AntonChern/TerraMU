@@ -26,7 +26,7 @@ void GameController::mouseButtonCallback(GLFWwindow* window, int button, int act
 			delete way;
 			way = nullptr;
 		}
-		
+
 		lastMouseClick = mousePosition;
 		float aspect = (float)Display::getWidth() / (float)Display::getHeight();
 		map->interact((2 * lastMouseClick.x / Display::getWidth() * aspect + player->getPosition().x + map->getScale().x / 2 - aspect) * map->getColumns() / map->getScale().x,
@@ -49,6 +49,10 @@ void GameController::go(float coordX, float coordY) {
 	way = handler->buildWay((map->getScale().x / 2 + player->getPosition().x) * map->getColumns() / map->getScale().x,
 		(map->getScale().y / 2 - (player->getPosition().y - player->getScale().y / 2)) * map->getRows() / map->getScale().y, coordX, coordY,
 		map->getReachMap(), map->getColumns());
+
+	destination->setPosition((coordX - (float)map->getColumns() / 2) * map->getScale().x / map->getColumns() + map->getPosition().x,
+		((float)map->getRows() / 2 - coordY) * map->getScale().y / map->getRows() + map->getPosition().y,
+		destination->getPosition().z);
 }
 
 void GameController::update(float deltaTime) {
@@ -73,21 +77,21 @@ void GameController::update(float deltaTime) {
 		player->setPosition(player->getPosition().x, player->getPosition().y, index * 0.001f + 0.0015f);
 		camera->increasePosition(step.x, step.y, 0);
 
+		if (step.y < -abs(step.x)) {
+			textureStep = vec2(textureStep.x, 0.0f);
+		}
+		if (step.x <= -abs(step.y)) {
+			textureStep = vec2(textureStep.x, 0.25f);
+		}
+		if (step.x >= abs(step.y)) {
+			textureStep = vec2(textureStep.x, 0.5f);
+		}
+		if (step.y > abs(step.x)) {
+			textureStep = vec2(textureStep.x, 0.75f);
+		}
 		if (textureTime == 6) {
-			if (step.y < -abs(step.x)) {
-				textureStep = vec2(textureStep.x, 0.0f);
-			}
-			if (step.x <= -abs(step.y)) {
-				textureStep = vec2(textureStep.x, 0.25f);
-			}
-			if (step.x >= abs(step.y)) {
-				textureStep = vec2(textureStep.x, 0.5f);
-			}
-			if (step.y > abs(step.x)) {
-				textureStep = vec2(textureStep.x, 0.75f);
-			}
 
-			if (textureTranslate + textureStep == vec2(1.0f, (textureTranslate + textureStep).y) || textureTranslate + textureStep == vec2(-1.0f / 3.0f, (textureTranslate + textureStep).y)) {
+			if ((textureTranslate + textureStep).x == 1.0f || (textureTranslate + textureStep).x == -1.0f / 3.0f) {
 				textureStep.x *= -1;
 			}
 			textureTranslate.x += textureStep.x;
@@ -95,12 +99,28 @@ void GameController::update(float deltaTime) {
 			textureTime = 0;
 		}
 		textureTime++;
+
+
+		if (destinationTextureTime == 5) {
+			if ((destinationTextureTranslate + destinationTextureStep).x == 1.0f || (destinationTextureTranslate + destinationTextureStep).x == -1.0f / 8.0f) {
+				destinationTextureStep.x *= -1;
+			}
+			destinationTextureTranslate.x += destinationTextureStep.x;
+			destinationTextureTime = 0;
+		}
+		destinationTextureTime++;
 	} else {
 		textureTranslate = vec2(1.0f / 3.0f, textureTranslate.y);
+		destinationTextureTranslate = vec2(7.0f / 8.0f, 0.0f);
 	}
 
 	mat3 texture(1.0f);
 	texture = translate(texture, textureTranslate);
 	texture = scale(texture, vec2(1.0f / 3.0f, 0.25f));
 	player->setTextureMatrix(texture);
+
+	mat3 destinationTexture(1.0f);
+	destinationTexture = translate(destinationTexture, destinationTextureTranslate);
+	destinationTexture = scale(destinationTexture, vec2(1.0f / 8.0f, 1.0f));
+	destination->setTextureMatrix(destinationTexture);
 }
