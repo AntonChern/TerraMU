@@ -1,19 +1,23 @@
 #pragma once
 #include "Moveable.h"
 #include "TexturedModel.h"
+#include "AnimationDirect.h"
 
 class Entity : public Moveable {
 private:
 	TexturedModel* model;
-	mat3 textureMatrix;
+	Animation* animation;
 
 public:
-	Entity(TexturedModel* model, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-		Moveable(position, rotationX, rotationY, rotationZ, scale), model(model), textureMatrix(mat3(1.0f)) {};
+	Entity(TexturedModel* model, Animation* animation, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
+		Moveable(position, rotationX, rotationY, rotationZ, scale), model(model),
+		animation(animation) {};
+
+	~Entity();
 
 	TexturedModel* getTexturedModel() { return model; };
 
-	void setTextureMatrix(mat3 matrix) { textureMatrix = matrix; };
-	mat3 getTextureMatrix() { return textureMatrix; };
+	Animation* getAnimation() { return animation; };
+	void setAnimation(Animation* animation);
 
 };

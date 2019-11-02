@@ -1,17 +1,7 @@
 #include "GameController.h"
 #include "Display.h"
 #include "WayHandler.h"
-
-float GameController::getDeltaTime() {
-	float currentTime = glfwGetTime();
-	float deltaTime = currentTime - lastTime;
-	lastTime = currentTime;
-	return deltaTime;
-}
-
-void GameController::initialize() {
-	lastTime = glfwGetTime();
-}
+#include "Maths.h"
 
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
 	mousePosition = vec2(xPos, yPos);
@@ -45,6 +35,7 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 }
 
 void GameController::go(float coordX, float coordY) {
+	player->getAnimation()->play();
 	initialPosition = vec3(player->getPosition().x, player->getPosition().y - player->getScale().y / 2, 0);
 	way = handler->buildWay((map->getScale().x / 2 + player->getPosition().x) * map->getColumns() / map->getScale().x,
 		(map->getScale().y / 2 - (player->getPosition().y - player->getScale().y / 2)) * map->getRows() / map->getScale().y, coordX, coordY,
@@ -73,34 +64,21 @@ void GameController::update(float deltaTime) {
 		player->setPosition(player->getPosition().x, player->getPosition().y, index * 0.001f + 0.0015f);
 		camera->increasePosition(step.x, step.y, 0);
 
-		if (textureTime == 6) {
-			if (step.y < -abs(step.x)) {
-				textureStep = vec2(textureStep.x, 0.0f);
-			}
-			if (step.x <= -abs(step.y)) {
-				textureStep = vec2(textureStep.x, 0.25f);
-			}
-			if (step.x >= abs(step.y)) {
-				textureStep = vec2(textureStep.x, 0.5f);
-			}
-			if (step.y > abs(step.x)) {
-				textureStep = vec2(textureStep.x, 0.75f);
-			}
-
-			if (textureTranslate + textureStep == vec2(1.0f, (textureTranslate + textureStep).y) || textureTranslate + textureStep == vec2(-1.0f / 3.0f, (textureTranslate + textureStep).y)) {
-				textureStep.x *= -1;
-			}
-			textureTranslate.x += textureStep.x;
-			textureTranslate.y = textureStep.y;
-			textureTime = 0;
+		if (step.y < -abs(step.x)) {
+			player->getAnimation()->setPosition(0.0f);
 		}
-		textureTime++;
-	} else {
-		textureTranslate = vec2(1.0f / 3.0f, textureTranslate.y);
-	}
+		if (step.x <= -abs(step.y)) {
+			player->getAnimation()->setPosition(0.25f);
+		}
+		if (step.x >= abs(step.y)) {
+			player->getAnimation()->setPosition(0.5f);
+		}
+		if (step.y > abs(step.x)) {
+			player->getAnimation()->setPosition(0.75f);
+		}
 
-	mat3 texture(1.0f);
-	texture = translate(texture, textureTranslate);
-	texture = scale(texture, vec2(1.0f / 3.0f, 0.25f));
-	player->setTextureMatrix(texture);
+	} else {
+		player->getAnimation()->stop();
+		player->getAnimation()->reset();
+	}
 }

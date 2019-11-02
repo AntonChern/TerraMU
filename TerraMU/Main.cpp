@@ -18,6 +18,7 @@
 #include "GoAction.h"
 #include "WayHandler.h"
 #include "Moveable.h"
+#include "AnimationPendulum.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -42,32 +43,31 @@ list<Entity*>* EntityFactory::entities = new list<Entity*>();
 Loader* EntityFactory::loader = nullptr;
 
 map<Tile, MapObject*> Map::mapObjects = {
-	{GRASS_0, new MapObject(new GoAction(), true, true, "grass_0.png", 32, 32)},
-	{GRASS_1, new MapObject(new GoAction(), true, true, "grass_1.png", 32, 32)},
-	{GRASS_2, new MapObject(new GoAction(), true, true, "grass_2.png", 32, 32)},
-	{STONE_0, new MapObject(new GoAction(), true, true, "stone_0.png", 32, 32)},
-	{STONE_1, new MapObject(new GoAction(), true, true, "stone_1.png", 32, 32)},
-	{STONE_2, new MapObject(new GoAction(), true, true, "stone_2.png", 32, 32)},
-	{STONE_3, new MapObject(new GoAction(), true, true, "stone_3.png", 32, 32)},
-	{STONE_4, new MapObject(new GoAction(), true, true, "stone_4.png", 32, 32)},
-	{MONUMENT, new MapObject(new Action(), false, true, "monument.png", 32, 64)}
+{GRASS_0, new MapObject(new GoAction(), true, true, "grass_0.png", 32, 32)},
+{GRASS_1, new MapObject(new GoAction(), true, true, "grass_1.png", 32, 32)},
+{GRASS_2, new MapObject(new GoAction(), true, true, "grass_2.png", 32, 32)},
+{STONE_0, new MapObject(new GoAction(), true, true, "stone_0.png", 32, 32)},
+{STONE_1, new MapObject(new GoAction(), true, true, "stone_1.png", 32, 32)},
+{STONE_2, new MapObject(new GoAction(), true, true, "stone_2.png", 32, 32)},
+{STONE_3, new MapObject(new GoAction(), true, true, "stone_3.png", 32, 32)},
+{STONE_4, new MapObject(new GoAction(), true, true, "stone_4.png", 32, 32)},
+{MONUMENT, new MapObject(new Action(), false, true, "monument.png", 32, 64)},
+{TREE_SIZE_0, new MapObject(new Action(), false, true, "tree_size_0.png", 64, 72)},
+{TREE_SIZE_1, new MapObject(new Action(), false, true, "tree_size_1.png", 96, 112)},
+{TREE_SIZE_2, new MapObject(new Action(), false, true, "tree_size_2.png", 170, 187)},
+{TREE_SIZE_3, new MapObject(new Action(), false, true, "tree_size_3.png", 271, 288)}
 };
 
 Map* GameController::map = nullptr;
 Entity* GameController::player = nullptr;
 Entity* GameController::cursor = nullptr;
 Camera* GameController::camera = nullptr;
-vec2 GameController::mouseOffset = vec2(0.0f);
 vec2 GameController::mousePosition = vec2(0.0f);
 vec2 GameController::lastMouseClick = vec2(0.0f);
-float GameController::lastTime = 0.0f;
 WayHandler* GameController::handler = new WayHandler();
 float GameController::speed = 1.0f;
 queue<vec2>* GameController::way = nullptr;
 vec3 GameController::initialPosition = vec3(0);
-vec2 GameController::textureTranslate = vec2(1.0f / 3.0f, 0.0f);
-vec2 GameController::textureStep = vec2(1.0f / 3.0f, 0.0f);
-int GameController::textureTime = 6;
 
 int main() {
 	initializeGLFW();
@@ -77,81 +77,20 @@ int main() {
 	Loader *loader = new Loader();
 	EntityFactory::setLoader(loader);
 
-	//Entity* map = EntityBuilder::createEntity(loader, "map.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 25.0f);
-
-	int size = 9;
-	Tile** base = new Tile*[size];
-	for (int i = 0; i < size; i++) {
-		base[i] = new Tile[size];
-	}
-	Tile** hat = new Tile * [size];
-	for (int i = 0; i < size; i++) {
-		hat[i] = new Tile[size];
-	}
-
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
-			base[i][j] = GRASS_0;
-		}
-	}
-
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
-			hat[i][j] = EMPTY;
-		}
-	}
-
-	base[3][3] = STONE_4;
-	base[3][4] = STONE_4;
-	base[3][5] = STONE_4;
-	base[4][3] = STONE_4;
-	base[4][4] = STONE_4;
-	base[4][5] = STONE_4;
-	base[5][3] = STONE_4;
-	base[5][4] = STONE_4;
-	base[5][5] = STONE_4;
-
-	base[2][3] = STONE_2;
-	base[2][4] = STONE_2;
-	base[2][5] = STONE_2;
-	base[3][2] = STONE_2;
-	base[3][6] = STONE_2;
-	base[4][2] = STONE_2;
-	base[4][6] = STONE_2;
-	base[5][2] = STONE_2;
-	base[5][6] = STONE_2;
-	base[6][3] = STONE_2;
-	base[6][4] = STONE_2;
-	base[6][5] = STONE_2;
-
-	hat[1][3] = MONUMENT;
-	hat[1][4] = MONUMENT;
-	hat[2][2] = MONUMENT;
-	hat[2][6] = MONUMENT;
-	hat[4][0] = MONUMENT;
-	hat[4][1] = MONUMENT;
-	hat[6][2] = MONUMENT;
-	hat[6][6] = MONUMENT;
-	hat[7][3] = MONUMENT;
-	hat[7][4] = MONUMENT;
-	hat[7][5] = MONUMENT;
-	hat[8][5] = MONUMENT;
-
-	//Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 255);
-	Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * size);
+	int size = 64;
+	Map* map = new Map("tarkan.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * size);
 
 	Entity* cursor = EntityFactory::createEntity("cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.4f);
 
-	Entity *player = EntityFactory::createEntity("magicGladiator.png", vec3(0.125f * (1 - size), 0.125f * (size - 1), 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
-	mat3 texture(1.0f);
-	texture = translate(texture, vec2(1.0f / 3.0f, 0.0f));
-	texture = scale(texture, vec2(1.0f / 3.0f, 0.25f));
-	player->setTextureMatrix(texture);
+	float x = 0.125f * (1 - size);
+	float y = 0.125f * (size - 1);
+
+	Entity *player = EntityFactory::createEntity("magicGladiator.png",
+		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 
 	Camera* camera = new Camera();
-	camera->setPosition(0.125f * (1 - size), 0.125f * (size - 1), 1.0f);
-
-	//KeyboardController *controller = new KeyboardController(camera, display);
+	camera->setPosition(x, y, 1.0f);
 	
 	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
@@ -164,17 +103,13 @@ int main() {
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
 
-	GameController::initialize();
-
 	float lastTime = glfwGetTime();
-
-	vec2 textureTranslate;
 
 	MasterRenderer* renderer = new MasterRenderer();
 	while (!display->isCloseRequested()) {
 		renderer->processEntities(map->getRectangleArea(
-			map->getColumns()* (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
-			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10));
+			map->getColumns()* (map->getScale().x / 2 + player->getPosition().x) / map->getScale().x,
+			map->getRows()* (map->getScale().y / 2 - player->getPosition().y) / map->getScale().y, 16, 10));
 
 		renderer->processEntity(player);
 

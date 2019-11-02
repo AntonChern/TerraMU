@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="KeyboardController.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -70,12 +67,18 @@
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Исходные файлы\entities</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Исходные файлы\animations</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationPendulum.cpp">
+      <Filter>Исходные файлы\animations</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationDirect.cpp">
+      <Filter>Исходные файлы\animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="KeyboardController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="OpenChestAction.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -154,6 +157,15 @@
     <ClInclude Include="EntityFactory.h">
       <Filter>Файлы заголовков\entities</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Файлы заголовков\animations</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationPendulum.h">
+      <Filter>Файлы заголовков\animations</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationDirect.h">
+      <Filter>Файлы заголовков\animations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="magicGladiator.png">
@@ -178,6 +190,9 @@
     </Text>
     <Text Include="StreamVertexShader.txt">
       <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+    <Text Include="tarkan.txt">
+      <Filter>Исходные файлы\entities\map</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -226,9 +241,6 @@
     <Filter Include="Файлы заголовков\actions">
       <UniqueIdentifier>{cf18bb7d-6702-4341-8694-aa22c1734295}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\entities">
-      <UniqueIdentifier>{3e4b7603-0bbd-4935-a17b-b67db63d1c23}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\controllers">
       <UniqueIdentifier>{3b072c23-312a-413f-a442-40f0ce237588}</UniqueIdentifier>
     </Filter>
@@ -247,9 +259,6 @@
     <Filter Include="Файлы заголовков\renderEngine">
       <UniqueIdentifier>{21a7f0e6-afd1-47d2-a4c7-65bac14d4395}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\entities\map">
-      <UniqueIdentifier>{ac34a9d5-149e-495f-a817-217b87ddb751}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\controllers\moving">
       <UniqueIdentifier>{272893fc-c25b-4be3-9a10-4bfa1793284b}</UniqueIdentifier>
     </Filter>
@@ -258,6 +267,18 @@
     </Filter>
     <Filter Include="Исходные файлы\gui">
       <UniqueIdentifier>{08fc0458-9634-49b7-8ad3-a042f035a475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities">
+      <UniqueIdentifier>{3e4b7603-0bbd-4935-a17b-b67db63d1c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\map">
+      <UniqueIdentifier>{ac34a9d5-149e-495f-a817-217b87ddb751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\animations">
+      <UniqueIdentifier>{ac004810-09fb-4b45-b9de-b8c2605f82ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\animations">
+      <UniqueIdentifier>{901790d7-387d-4f1f-9273-72cf195bfa31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
