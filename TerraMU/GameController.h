@@ -15,32 +15,16 @@ private:
 	static Entity* destination;
 	static Camera* camera;
 
-	static vec2 mouseOffset;
-
 	static vec2 mousePosition;
 	static vec2 lastMouseClick;
-
-	static float lastTime;
 
 	static WayHandler* handler;
 	static queue<vec2>* way;
 	static vec3 initialPosition;
 
-	static vec2 textureTranslate;
-	static vec2 textureStep;
-	static int textureTime;
-
-	static vec2 destinationTextureTranslate;
-	static vec2 destinationTextureStep;
-	static int destinationTextureTime;
-
 	static float speed;
-
-	static float getDeltaTime();
 	
 public:
-	static void initialize();
-
 	static Entity* getDestination() { return destination; };
 
 	static bool isInMotion() { return way && !way->empty(); };

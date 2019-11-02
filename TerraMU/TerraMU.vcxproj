@@ -130,14 +130,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationDirect.cpp" />
+    <ClCompile Include="AnimationPendulum.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GoAction.cpp" />
     <ClCompile Include="GUI.cpp" />
-    <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -155,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationDirect.h" />
+    <ClInclude Include="AnimationPendulum.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
@@ -164,7 +168,6 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="InventoryGUI.h" />
     <ClInclude Include="ItemGUI.h" />
-    <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
@@ -188,6 +191,7 @@
     <Text Include="StaticVertexShader.txt" />
     <Text Include="StreamFragmentShader.txt" />
     <Text Include="StreamVertexShader.txt" />
+    <Text Include="tarkan.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="magicGladiator.png" />
