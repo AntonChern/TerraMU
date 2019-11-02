@@ -18,7 +18,7 @@ public:
 	StreamShader();
 	void loadTransormMatrix(mat4 matrix);
 	void loadProjectionMatrix(mat4 matrix);
-	void loadViewMatrix(Camera *camera);
+	void loadViewMatrix(Camera* camera);
 	void loadTextureMatrix(mat3 matrix);
 
 protected:

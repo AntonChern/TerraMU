@@ -3,17 +3,17 @@
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
+#include "Camera.h"
 #include "StaticShader.h"
 #include "StreamShader.h"
 #include "Display.h"
-#include "Renderer.h"
+#include "MasterRenderer.h"
 #include "Loader.h"
 #include "ModelTexture.h"
 #include "TexturedModel.h"
-#include "Camera.h"
 //#include "GameController.h"
 #include "Entity.h"
-#include "EntityBuilder.h"
+#include "EntityFactory.h"
 #include "Map.h"
 #include "GoAction.h"
 #include "WayHandler.h"
@@ -37,8 +37,9 @@ static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos)
 void initializeGLFW();
 void initializeGLEW();
 
-map<string, Entity*>* EntityBuilder::entities = new map<string, Entity*>();
-list<TexturedModel*>* EntityBuilder::models = new list<TexturedModel*>();
+map<string, TexturedModel*>* EntityFactory::models = new map<string, TexturedModel*>();
+list<Entity*>* EntityFactory::entities = new list<Entity*>();
+Loader* EntityFactory::loader = nullptr;
 
 map<Tile, MapObject*> Map::mapObjects = {
 	{GRASS_0, new MapObject(new GoAction(), true, true, "grass_0.png", 32, 32)},
@@ -74,8 +75,7 @@ int main() {
 	initializeGLEW();
 
 	Loader *loader = new Loader();
-	StreamShader *shader = new StreamShader();
-	Renderer *renderer = new Renderer(shader);
+	EntityFactory::setLoader(loader);
 
 	//Entity* map = EntityBuilder::createEntity(loader, "map.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 25.0f);
 
@@ -140,15 +140,15 @@ int main() {
 	//Map* map = new Map("lorencia.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * 255);
 	Map* map = new Map(size, size, base, hat, vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * size);
 
-	Entity* cursor = EntityBuilder::createEntity(loader, "cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.4f);
+	Entity* cursor = EntityFactory::createEntity("cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.4f);
 
-	Entity *player = EntityBuilder::createEntity(loader, "magicGladiator.png", vec3(0.125f * (1 - size), 0.125f * (size - 1), 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
+	Entity *player = EntityFactory::createEntity("magicGladiator.png", vec3(0.125f * (1 - size), 0.125f * (size - 1), 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 	mat3 texture(1.0f);
 	texture = translate(texture, vec2(1.0f / 3.0f, 0.0f));
 	texture = scale(texture, vec2(1.0f / 3.0f, 0.25f));
 	player->setTextureMatrix(texture);
 
-	Camera *camera = new Camera();
+	Camera* camera = new Camera();
 	camera->setPosition(0.125f * (1 - size), 0.125f * (size - 1), 1.0f);
 
 	//KeyboardController *controller = new KeyboardController(camera, display);
@@ -169,100 +169,31 @@ int main() {
 	float lastTime = glfwGetTime();
 
 	vec2 textureTranslate;
+
+	MasterRenderer* renderer = new MasterRenderer();
 	while (!display->isCloseRequested()) {
-		//player->increaseRotationY(50.0f);
-		//entity->increasePosition(0.0f, 0.0f, -0.01f);
-		//controller->process();
-	
-		renderer->prepare();
-
-		vec4 direction(0.0f);
-		if (glfwGetKey(display->getWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
-			direction += vec4(0.0f, -1.0f, 0.0f, 0.0f);
-		}
-		if (glfwGetKey(display->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
-			direction += vec4(0.0f, 1.0f, 0.0f, 0.0f);
-		}
-		if (glfwGetKey(display->getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS) {
-			direction += vec4(1.0f, 0.0f, 0.0f, 0.0f);
-		}
-		if (glfwGetKey(display->getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS) {
-			direction += vec4(-1.0f, 0.0f, 0.0f, 0.0f);
-		}
-
-		if (direction != vec4(0.0f)) {
-			direction = normalize(direction);
-			textureTranslate += vec2(1.0f/3.0f, 0.0f);
-			textureTranslate = vec2(textureTranslate.x > 1.0f ? textureTranslate.x - 1.0f : textureTranslate.x, textureTranslate.y);
-		}
-		else {
-			textureTranslate = vec2(0.0f, textureTranslate.y);
-		}
-
-		vec4 move = scale(mat4(1.0f), vec3(0.02f)) * direction;
-		//map->increasePosition(move.x, move.y, move.z);
-		map->increasePosition(move.x, move.y, move.z);
-		/*camera->increasePosition(-move.x, -move.y, -move.z);
-		player->increasePosition(-move.x, -move.y, -move.z);
-		cursor->increasePosition(-move.x, -move.y, -move.z);*/
-
-
-		if (direction.x < 0) {
-			textureTranslate = vec2(textureTranslate.x, 0.5f);
-		}
-		if (direction.x > 0) {
-			textureTranslate = vec2(textureTranslate.x, 0.25f);
-		}
-		if (direction.x == 0) {
-		    if (direction.y < 0) {
-			    textureTranslate = vec2(textureTranslate.x, 0.75f);
-		    }
-		    if (direction.y > 0) {
-		    	textureTranslate = vec2(textureTranslate.x, 0.0f);
-		    }
-		}
-
-		mat3 texture(1.0f);
-		texture = translate(texture, vec2(1.0f / 3.0f, 0.0f) + textureTranslate);
-		texture = scale(texture, vec2(1.0f / 3.0f, 0.25f));
-		//player->setTextureMatrix(texture);
-
-
-		shader->start();
-		shader->loadViewMatrix(camera);
-
-		/*map->drawRectangleArea(renderer, loader, shader,
-			map->getColumns() * (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
-			map->getRows() * (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);*/
-
-		map->renderBaseArea(renderer, loader, shader,
+		renderer->processEntities(map->getRectangleArea(
 			map->getColumns()* (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
-			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);
+			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10));
 
-		//renderer->render(map, shader);
-		renderer->render(player, shader);
-		//renderer->render(cursor, shader);
+		renderer->processEntity(player);
 
-		map->renderHatArea(renderer, loader, shader,
-			map->getColumns()* (map->getScale().x + player->getPosition().x) / (2 * map->getScale().x),
-			map->getRows()* (map->getScale().y - player->getPosition().y) / (2 * map->getScale().y), 16, 10);
-
-		glfwPollEvents();
-		shader->stop();
+		renderer->render(camera);
 
 		float currentTime = glfwGetTime();
 		GameController::update(currentTime - lastTime);
 		lastTime = currentTime;
+
+		glfwPollEvents();
 		display->update();
 	}
 
-	shader->cleanUp();
+	renderer->cleanUp();
 	loader->cleanUp();
-	delete shader;
 	delete renderer;
 	delete loader;
 
-	EntityBuilder::cleanUp();
+	EntityFactory::cleanUp();
 
 	delete camera;
 

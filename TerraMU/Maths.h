@@ -8,5 +8,5 @@ using namespace glm;
 class Maths {
 public:
 	static mat4 createTransformMatrix(vec3 position, float rotX, float rotY, float rotZ, vec3 scal);
-	static mat4 createViewMatrix(Camera *camera);
+	static mat4 createViewMatrix(Camera* camera);
 };

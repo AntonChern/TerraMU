@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Tile.h"
 #include <fstream> // beg delete
 #include <iostream>
 #include <sstream>
@@ -75,20 +76,15 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 	//Map::Map(columns, rows, base, hat, position, rotationX, rotationY, rotationZ, scale);
 }
 
-void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* loader, StreamShader* shader,
-	float posX, float posY, int horyzontalSide, int verticalSide) {
-
+void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide) {
 	horyzontalSide += (horyzontalSide + 1) % 2;
 	verticalSide += (verticalSide + 1) % 2;
 
-	int centerX = (int)(posX);
-	int centerY = (int)(posY);
+	int startX = (int)(posX) - horyzontalSide / 2;
+	int startY = (int)(posY) - verticalSide / 2;
 
-	int startX = centerX - horyzontalSide / 2;
-	int startY = centerY - verticalSide / 2;
-
-	int endX = centerX + horyzontalSide / 2;
-	int endY = centerY + verticalSide / 2;
+	int endX = (int)(posX) + horyzontalSide / 2;
+	int endY = (int)(posY) + verticalSide / 2;
 
 	for (int j = std::max(0, startY); j < rows && j <= endY; j++) {
 		for (int i = std::max(0, startX); i < columns && i <= endX; i++) {
@@ -110,44 +106,28 @@ void Map::drawLayer(Tile** layer, float offset, Renderer* renderer, Loader* load
 			vec3 currScale = vec3(this->scale.x * currMapObject->getWidth() / (columns * cellWidth),
 				this->scale.y * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
 
-			Entity* currEntity = nullptr;
-			try {
-				currEntity = entities->at(currTile);
-				currEntity->setPosition(currPosition);
-				currEntity->setRotationX(this->rotationX);
-				currEntity->setRotationY(this->rotationY);
-				currEntity->setRotationZ(this->rotationZ);
-				currEntity->setScale(currScale);
-			}
-			catch (const out_of_range & exc) {
-				currEntity = EntityBuilder::createEntity(loader, currMapObject->getTexturePath(),
-					currPosition, this->rotationX, this->rotationY, this->rotationZ, currScale);
-
-				entities->insert(pair<Tile, Entity*>(currTile, currEntity));
-			}
+			Entity* currEntity = EntityFactory::createEntity(currMapObject->getTexturePath(),
+				currPosition, this->rotationX, this->rotationY, this->rotationZ, currScale);
 
 			if (currMapObject->getIsVisible()) {
-				renderer->render(currEntity, shader);
+				entities.push_back(currEntity);
 			}
 		}
 	}
 }
 
-void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *shader,
-	float posX, float posY, int horyzontalSide, int verticalSide) {
-	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
-	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+list<Entity*> Map::getRectangleArea(float posX, float posY, int horyzontalSide, int verticalSide) {
+	list<Entity*> entities;
+	processLayer(base, 0.0f, entities, posX, posY, horyzontalSide, verticalSide);
+	processLayer(hat, 0.001f, entities, posX, posY, horyzontalSide, verticalSide);
+	return entities;
 }
 
-void Map::renderBaseArea(Renderer* renderer, Loader* loader, StreamShader* shader,
-	float posX, float posY, int horyzontalSide, int verticalSide) {
-	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
-}
-
-void Map::renderHatArea(Renderer* renderer, Loader* loader, StreamShader* shader,
-	float posX, float posY, int horyzontalSide, int verticalSide) {
-	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
-}
+//void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *shader,
+//	float posX, float posY, int horyzontalSide, int verticalSide) {
+//	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+//	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
+//}
 
 Map::~Map() {
 	if (reachMap) {
@@ -169,6 +149,14 @@ MapObject* Map::getMapObject(Tile tile) {
 	}
 }
 
+Tile Map::getTile(int x, int y) {
+	Tile tile = hat[x][y];
+	if (tile == EMPTY) {
+		tile = base[x][y];
+	}
+	return tile;
+}
+
 void Map::interact(float x, float y) {
 	if (x < 0 || x > columns|| y < 0 || y > rows) {
 		return;
@@ -177,11 +165,27 @@ void Map::interact(float x, float y) {
 	int coordX = (int)x;
 	int coordY = (int)y;
 
-	Tile tile = hat[coordX][coordY];
-	if (tile == EMPTY) {
-		tile = base[coordX][coordY];
-	}
+	Tile tile = getTile(coordX, coordY);
 	MapObject* mapObject = getMapObject(tile);
+
+	if ((float)x - (coordX + 0.5f) > 0) {
+		if (coordX + 1 < columns) {
+			Tile tile = getTile(coordX + 1, coordY);
+			MapObject* nextMapObject = getMapObject(tile);
+			if (nextMapObject != nullptr && !nextMapObject->getIsReachable()) {
+				x = coordX + 0.5f;
+			}
+		}
+	}
+	else {
+		if (coordX - 1 >= 0) {
+			Tile tile = getTile(coordX - 1, coordY);
+			MapObject* nextMapObject = getMapObject(tile);
+			if (nextMapObject != nullptr && !nextMapObject->getIsReachable()) {
+				x = coordX + 0.5f;
+			}
+		}
+	}
 
 	mapObject->interact(x, y);
 }

@@ -130,11 +130,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Camera.h" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityBuilder.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GoAction.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -143,6 +142,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -155,12 +155,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
-    <ClInclude Include="EntityInstance.h" />
-    <ClInclude Include="EntityWrapper.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityBuilder.h" />
+    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="GoAction.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="InventoryGUI.h" />
@@ -169,6 +168,7 @@
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="Moveable.h" />
