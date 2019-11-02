@@ -14,28 +14,16 @@ private:
 	static Entity* cursor;
 	static Camera* camera;
 
-	static vec2 mouseOffset;
-
 	static vec2 mousePosition;
 	static vec2 lastMouseClick;
-
-	static float lastTime;
 
 	static WayHandler* handler;
 	static queue<vec2>* way;
 	static vec3 initialPosition;
 
-	static vec2 textureTranslate;
-	static vec2 textureStep;
-	static int textureTime;
-
 	static float speed;
-
-	static float getDeltaTime();
 	
 public:
-	static void initialize();
-
 	static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 	static void cursorEnterCallback(GLFWwindow* window, int entered);

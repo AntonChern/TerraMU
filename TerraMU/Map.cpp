@@ -1,17 +1,16 @@
 #include "Map.h"
 #include "Tile.h"
-#include <fstream> // beg delete
+#include <fstream>
 #include <iostream>
 #include <sstream>
-using namespace std; // end delete
+using namespace std;
 
 Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
 	Moveable(position, rotationX, rotationY, rotationZ, scale) {
+	ifstream fin(sourcePath);
+	fin >> columns;
+	fin >> rows;
 
-	columns = 255;
-	rows = 255;
-
-	//MEMORY
 	base = new Tile*[columns];
 	for (int i = 0; i < columns; i++) {
 		base[i] = new Tile[rows];
@@ -20,60 +19,22 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 	for (int i = 0; i < columns; i++) {
 		hat[i] = new Tile[rows];
 	}
-	for (int i = 0; i < columns; i++) {
-		for (int j = 0; j < rows; j++) {
-			hat[i][j] = EMPTY;
+
+	for (int j = 0; j < rows; j++) {
+		for (int i = 0; i < columns; i++) {
+			int tile;
+			fin >> tile;
+			base[i][j] = (Tile)tile;
 		}
 	}
-
-	char currSymb = 0;
-	ifstream fin3(sourcePath);
-	int i = 0;
-	while (!fin3.eof()) {
-		int number = 0;
-		fin3.get(currSymb);
-		number = currSymb - '0';
-		if (number < 0 || number > 8) {
-			continue;
+	for (int j = 0; j < rows; j++) {
+		for (int i = 0; i < columns; i++) {
+			int tile;
+			fin >> tile;
+			hat[i][j] = (Tile)tile;
 		}
-
-		Tile currTile = EMPTY;
-		base[i % columns][(i - i % columns) / columns] = GRASS_0;
-		switch (number) {
-		case 1:
-			base[i % columns][(i - i % columns) / columns] = GRASS_0;
-			break;
-		case 2:
-			base[i % columns][(i - i % columns) / columns] = GRASS_1;
-			break;
-		case 3:
-			base[i % columns][(i - i % columns) / columns] = GRASS_2;
-			break;
-		case 4:
-			base[i % columns][(i - i % columns) / columns] = STONE_0;
-			break;
-		case 5:
-			base[i % columns][(i - i % columns) / columns] = STONE_1;
-			break;
-		case 6:
-			base[i % columns][(i - i % columns) / columns] = STONE_2;
-			break;
-		case 7:
-			base[i % columns][(i - i % columns) / columns] = STONE_3;
-			break;
-		default:
-			//cout << " " << endl;
-			base[i % columns][(i - i % columns) / columns] = STONE_4;
-			break;
-		}
-
-		//base[i % columns][(i - i % columns) / columns] = currTile;
-
-		i++;
 	}
-	fin3.close();
-
-	//Map::Map(columns, rows, base, hat, position, rotationX, rotationY, rotationZ, scale);
+	fin.close();
 }
 
 void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide) {
@@ -123,18 +84,26 @@ list<Entity*> Map::getRectangleArea(float posX, float posY, int horyzontalSide, 
 	return entities;
 }
 
-//void Map::drawRectangleArea(Renderer *renderer, Loader* loader, StreamShader *shader,
-//	float posX, float posY, int horyzontalSide, int verticalSide) {
-//	drawLayer(base, 0.0f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
-//	drawLayer(hat, 0.001f, renderer, loader, shader, posX, posY, horyzontalSide, verticalSide);
-//}
-
 Map::~Map() {
 	if (reachMap) {
 		for (int i = 0; i < columns; i++) {
 			delete[] reachMap[i];
 		}
 		delete[] reachMap;
+	}
+
+	if (base) {
+		for (int i = 0; i < columns; i++) {
+			delete[] base[i];
+		}
+		delete[] base;
+	}
+
+	if (hat) {
+		for (int i = 0; i < columns; i++) {
+			delete[] hat[i];
+		}
+		delete[] hat;
 	}
 }
 
