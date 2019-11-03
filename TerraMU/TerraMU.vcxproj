@@ -133,6 +133,8 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationDirect.cpp" />
     <ClCompile Include="AnimationPendulum.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="AnimationDirect.h" />
     <ClInclude Include="AnimationPendulum.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Converter.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />

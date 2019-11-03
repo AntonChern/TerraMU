@@ -2,36 +2,36 @@
 #include <cmath>
 using namespace std;
 
-void WayHandler::printMap() {
-	cout << "+";
-	for (int i = 0; i < mapLength; i++)
-	{
-		cout << "-";
-	}
-	cout << "+" << endl;
-	for (int j = 0; j < mapLength; j++) {
-		cout << "|";
-		for (int i = 0; i < mapLength; i++) {
-			if (auxiliaryMap[i][j]) {
-				cout << ".";
-			}
-			else {
-				if (wayMap[i][j]) {
-					cout << " ";
-				} else {
-					cout << "#";
-				}
-			}
-		}
-		cout << "|" << endl;
-	}
-	cout << "+";
-	for (int i = 0; i < mapLength; i++)
-	{
-		cout << "-";
-	}
-	cout << "+" << endl;
-}
+//void WayHandler::printMap() {
+//	cout << "+";
+//	for (int i = 0; i < mapWidth; i++)
+//	{
+//		cout << "-";
+//	}
+//	cout << "+" << endl;
+//	for (int j = 0; j < mapHeight; j++) {
+//		cout << "|";
+//		for (int i = 0; i < mapWidth; i++) {
+//			if (auxiliaryMap[i][j]) {
+//				cout << ".";
+//			}
+//			else {
+//				if (wayMap[i][j]) {
+//					cout << " ";
+//				} else {
+//					cout << "#";
+//				}
+//			}
+//		}
+//		cout << "|" << endl;
+//	}
+//	cout << "+";
+//	for (int i = 0; i < mapWidth; i++)
+//	{
+//		cout << "-";
+//	}
+//	cout << "+" << endl;
+//}
 
 void WayHandler::paveRoute() {
 	Point* current = end;
@@ -46,8 +46,8 @@ void WayHandler::paveRoute() {
 	}
 }
 
-void WayHandler::nullAll(int length) {
-	deleteMap(length);
+void WayHandler::nullAll() {
+	deleteMap(mapWidth, mapHeight);
 
 	open.clear();
 	closed.clear();
@@ -57,17 +57,18 @@ void WayHandler::nullAll(int length) {
 	end = nullptr;
 }
 
-queue<vec2>* WayHandler::buildWay(float startX, float startY, float endX, float endY, bool** map, int mapLength) {
+queue<vec2>* WayHandler::buildWay(float startX, float startY, float endX, float endY, bool** map, int mapWidth, int mapHeight) {
 	resultWay = new queue<vec2>();
 	
-	initMap(mapLength);
+	initMap(mapWidth, mapHeight);
 	wayMap = map;
-	this->mapLength = mapLength;
+	this->mapWidth = mapWidth;
+	this->mapHeight = mapHeight;
 
 	aStar(startX, startY, endX, endY);
 	paveRoute();
 	straightenWay(startX, startY, endX, endY);
-	nullAll(mapLength);
+	nullAll();
 
 	return resultWay;
 }
@@ -119,7 +120,7 @@ bool WayHandler::contains(list<Point*> list, Point* select) {
 }
 
 WayHandler::Point* WayHandler::getPoint(int x, int y) {
-	if ((x >= 0 && x < mapLength) && (y >= 0 && y < mapLength) && wayMap[x][y]) {
+	if ((x >= 0 && x < mapWidth) && (y >= 0 && y < mapHeight) && wayMap[x][y]) {
 		return map[x][y];
 	}
 	return nullptr;
@@ -143,36 +144,36 @@ float WayHandler::H(Point* cell) {
 	return std::sqrt(widthSquare + heightSquare);
 }
 
-void WayHandler::initMap(int length) {
-	map = new Point** [length] {nullptr};
-	for (int i = 0; i < length; i++) {
-		map[i] = new Point* [length] {nullptr};
-		for (int j = 0; j < length; j++) {
+void WayHandler::initMap(int width, int height) {
+	map = new Point** [width] {nullptr};
+	for (int i = 0; i < width; i++) {
+		map[i] = new Point* [height] {nullptr};
+		for (int j = 0; j < height; j++) {
 			map[i][j] = new Point(i, j);
 		}
 	}
 
-	auxiliaryMap = new bool* [length] {nullptr};
-	for (int i = 0; i < length; i++) {
-		auxiliaryMap[i] = new bool[length] {false};
+	auxiliaryMap = new bool* [width] {nullptr};
+	for (int i = 0; i < width; i++) {
+		auxiliaryMap[i] = new bool[height] {false};
 	}
-	for (int j = 0; j < length; j++) {
-		for (int i = 0; i < length; i++) {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
 			auxiliaryMap[i][j] = false;
 		}
 	}
 }
 
-void WayHandler::deleteMap(int length) {
-	for(int i = 0; i < length; i++) {
-		for (int j = 0; j < length; j++) {
+void WayHandler::deleteMap(int width, int height) {
+	for(int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
 			delete map[i][j];
 		}
 		delete[] map[i];
 	}
 	delete[] map;
 
-	for (int i = 0; i < length; i++) {
+	for (int i = 0; i < width; i++) {
 		delete[] auxiliaryMap[i];
 	}
 	delete[] auxiliaryMap;
@@ -226,7 +227,7 @@ bool WayHandler::existsWay(vec2 start, vec2 way) {
 		vec2 selectPoint = start + helper;
 		int xIndex = (int)selectPoint.x;
 		int yIndex = (int)selectPoint.y;
-		if (!wayMap[xIndex][yIndex] || (yIndex == selectPoint.y && (yIndex > 0 && yIndex <= mapLength) && !wayMap[xIndex][yIndex - 1])) {
+		if (!wayMap[xIndex][yIndex] || (yIndex == selectPoint.y && (yIndex > 0 && yIndex <= mapHeight) && !wayMap[xIndex][yIndex - 1])) {
 			return false;
 		}
 		divisionX += step;
@@ -240,7 +241,7 @@ bool WayHandler::existsWay(vec2 start, vec2 way) {
 		vec2 selectPoint = start + helper;
 		int xIndex = (int)selectPoint.x;
 		int yIndex = (int)selectPoint.y + (sgn(way.x * way.y) - 1) / 2;
-		if (!wayMap[xIndex][yIndex] || (xIndex == selectPoint.x && (xIndex > 0 && xIndex <= mapLength) && !wayMap[xIndex - 1][yIndex])) {
+		if (!wayMap[xIndex][yIndex] || (xIndex == selectPoint.x && (xIndex > 0 && xIndex <= mapWidth) && !wayMap[xIndex - 1][yIndex])) {
 			return false;
 		}
 		divisionY += step;
@@ -252,10 +253,10 @@ int WayHandler::sgn(float value) {
 	return value >= 0 ? 1 : -1;
 }
 
-void WayHandler::printResult() {
-	while (!resultWay->empty()) {
-		vec2 current = resultWay->front();
-		resultWay->pop();
-		cout << current.x << ":" << current.y << endl;
-	}
-}
+//void WayHandler::printResult() {
+//	while (!resultWay->empty()) {
+//		vec2 current = resultWay->front();
+//		resultWay->pop();
+//		cout << current.x << ":" << current.y << endl;
+//	}
+//}
