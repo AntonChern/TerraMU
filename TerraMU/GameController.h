@@ -45,4 +45,6 @@ public:
 	static void go(float coordX, float coordY);
 	static void changeVisibility(int posX, int posY);
 
+	static Map* getMap() { return map; };
+	static Camera* getCamera() { return camera; };
 };

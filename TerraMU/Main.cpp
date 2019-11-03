@@ -19,6 +19,7 @@
 #include "WayHandler.h"
 #include "Moveable.h"
 #include "AnimationPendulum.h"
+#include "Converter.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -58,6 +59,9 @@ map<Tile, MapObject*> Map::mapObjects = {
 {TREE_SIZE_3, new MapObject(new Action(), false, true, "tree_size_3.png", 271, 288)}
 };
 
+Map* Converter::map = nullptr;
+Camera* Converter::camera = nullptr;
+
 Map* GameController::map = nullptr;
 Entity* GameController::player = nullptr;
 Entity* GameController::cursor = nullptr;
@@ -90,11 +94,9 @@ int main() {
 		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
 		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 
-	Entity* destination = EntityFactory::createEntity("destination.png", new AnimationPendulum(INFINITY, 5, vec2(7.0f / 8.0f, 0.0f), vec2(1.0f / 8.0f, 1.0f), 1.0f / 8.0f), vec3(0.0f, 0.0f, 0.0004f), 0.0f, 0.0f, 0.0f, 0.45f);
-	texture = mat3(1.0f);
-	texture = translate(texture, vec2(7.0f / 8.0f, 0.0f));
-	texture = scale(texture, vec2(1.0f / 8.0f, 1.0f));
-	destination->setTextureMatrix(texture);
+	Entity* destination = EntityFactory::createEntity("destination.png",
+		new AnimationPendulum(INFINITY, 5, vec2(7.0f / 8.0f, 0.0f), vec2(1.0f / 8.0f, 1.0f), 1.0f / 8.0f),
+		vec3(0.0f, 0.0f, 0.0004f), 0.0f, 0.0f, 0.0f, 0.45f);
 
 	Camera* camera = new Camera();
 	camera->setPosition(x, y, 1.0f);
@@ -105,19 +107,20 @@ int main() {
 	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);
 	glfwSetKeyCallback(display->getWindow(), GameController::keyCallback);
 
+	Converter::setMap(map);
+	Converter::setCamera(camera);
+	
 	GameController::setMap(map);
 	GameController::setPlayer(player);
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
-
 	GameController::setDestination(destination);
 	float lastTime = glfwGetTime();
 
 	MasterRenderer* renderer = new MasterRenderer();
 	while (!display->isCloseRequested()) {
-		renderer->processEntities(map->getRectangleArea(
-			map->getColumns()* (map->getScale().x / 2 + player->getPosition().x) / map->getScale().x,
-			map->getRows()* (map->getScale().y / 2 - player->getPosition().y) / map->getScale().y, 16, 10));
+		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getPosition().x, player->getPosition().y));
+		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
 		renderer->processEntity(player);
 

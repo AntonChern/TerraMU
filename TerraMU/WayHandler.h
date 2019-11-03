@@ -9,7 +9,6 @@
 using namespace std;
 using namespace glm;
 
-
 class WayHandler {
 private:
 	class Point {
@@ -23,7 +22,8 @@ private:
 		Point* from;
 	};
 
-	int mapLength;
+	int mapWidth;
+	int mapHeight;
 	bool** wayMap;
 	bool** auxiliaryMap;
 	Point*** map;
@@ -38,20 +38,20 @@ private:
 	Point* min_F(list<Point*> list);
 	bool contains(list<Point*> list, Point* select);
 	float H(Point* cell);
-	void initMap(int length);
-	void deleteMap(int length);
+	void initMap(int width, int height);
+	void deleteMap(int width, int height);
 	void paveRoute();
 
 	void aStar(float startX, float startY, float finishX, float finishY);
 	void straightenWay(float startX, float startY, float endX, float endY);
 	bool existsWay(vec2 start, vec2 way);
-	void nullAll(int mapLength);
+	void nullAll();
 	int sgn(float value);
 public:
 	WayHandler() { open = {}; closed = {}; wayAStar = {}; };
-	~WayHandler() { deleteMap(mapLength); };
+	~WayHandler() { deleteMap(mapWidth, mapHeight); };
 
-	queue<vec2>* buildWay(float startX, float startY, float finishX, float finishY, bool** map, int mapLength);
+	queue<vec2>* buildWay(float startX, float startY, float finishX, float finishY, bool** map, int mapWidth, int mapHeight);
 	void printMap();
 	void printResult();
 };
