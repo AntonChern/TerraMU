@@ -18,3 +18,10 @@ mat4 Maths::createViewMatrix(Camera* camera) {
 	view = translate(view, -camera->getPosition());
 	return view;
 }
+
+mat3 Maths::createTextureMatrix(vec2 position, vec2 scal) {
+	mat3 texture(1.0f);
+	texture = translate(texture, position);
+	texture = scale(texture, scal);
+	return texture;
+}

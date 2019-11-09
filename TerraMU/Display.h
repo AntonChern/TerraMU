@@ -8,8 +8,8 @@ private:
 	GLFWwindow *window;
 
 public:
-	static int getWidth() { return width; };
-	static int getHeight() { return height; };
+	static constexpr int getWidth() { return width; };
+	static constexpr int getHeight() { return height; };
 
 	Display();
 	void update();

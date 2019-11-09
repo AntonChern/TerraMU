@@ -6,14 +6,16 @@ class Map;
 #include "MapObject.h"
 #include "Entity.h"
 #include "WayHandler.h"
+#include "Gui.h"
 
 class GameController {
 private:
 	static Map* map;
 	static Entity* player;
-	static Entity* cursor;
+	static list<Entity*> monsters;
 	static Entity* destination;
 	static Camera* camera;
+	static Gui* gui;
 
 	static vec2 mousePosition;
 	static vec2 lastMouseClick;
@@ -23,6 +25,9 @@ private:
 	static vec3 initialPosition;
 
 	static float speed;
+
+	static void updatePlayer(Entity* creature, float deltaTime);
+	static void updateMonster(Entity* creature, float deltaTime);
 	
 public:
 	static Entity* getDestination() { return destination; };
@@ -36,13 +41,14 @@ public:
 
 	static void setMap(Map* map) { GameController::map = map; };
 	static void setPlayer(Entity* player) { GameController::player = player; };
-	static void setCursor(Entity* cursor) { GameController::cursor = cursor; };
+	static void addMonster(Entity* monster) { monsters.push_back(monster); };
+	static void addMonsters(list<Entity*> monsters);
 	static void setCamera(Camera* camera) { GameController::camera = camera; };
 	static void setDestination(Entity* destination) { GameController::destination = destination; };
+	static void setGui(Gui* gui) { GameController::gui = gui; };
 
 	static void update(float deltaTime);
 
 	static void go(float coordX, float coordY);
-	static void changeVisibility(int posX, int posY);
 
 };

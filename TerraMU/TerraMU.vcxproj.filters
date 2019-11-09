@@ -55,9 +55,6 @@
     <ClCompile Include="WayHandler.cpp">
       <Filter>Исходные файлы\controllers\moving</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Исходные файлы\gui</Filter>
-    </ClCompile>
     <ClCompile Include="MasterRenderer.cpp">
       <Filter>Исходные файлы\renderEngine</Filter>
     </ClCompile>
@@ -73,12 +70,51 @@
     <ClCompile Include="AnimationDirect.cpp">
       <Filter>Исходные файлы\animations</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiShader.cpp">
+      <Filter>Исходные файлы\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiRenderer.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIpast.cpp">
+      <Filter>Исходные файлы\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiElementFactory.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItemBuilder.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="TextField.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="SlotArray.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItem.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Slot.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Picture.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="OpenChestAction.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Action.h">
       <Filter>Файлы заголовков\actions</Filter>
     </ClInclude>
@@ -133,9 +169,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Файлы заголовков\entities\map</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Файлы заголовков\gui</Filter>
-    </ClInclude>
     <ClInclude Include="InventoryGUI.h">
       <Filter>Файлы заголовков\gui</Filter>
     </ClInclude>
@@ -156,6 +189,66 @@
     </ClInclude>
     <ClInclude Include="AnimationDirect.h">
       <Filter>Файлы заголовков\animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenChestAction.h">
+      <Filter>Файлы заголовков\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRenderer.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiShader.h">
+      <Filter>Файлы заголовков\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElement.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="Moveable2D.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIpast.h">
+      <Filter>Файлы заголовков\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElementFactory.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItemBuilder.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItem.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="SlotArray.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="TextField.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Slot.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Picture.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +276,15 @@
       <Filter>Исходные файлы\shaders\glsl</Filter>
     </Text>
     <Text Include="tarkan.txt">
+      <Filter>Исходные файлы\entities\map</Filter>
+    </Text>
+    <Text Include="guiVertexShader.txt">
+      <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+    <Text Include="guiFragmentShader.txt">
+      <Filter>Исходные файлы\shaders\glsl</Filter>
+    </Text>
+    <Text Include="labirint.txt">
       <Filter>Исходные файлы\entities\map</Filter>
     </Text>
   </ItemGroup>
@@ -270,6 +372,21 @@
     </Filter>
     <Filter Include="Исходные файлы\animations">
       <UniqueIdentifier>{901790d7-387d-4f1f-9273-72cf195bfa31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\creatures">
+      <UniqueIdentifier>{f511b7cb-b33a-44a1-a3cd-12e899b42f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\guis">
+      <UniqueIdentifier>{7da798c3-d124-4ad4-b12a-75e910bde0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\guis">
+      <UniqueIdentifier>{4efd8b92-97bd-40f0-a829-e94e8368c883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\guis\items">
+      <UniqueIdentifier>{1ba0ed55-e338-4d71-8245-603d78f98781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\guis\items">
+      <UniqueIdentifier>{474756a1-dfd0-4e92-87be-68107f908bc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
