@@ -146,7 +146,6 @@
     <ClCompile Include="GuiElementFactory.cpp" />
     <ClCompile Include="GuiItem.cpp" />
     <ClCompile Include="GuiItemBuilder.cpp" />
-    <ClCompile Include="GUIpast.cpp" />
     <ClCompile Include="GuiRenderer.cpp" />
     <ClCompile Include="GuiShader.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -159,6 +158,7 @@
     <ClCompile Include="MobSpawner.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -188,12 +188,9 @@
     <ClInclude Include="GuiElementFactory.h" />
     <ClInclude Include="GuiItem.h" />
     <ClInclude Include="GuiItemBuilder.h" />
-    <ClInclude Include="GUIpast.h" />
     <ClInclude Include="GuiElement.h" />
     <ClInclude Include="GuiRenderer.h" />
     <ClInclude Include="GuiShader.h" />
-    <ClInclude Include="InventoryGUI.h" />
-    <ClInclude Include="ItemGUI.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
@@ -203,8 +200,8 @@
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Moveable.h" />
-    <ClInclude Include="Moveable2D.h" />
     <ClInclude Include="OpenChestAction.h" />
+    <ClInclude Include="Picture.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />

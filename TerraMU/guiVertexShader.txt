@@ -17,5 +17,4 @@ void main(void) {
 	newTextureCoords = texture * newTextureCoords;
 	pass_textureCoords = vec2(newTextureCoords.xy);
 
-
 }

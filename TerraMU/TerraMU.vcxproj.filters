@@ -88,6 +88,42 @@
     <ClCompile Include="MobSpawner.cpp">
       <Filter>Исходные файлы\entities\creatures</Filter>
     </ClCompile>
+    <ClCompile Include="GuiRenderer.cpp">
+      <Filter>Исходные файлы\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItem.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Slot.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="SlotArray.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="TextField.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiElementFactory.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItemBuilder.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiShader.cpp">
+      <Filter>Исходные файлы\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Picture.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -145,12 +181,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Файлы заголовков\entities\map</Filter>
     </ClInclude>
-    <ClInclude Include="InventoryGUI.h">
-      <Filter>Файлы заголовков\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemGUI.h">
-      <Filter>Файлы заголовков\gui</Filter>
-    </ClInclude>
     <ClInclude Include="MasterRenderer.h">
       <Filter>Файлы заголовков\renderEngine</Filter>
     </ClInclude>
@@ -186,6 +216,45 @@
     </ClInclude>
     <ClInclude Include="MobSpawner.h">
       <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItem.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Slot.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="SlotArray.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="TextField.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItemBuilder.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElementFactory.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElement.h">
+      <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRenderer.h">
+      <Filter>Файлы заголовков\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiShader.h">
+      <Filter>Файлы заголовков\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenChestAction.h">
+      <Filter>Файлы заголовков\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Picture.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,12 +361,6 @@
     <Filter Include="Файлы заголовков\controllers\moving">
       <UniqueIdentifier>{272893fc-c25b-4be3-9a10-4bfa1793284b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\gui">
-      <UniqueIdentifier>{b16168ee-0b6a-4bc1-ab48-f81df08cbecf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\gui">
-      <UniqueIdentifier>{08fc0458-9634-49b7-8ad3-a042f035a475}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\entities">
       <UniqueIdentifier>{3e4b7603-0bbd-4935-a17b-b67db63d1c23}</UniqueIdentifier>
     </Filter>
@@ -321,6 +384,18 @@
     </Filter>
     <Filter Include="Файлы заголовков\entities\creatures">
       <UniqueIdentifier>{7611cde6-ab41-49d0-bcdb-a2981b287ecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\guis">
+      <UniqueIdentifier>{9300e283-bbea-45d0-b423-c895ae549dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\guis\items">
+      <UniqueIdentifier>{c871bc09-778d-45ad-98d0-ac2b39cc4db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\guis">
+      <UniqueIdentifier>{cb7ed4cb-0518-4112-bafe-7c1e6bace045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\guis\items">
+      <UniqueIdentifier>{b6a936a8-ced5-4a75-9d6d-210e785fa871}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double y
 	mousePosition = vec2(xPos, yPos);
 
 	GuiElement* cursor = gui->getCursor();
-	vec2 mousePosition = Converter::fromDisplayToOpenGL(mousePosition);
-	cursor->setPosition(mousePosition.x, mousePosition.y, 0.0f);
+	vec2 updatedMousePosition = Converter::fromDisplayToOpenGL(mousePosition);
+	cursor->setPosition(2 * mousePosition.x / Display::getWidth() - 1, 1 - 2 * mousePosition.y / Display::getHeight(), 0.0f);
 
 	gui->getInventory()->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 }
