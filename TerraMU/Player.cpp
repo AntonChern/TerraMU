@@ -18,10 +18,6 @@ void Player::hookUpdate() {
 	}
 }
 
-void Player::hookStartAnimation() {
-	avatar->getAnimation()->play();
-}
-
 void Player::hookStopAnimation() {
 	avatar->getAnimation()->stop();
 	avatar->getAnimation()->reset();

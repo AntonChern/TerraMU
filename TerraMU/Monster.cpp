@@ -7,12 +7,6 @@ bool Monster::seesPlayerIn(float radius) {
 	return length(distance) <= radius;
 }
 
-void Monster::hookStartAnimation() {
-	if (!isAnimated) {
-		avatar->getAnimation()->play();
-	}
-}
-
 void Monster::hookStopAnimation() {
 	if (!isAnimated) {
 		avatar->getAnimation()->stop();
@@ -34,7 +28,8 @@ void Monster::update(float deltaTime) {
 	delete state;
 	if (this->seesPlayerIn(visibilityRadius)) {
 		state = new Angry(this);
-	} else {
+	}
+	else {
 		state = new Pacific(this);
 	}
 
@@ -68,7 +63,13 @@ void Monster::Pacific::execute() {
 
 			vec2 result = Converter::fromOpenGLToMap(monsterPosition + vec2(randX, randY));
 
-			GameController::getMap()->interact(result.x, result.y);
+			if (!monster->isInMotion() && !monster->IsAnimated()) {
+				monster->getAvatar()->getAnimation()->play();
+			}
+
+			if (GameController::getMap()->getReachMap()[(int)result.x][(int)result.y]) {
+				monster->go(result.x, result.y);
+			}
 		}
 	}
 	monster->incTime();
@@ -83,6 +84,10 @@ void Monster::Angry::checkAttitudeToPlayer() {
 void Monster::Angry::execute() {
 	vec2 playerPosition = Converter::fromOpenGLToMap(vec2(GameController::getPlayer()->getAvatar()->getPosition().x,
 		GameController::getPlayer()->getAvatar()->getPosition().y - (float)GameController::getPlayer()->getAvatar()->getScale().y / 2));
+	if (!monster->isInMotion() && !monster->IsAnimated()) {
+		monster->getAvatar()->getAnimation()->play();
+	}
+
 	if (monster->getTarget() != playerPosition) {
 		monster->goToAttack();
 	}

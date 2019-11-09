@@ -1,4 +1,5 @@
 #include "MobSpawner.h"
+#include "GameController.h"
 
 void MobSpawner::update() {
 	if (mobs->size() < maxNumOfMobs) {

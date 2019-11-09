@@ -72,8 +72,7 @@ list<WayHandler::Point*> WayHandler::wayAStar = {};
 queue<vec2>* WayHandler::resultWay = nullptr;
 
 Map* GameController::map = nullptr;
-Creature* GameController::creature = nullptr;
-Creature* GameController::player = nullptr;
+Player* GameController::player = nullptr;
 Entity* GameController::cursor = nullptr;
 Camera* GameController::camera = nullptr;
 vec2 GameController::mousePosition = vec2(0.0f);
@@ -108,7 +107,6 @@ int main() {
 	Player* player = new Player(playerAvatar, 1.0f, destination);
 
 	GameController::setMap(map);
-	GameController::setCurrentCreature(player);
 	GameController::setPlayer(player);
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
@@ -116,21 +114,21 @@ int main() {
 	vec2 skeletonSpawnerLocation = Converter::fromMapToOpenGL(vec2(12.0f + 0.5f, 2.0f));
 	MobSpawner* skeletonSpawner = new MobSpawner("skeleton.png",
 		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
-		vec3(skeletonSpawnerLocation.x, skeletonSpawnerLocation.y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		vec3(skeletonSpawnerLocation.x, skeletonSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(skeletonSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
 		0.6f, false, (float)map->getScale().x / map->getColumns() * 4, 0.7f, 100,
 		500, 1);
 
 	vec2 goblinSpawnerLocation = Converter::fromMapToOpenGL(vec2(4.0f + 0.5f, 9.0f));
 	MobSpawner* goblinSpawner = new MobSpawner("goblin.png",
 		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
-		vec3(goblinSpawnerLocation.x, goblinSpawnerLocation.y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		vec3(goblinSpawnerLocation.x, goblinSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(goblinSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
 		0.75f, false, (float)map->getScale().x / map->getColumns() * 5, 0.7f, 100,
 		500, 1);
 
 	vec2 batSpawnerLocation = Converter::fromMapToOpenGL(vec2(7.0f + 0.5f, 8.0f));
 	MobSpawner* batSpawner = new MobSpawner("bat.png",
 		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
-		vec3(batSpawnerLocation.x, batSpawnerLocation.y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		vec3(batSpawnerLocation.x, batSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(batSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
 		0.6f, true, (float)map->getScale().x / map->getColumns() * 3, 0.7f, 100,
 		375, 1);
 
@@ -170,17 +168,15 @@ int main() {
 
 		float currentTime = glfwGetTime();
 
-		GameController::update(currentTime - lastTime);
+		player->update(currentTime - lastTime);
 
 		for (MobSpawner* spawner : spawners) {
 			spawner->update();
 			for (Monster* mob : *spawner->getMobs()) {
-				GameController::setCurrentCreature(mob);
-				GameController::update(currentTime - lastTime);
+				mob->update(currentTime - lastTime);
 			}
 		}
 
-		GameController::setCurrentCreature(player);
 		lastTime = currentTime;
 
 		glfwPollEvents();

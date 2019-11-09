@@ -12,7 +12,10 @@ void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double y
 
 void GameController::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		creature->nullWay();
+		if (!player->isInMotion()) {
+			player->getAvatar()->getAnimation()->play();
+		}
+		player->nullWay();
 
 		lastMouseClick = Converter::fromDisplayToMap(mousePosition);
 		map->interact(lastMouseClick.x, lastMouseClick.y);
@@ -30,9 +33,5 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 }
 
 void GameController::go(float coordX, float coordY) {
-	creature->go(coordX, coordY);
-}
-
-void GameController::update(float deltaTime) {
-	creature->update(deltaTime);
+	player->go(coordX, coordY);
 }

@@ -1,9 +1,6 @@
 #pragma once
 #include "Entity.h"
-//#include "Map.h"
-//#include "Camera.h"
 #include "Converter.h"
-#include "GameController.h"
 #include <queue>
 
 class Creature {
@@ -16,6 +13,7 @@ protected:
 public:
 	Creature(Entity* avatar, float speed) : avatar(avatar), speed(speed) {};
 
+	virtual bool isInMotion() { return this->way && !this->way->empty(); };
 	virtual void hookGo(float coordX, float coordY);
 	virtual void hookChangeCamera(vec3 step);
 	virtual void hookUpdate();
@@ -23,7 +21,6 @@ public:
 	virtual void update(float deltaTime);
 	virtual Entity* getAvatar() { return avatar; };
 	virtual void nullWay();
-	virtual void hookStartAnimation();
 	virtual void hookStopAnimation();
 };
 

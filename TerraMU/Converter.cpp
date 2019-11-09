@@ -1,4 +1,6 @@
 #include "Converter.h"
+#include "GameController.h"
+#include "Display.h"
 #include <iostream>
 
 vec2 Converter::fromOpenGLToMap(vec2 vector) {

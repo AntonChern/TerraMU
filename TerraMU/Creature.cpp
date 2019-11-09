@@ -1,3 +1,4 @@
+#include "GameController.h"
 #include "Creature.h"
 
 void Creature::hookGo(float coordX, float coordY) {
@@ -12,16 +13,11 @@ void Creature::hookChangeCamera(vec3 step) {
 	return;
 }
 
-void Creature::hookStartAnimation() {
-	return;
-}
-
 void Creature::hookStopAnimation() {
 	return;
 }
 
 void Creature::go(float coordX, float coordY) {
-	hookStartAnimation();
 	initialPosition = vec3(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2, 0);
 
 	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2));
@@ -52,7 +48,6 @@ void Creature::update(float deltaTime) {
 			this->update((float)length(step - rest) / speed);
 			step = rest;
 		}
-
 
 		int index = Converter::fromOpenGLToMap(vec2(avatar->getPosition().y)).y;
 		avatar->increasePosition(step.x, step.y, 0);

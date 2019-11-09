@@ -1,7 +1,8 @@
 #pragma once
+#include "GameController.h"
 #include "Creature.h"
 
-class Monster: public Creature {
+class Monster : public Creature {
 protected:
 	class State {
 	protected:
@@ -13,7 +14,7 @@ protected:
 		virtual void checkAttitudeToPlayer();
 	};
 
-	class Angry: public State {
+	class Angry : public State {
 	public:
 		Angry(Monster* monster) : State(monster) {};
 
@@ -21,7 +22,7 @@ protected:
 		void checkAttitudeToPlayer();
 	};
 
-	class Pacific: public State {
+	class Pacific : public State {
 	public:
 		Pacific(Monster* monster) : State(monster) {};
 
@@ -47,6 +48,7 @@ public:
 	void hookStartAnimation();
 	void hookStopAnimation();
 
+	bool IsAnimated() { return this->isAnimated; };
 	vec2 getTarget() { return this->target; };
 	float getVisibilityRadius() { return this->visibilityRadius; };
 	float getMovingProbability() { return this->movingProbability; };
