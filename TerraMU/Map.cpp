@@ -35,6 +35,27 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 		}
 	}
 	fin.close();
+
+	reachMap = new bool* [columns];
+	for (int i = 0; i < columns; i++) {
+		reachMap[i] = new bool[rows];
+	}
+
+	for (int i = 0; i < columns; i++) {
+		for (int j = 0; j < rows; j++) {
+			Tile currTile = hat[i][j];
+			if (currTile == EMPTY) {
+				currTile = base[i][j];
+			}
+			MapObject* currMapObject = getMapObject(currTile);
+			if (currMapObject == nullptr) {
+				reachMap[i][j] = false;
+			}
+			else {
+				reachMap[i][j] = currMapObject->getIsReachable();
+			}
+		}
+	}
 }
 
 void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide) {
@@ -136,21 +157,12 @@ void Map::interact(float x, float y) {
 	MapObject* mapObject = getMapObject(tile);
 
 	if ((float)x - (coordX + 0.5f) > 0) {
-		if (coordX + 1 < columns) {
-			Tile tile = getTile(coordX + 1, coordY);
-			MapObject* nextMapObject = getMapObject(tile);
-			if (nextMapObject != nullptr && !nextMapObject->getIsReachable()) {
-				x = coordX + 0.5f;
-			}
+		if (coordX + 1 < columns && !reachMap[coordX + 1][coordY]) {
+			x = coordX + 0.5f;
 		}
-	}
-	else {
-		if (coordX - 1 >= 0) {
-			Tile tile = getTile(coordX - 1, coordY);
-			MapObject* nextMapObject = getMapObject(tile);
-			if (nextMapObject != nullptr && !nextMapObject->getIsReachable()) {
-				x = coordX + 0.5f;
-			}
+	} else {
+		if (coordX - 1 >= 0 && !reachMap[coordX - 1][coordY]) {
+			x = coordX + 0.5f;
 		}
 	}
 
@@ -158,27 +170,5 @@ void Map::interact(float x, float y) {
 }
 
 bool** Map::getReachMap() {
-	if (!reachMap) {
-		reachMap = new bool* [columns];
-		for (int i = 0; i < columns; i++) {
-			reachMap[i] = new bool[rows];
-		}
-
-		for (int i = 0; i < columns; i++) {
-			for (int j = 0; j < rows; j++) {
-				Tile currTile = hat[i][j];
-				if (currTile == EMPTY) {
-					currTile = base[i][j];
-				}
-				MapObject* currMapObject = getMapObject(currTile);
-				if (currMapObject == nullptr) {
-					reachMap[i][j] = false;
-				} else {
-					reachMap[i][j] = currMapObject->getIsReachable();
-				}
-			}
-		}
-	}
-
 	return reachMap;
 }
