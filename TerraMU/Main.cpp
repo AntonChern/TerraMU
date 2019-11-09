@@ -20,6 +20,8 @@
 #include "Moveable.h"
 #include "AnimationPendulum.h"
 #include "Converter.h"
+#include "Player.h"
+#include "Monster.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -59,20 +61,24 @@ map<Tile, MapObject*> Map::mapObjects = {
 {TREE_SIZE_3, new MapObject(new Action(), false, true, "tree_size_3.png", 271, 288)}
 };
 
+int WayHandler::mapWidth = 0;
+int WayHandler::mapHeight = 0;;
+bool** WayHandler::wayMap = nullptr;
+WayHandler::Point*** WayHandler::map = nullptr;
+WayHandler::Point* WayHandler::end = nullptr;
+WayHandler::Point* WayHandler::start = nullptr;
+list<WayHandler::Point*> WayHandler::wayAStar = {};
+queue<vec2>* WayHandler::resultWay = nullptr;
+
 Map* Converter::map = nullptr;
 Camera* Converter::camera = nullptr;
 
 Map* GameController::map = nullptr;
-Entity* GameController::player = nullptr;
+Creature* GameController::creature = nullptr;
 Entity* GameController::cursor = nullptr;
 Camera* GameController::camera = nullptr;
 vec2 GameController::mousePosition = vec2(0.0f);
 vec2 GameController::lastMouseClick = vec2(0.0f);
-WayHandler* GameController::handler = new WayHandler();
-float GameController::speed = 1.0f;
-queue<vec2>* GameController::way = nullptr;
-vec3 GameController::initialPosition = vec3(0);
-Entity* GameController::destination = nullptr;
 
 int main() {
 	initializeGLFW();
@@ -90,16 +96,22 @@ int main() {
 	float x = 0.125f * (1 - size);
 	float y = 0.125f * (size - 1);
 
-	Entity *player = EntityFactory::createEntity("magicGladiator.png",
-		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
-		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
-
 	Entity* destination = EntityFactory::createEntity("destination.png",
 		new AnimationPendulum(INFINITY, 5, vec2(7.0f / 8.0f, 0.0f), vec2(1.0f / 8.0f, 1.0f), 1.0f / 8.0f),
 		vec3(0.0f, 0.0f, 0.0004f), 0.0f, 0.0f, 0.0f, 0.45f);
 
 	Camera* camera = new Camera();
 	camera->setPosition(x, y, 1.0f);
+
+	Entity *playerAvatar = EntityFactory::createEntity("magicGladiator.png",
+		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
+	Player* player = new Player(playerAvatar, 1.0f, destination);
+
+	Entity* skeletonAvatar = EntityFactory::createEntity("skeleton.png",
+		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
+	Monster* skeleton = new Monster(skeletonAvatar, 0.8f);
 	
 	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
@@ -111,28 +123,29 @@ int main() {
 	Converter::setCamera(camera);
 	
 	GameController::setMap(map);
-	GameController::setPlayer(player);
+	GameController::setCreature(player);
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
-	GameController::setDestination(destination);
 	float lastTime = glfwGetTime();
 
 	MasterRenderer* renderer = new MasterRenderer();
 	while (!display->isCloseRequested()) {
-		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getPosition().x, player->getPosition().y));
+		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
 		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
-		renderer->processEntity(player);
+		renderer->processEntity(player->getAvatar());
+		renderer->processEntity(skeleton->getAvatar());
 
-		Entity* destination = GameController::getDestination();
-		if (GameController::isInMotion()) {
+		Entity* destination = player->getDestination();
+		if (player->isInMotion()) {
 			renderer->processEntity(destination);
 		}
 
 		renderer->render(camera);
 
 		float currentTime = glfwGetTime();
-		GameController::update(currentTime - lastTime);
+		//GameController::update(currentTime - lastTime);
+		player->update(currentTime - lastTime);
 		lastTime = currentTime;
 
 		glfwPollEvents();
