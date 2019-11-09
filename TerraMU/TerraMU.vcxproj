@@ -148,6 +148,7 @@
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="MobSpawner.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="Maths.h" />
+    <ClInclude Include="MobSpawner.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Moveable.h" />

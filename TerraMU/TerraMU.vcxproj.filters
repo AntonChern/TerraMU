@@ -88,6 +88,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Исходные файлы\entities\creatures</Filter>
     </ClCompile>
+    <ClCompile Include="MobSpawner.cpp">
+      <Filter>Исходные файлы\entities\creatures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -188,6 +191,9 @@
       <Filter>Файлы заголовков\entities\creatures</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="MobSpawner.h">
       <Filter>Файлы заголовков\entities\creatures</Filter>
     </ClInclude>
   </ItemGroup>

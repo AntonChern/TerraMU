@@ -12,7 +12,7 @@ using namespace glm;
 
 class WayHandler {
 private:
-	static class Point {
+	class Point {
 	private:
 		int x;
 		int y;

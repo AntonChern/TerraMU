@@ -8,8 +8,20 @@ void Creature::hookUpdate() {
 	return;
 }
 
+void Creature::hookChangeCamera(vec3 step) {
+	return;
+}
+
+void Creature::hookStartAnimation() {
+	return;
+}
+
+void Creature::hookStopAnimation() {
+	return;
+}
+
 void Creature::go(float coordX, float coordY) {
-	avatar->getAnimation()->play();
+	hookStartAnimation();
 	initialPosition = vec3(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2, 0);
 
 	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2));
@@ -19,6 +31,8 @@ void Creature::go(float coordX, float coordY) {
 }
 
 void Creature::update(float deltaTime) {
+	hookUpdate();
+
 	if (way && !way->empty()) {
 		vec2 flatLocalWay = way->front();
 		if (flatLocalWay == vec2(0.0f, 0.0f)) {
@@ -43,7 +57,7 @@ void Creature::update(float deltaTime) {
 		int index = Converter::fromOpenGLToMap(vec2(avatar->getPosition().y)).y;
 		avatar->increasePosition(step.x, step.y, 0);
 		avatar->setPosition(avatar->getPosition().x, avatar->getPosition().y, index * 0.001f + 0.0015f);
-		GameController::getCamera()->increasePosition(step.x, step.y, 0);
+		hookChangeCamera(step);
 
 		if (step.y < -abs(step.x)) {
 			avatar->getAnimation()->setPosition(0.0f);
@@ -59,9 +73,7 @@ void Creature::update(float deltaTime) {
 		}
 	}
 	else {
-		hookUpdate();
-		avatar->getAnimation()->stop();
-		avatar->getAnimation()->reset();
+		hookStopAnimation();
 	}
 }
 

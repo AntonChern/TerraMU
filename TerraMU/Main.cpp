@@ -22,6 +22,7 @@
 #include "Converter.h"
 #include "Player.h"
 #include "Monster.h"
+#include "MobSpawner.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -75,6 +76,7 @@ Camera* Converter::camera = nullptr;
 
 Map* GameController::map = nullptr;
 Creature* GameController::creature = nullptr;
+Creature* GameController::player = nullptr;
 Entity* GameController::cursor = nullptr;
 Camera* GameController::camera = nullptr;
 vec2 GameController::mousePosition = vec2(0.0f);
@@ -108,10 +110,30 @@ int main() {
 		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 	Player* player = new Player(playerAvatar, 1.0f, destination);
 
-	Entity* skeletonAvatar = EntityFactory::createEntity("skeleton.png",
-		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
-		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
-	Monster* skeleton = new Monster(skeletonAvatar, 0.8f);
+	MobSpawner* skeletonSpawner = new MobSpawner("skeleton.png",
+		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		0.6f, false, (float)map->getScale().x / map->getColumns() * 4, 0.7f, 10,
+		1, 1);
+
+	MobSpawner* goblinSpawner = new MobSpawner("goblin.png",
+		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		0.75f, false, (float)map->getScale().x / map->getColumns() * 5, 0.7f, 10,
+		1, 1);
+
+	MobSpawner* batSpawner = new MobSpawner("bat.png",
+		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		0.8f, true, (float)map->getScale().x / map->getColumns() * 4.5f, 0.7f, 10,
+		1, 1);
+
+	list<MobSpawner*> spawners = {
+		skeletonSpawner,
+		goblinSpawner,
+		batSpawner
+	};
+
 	
 	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
@@ -123,7 +145,8 @@ int main() {
 	Converter::setCamera(camera);
 	
 	GameController::setMap(map);
-	GameController::setCreature(player);
+	GameController::setCurrentCreature(player);
+	GameController::setPlayer(player);
 	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
 	float lastTime = glfwGetTime();
@@ -134,18 +157,32 @@ int main() {
 		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
 		renderer->processEntity(player->getAvatar());
-		renderer->processEntity(skeleton->getAvatar());
 
-		Entity* destination = player->getDestination();
+		for (MobSpawner* spawner : spawners) {
+			for (Monster* mob : *spawner->getMobs()) {
+				renderer->processEntity(mob->getAvatar());
+			}
+		}
+
 		if (player->isInMotion()) {
-			renderer->processEntity(destination);
+			renderer->processEntity(player->getDestination());
 		}
 
 		renderer->render(camera);
 
 		float currentTime = glfwGetTime();
-		//GameController::update(currentTime - lastTime);
-		player->update(currentTime - lastTime);
+
+		GameController::update(currentTime - lastTime);
+
+		for (MobSpawner* spawner : spawners) {
+			spawner->update();
+			for (Monster* mob : *spawner->getMobs()) {
+				GameController::setCurrentCreature(mob);
+				GameController::update(currentTime - lastTime);
+			}
+		}
+
+		GameController::setCurrentCreature(player);
 		lastTime = currentTime;
 
 		glfwPollEvents();
