@@ -135,6 +135,7 @@
     <ClCompile Include="AnimationPendulum.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
@@ -147,7 +148,10 @@
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="MobSpawner.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
@@ -163,6 +167,7 @@
     <ClInclude Include="AnimationPendulum.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Converter.h" />
+    <ClInclude Include="Creature.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />
@@ -176,9 +181,12 @@
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="Maths.h" />
+    <ClInclude Include="MobSpawner.h" />
     <ClInclude Include="ModelTexture.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="OpenChestAction.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />

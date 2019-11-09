@@ -79,6 +79,18 @@
     <ClCompile Include="Converter.cpp">
       <Filter>Исходные файлы\converters</Filter>
     </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>Исходные файлы\entities\creatures</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Исходные файлы\entities\creatures</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы\entities\creatures</Filter>
+    </ClCompile>
+    <ClCompile Include="MobSpawner.cpp">
+      <Filter>Исходные файлы\entities\creatures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -171,6 +183,18 @@
     </ClInclude>
     <ClInclude Include="GameController.h">
       <Filter>Файлы заголовков\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
+    </ClInclude>
+    <ClInclude Include="MobSpawner.h">
+      <Filter>Файлы заголовков\entities\creatures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +315,12 @@
     </Filter>
     <Filter Include="Файлы заголовков\converters">
       <UniqueIdentifier>{2753d968-860f-480d-892b-70f097f2ea5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\entities\creatures">
+      <UniqueIdentifier>{c5df5656-2497-4412-9efe-07f08d643db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\creatures">
+      <UniqueIdentifier>{7611cde6-ab41-49d0-bcdb-a2981b287ecc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

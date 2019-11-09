@@ -20,6 +20,9 @@
 #include "Moveable.h"
 #include "AnimationPendulum.h"
 #include "Converter.h"
+#include "Player.h"
+#include "Monster.h"
+#include "MobSpawner.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -59,20 +62,21 @@ map<Tile, MapObject*> Map::mapObjects = {
 {TREE_SIZE_3, new MapObject(new Action(), false, true, "tree_size_3.png", 271, 288)}
 };
 
-Map* Converter::map = nullptr;
-Camera* Converter::camera = nullptr;
+int WayHandler::mapWidth = 0;
+int WayHandler::mapHeight = 0;;
+bool** WayHandler::wayMap = nullptr;
+WayHandler::Point*** WayHandler::map = nullptr;
+WayHandler::Point* WayHandler::end = nullptr;
+WayHandler::Point* WayHandler::start = nullptr;
+list<WayHandler::Point*> WayHandler::wayAStar = {};
+queue<vec2>* WayHandler::resultWay = nullptr;
 
 Map* GameController::map = nullptr;
-Entity* GameController::player = nullptr;
+Player* GameController::player = nullptr;
 Entity* GameController::cursor = nullptr;
 Camera* GameController::camera = nullptr;
 vec2 GameController::mousePosition = vec2(0.0f);
 vec2 GameController::lastMouseClick = vec2(0.0f);
-WayHandler* GameController::handler = new WayHandler();
-float GameController::speed = 1.0f;
-queue<vec2>* GameController::way = nullptr;
-vec3 GameController::initialPosition = vec3(0);
-Entity* GameController::destination = nullptr;
 
 int main() {
 	initializeGLFW();
@@ -90,16 +94,50 @@ int main() {
 	float x = 0.125f * (1 - size);
 	float y = 0.125f * (size - 1);
 
-	Entity *player = EntityFactory::createEntity("magicGladiator.png",
-		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
-		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
-
 	Entity* destination = EntityFactory::createEntity("destination.png",
 		new AnimationPendulum(INFINITY, 5, vec2(7.0f / 8.0f, 0.0f), vec2(1.0f / 8.0f, 1.0f), 1.0f / 8.0f),
 		vec3(0.0f, 0.0f, 0.0004f), 0.0f, 0.0f, 0.0f, 0.45f);
 
 	Camera* camera = new Camera();
 	camera->setPosition(x, y, 1.0f);
+
+	Entity *playerAvatar = EntityFactory::createEntity("magicGladiator.png",
+		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
+		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
+	Player* player = new Player(playerAvatar, 1.0f, destination);
+
+	GameController::setMap(map);
+	GameController::setPlayer(player);
+	GameController::setCursor(cursor);
+	GameController::setCamera(camera);
+	
+	vec2 skeletonSpawnerLocation = Converter::fromMapToOpenGL(vec2(12.0f + 0.5f, 2.0f));
+	MobSpawner* skeletonSpawner = new MobSpawner("skeleton.png",
+		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
+		vec3(skeletonSpawnerLocation.x, skeletonSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(skeletonSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		0.6f, false, (float)map->getScale().x / map->getColumns() * 4, 0.7f, 100,
+		500, 1);
+
+	vec2 goblinSpawnerLocation = Converter::fromMapToOpenGL(vec2(4.0f + 0.5f, 9.0f));
+	MobSpawner* goblinSpawner = new MobSpawner("goblin.png",
+		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
+		vec3(goblinSpawnerLocation.x, goblinSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(goblinSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		0.75f, false, (float)map->getScale().x / map->getColumns() * 5, 0.7f, 100,
+		500, 1);
+
+	vec2 batSpawnerLocation = Converter::fromMapToOpenGL(vec2(7.0f + 0.5f, 8.0f));
+	MobSpawner* batSpawner = new MobSpawner("bat.png",
+		INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
+		vec3(batSpawnerLocation.x, batSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(batSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
+		0.6f, true, (float)map->getScale().x / map->getColumns() * 3, 0.7f, 100,
+		375, 1);
+
+	list<MobSpawner*> spawners = {
+		skeletonSpawner,
+		goblinSpawner,
+		batSpawner
+	};
+
 	
 	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
@@ -107,32 +145,38 @@ int main() {
 	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);
 	glfwSetKeyCallback(display->getWindow(), GameController::keyCallback);
 
-	Converter::setMap(map);
-	Converter::setCamera(camera);
-	
-	GameController::setMap(map);
-	GameController::setPlayer(player);
-	GameController::setCursor(cursor);
-	GameController::setCamera(camera);
-	GameController::setDestination(destination);
 	float lastTime = glfwGetTime();
 
 	MasterRenderer* renderer = new MasterRenderer();
 	while (!display->isCloseRequested()) {
-		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getPosition().x, player->getPosition().y));
+		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
 		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
-		renderer->processEntity(player);
+		renderer->processEntity(player->getAvatar());
 
-		Entity* destination = GameController::getDestination();
-		if (GameController::isInMotion()) {
-			renderer->processEntity(destination);
+		for (MobSpawner* spawner : spawners) {
+			for (Monster* mob : *spawner->getMobs()) {
+				renderer->processEntity(mob->getAvatar());
+			}
+		}
+
+		if (player->isInMotion()) {
+			renderer->processEntity(player->getDestination());
 		}
 
 		renderer->render(camera);
 
 		float currentTime = glfwGetTime();
-		GameController::update(currentTime - lastTime);
+
+		player->update(currentTime - lastTime);
+
+		for (MobSpawner* spawner : spawners) {
+			spawner->update();
+			for (Monster* mob : *spawner->getMobs()) {
+				mob->update(currentTime - lastTime);
+			}
+		}
+
 		lastTime = currentTime;
 
 		glfwPollEvents();

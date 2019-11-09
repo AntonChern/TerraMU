@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
+#include <cmath>
 #include <iostream>
 using namespace std;
 using namespace glm;
@@ -12,47 +13,54 @@ using namespace glm;
 class WayHandler {
 private:
 	class Point {
-	public:
-		Point(int x, int y) { this->x = x; this->y = y; };
-
+	private:
 		int x;
 		int y;
 		float G;
 		float F;
 		Point* from;
+	public:
+		Point(int x, int y) { Point::x = x; Point::y = y; };
+
+		int getX() { return Point::x; };
+		int getY() { return Point::y; };
+		float getG() { return Point::G; };
+		float getF() { return Point::F; };
+		Point* getFrom() { return Point::from; };
+
+		void setX(int x) { Point::x = x; };
+		void setY(int y) { Point::y = y; };
+		void setG(float G) { Point::G = G; };
+		void setF(float F) { Point::F = F; };
+		void setFrom(Point* from) { Point::from = from; };
 	};
 
-	int mapWidth;
-	int mapHeight;
-	bool** wayMap;
-	bool** auxiliaryMap;
-	Point*** map;
-	Point* end;
-	Point* start;
-	list<Point*> closed;
-	list<Point*> open;
-	list<Point*> wayAStar;
-	queue<vec2>* resultWay;
+	static int mapWidth;
+	static int mapHeight;
+	static bool** wayMap;
+	static Point*** map;
+	static Point* end;
+	static Point* start;
+	static list<Point*> wayAStar;
+	static queue<vec2>* resultWay;
 
-	Point* getPoint(int x, int y);
-	Point* min_F(list<Point*> list);
-	bool contains(list<Point*> list, Point* select);
-	float H(Point* cell);
-	void initMap(int width, int height);
-	void deleteMap(int width, int height);
-	void paveRoute();
+	static Point* getPoint(int x, int y);
+	static Point* min_F(list<Point*> list);
+	static bool contains(list<Point*> list, Point* select);
+	static float H(Point* cell);
+	static void initMap(int width, int height);
+	static void deleteMap(int width, int height);
+	static void paveRoute();
 
-	void aStar(float startX, float startY, float finishX, float finishY);
-	void straightenWay(float startX, float startY, float endX, float endY);
-	bool existsWay(vec2 start, vec2 way);
-	void nullAll();
-	int sgn(float value);
+	static void aStar(float startX, float startY, float finishX, float finishY);
+	static void straightenWay(float startX, float startY, float endX, float endY);
+	static bool existsWay(vec2 start, vec2 way);
+	static void nullAll();
+	static int sgn(float value);
 public:
-	WayHandler() { open = {}; closed = {}; wayAStar = {}; };
+	WayHandler() {};
 	~WayHandler() { deleteMap(mapWidth, mapHeight); };
 
-	queue<vec2>* buildWay(float startX, float startY, float finishX, float finishY, bool** map, int mapWidth, int mapHeight);
-	void printMap();
-	void printResult();
+	static queue<vec2>* buildWay(float startX, float startY, float finishX, float finishY, bool** map, int mapWidth, int mapHeight);
 };
 
