@@ -1,9 +1,9 @@
 #include "MapObject.h"
 
 MapObject::~MapObject() {
-	/*if (action) {
+	if (action) {
 		delete action;
-	}*/
+	}
 }
 
 void MapObject::interact(float x, float y) {

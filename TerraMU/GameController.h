@@ -6,6 +6,7 @@ class Player;
 //#include "MapObject.h"
 #include "Entity.h"
 #include "WayHandler.h"
+#include "Gui.h"
 #include "Creature.h"
 #include "Player.h"
 #include <GL/glew.h>
@@ -18,13 +19,14 @@ class GameController {
 private:
 	static Map* map;
 
-	static Entity* cursor;
 	static Camera* camera;
+	static Gui* gui;
 
 	static vec2 mousePosition;
 	static vec2 lastMouseClick;
 
 	static Player* player;
+
 public:
 	static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
@@ -32,12 +34,11 @@ public:
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 	static void setMap(Map* map) { GameController::map = map; };
+	static void setGui(Gui* gui) { GameController::gui = gui; };
 	static void setPlayer(Player* player) { GameController::player = player; };
-	static void setCursor(Entity* cursor) { GameController::cursor = cursor; };
 	static void setCamera(Camera* camera) { GameController::camera = camera; };
 
 	static void go(float coordX, float coordY);
-	static void changeVisibility(int posX, int posY);
 
 	static Camera* getCamera() { return GameController::camera; };
 	static Map* getMap() { return GameController::map; };

@@ -19,6 +19,15 @@
 #include "WayHandler.h"
 #include "Moveable.h"
 #include "AnimationPendulum.h"
+#include "GuiElement.h"
+#include "GuiRenderer.h"
+#include "GuiElementFactory.h"
+#include "Gui.h"
+#include "SlotArray.h"
+#include "Label.h"
+#include "Frame.h"
+#include "TextField.h"
+#include "GuiItemBuilder.h"
 #include "Converter.h"
 #include "Player.h"
 #include "Monster.h"
@@ -31,35 +40,43 @@
 using namespace std;
 using namespace glm;
 
-vec2 mousePosition;
-
-static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos) {
-	float aspect = (float)Display::getWidth() / (float)Display::getHeight();
-	mousePosition = vec2(aspect * (2 * (float)xPos/Display::getWidth() - 1.0f), -2 * (float)yPos/Display::getHeight() + 1.0f);
-	//cout << mousePosition.x << " : " << mousePosition.y << endl;
-}
-
 void initializeGLFW();
 void initializeGLEW();
 
 map<string, TexturedModel*>* EntityFactory::models = new map<string, TexturedModel*>();
 list<Entity*>* EntityFactory::entities = new list<Entity*>();
 Loader* EntityFactory::loader = nullptr;
+list<RawModel*>* EntityFactory::rawModels = new list<RawModel*>();
+
+list<GuiElement*>* GuiElementFactory::guis = new list<GuiElement*>();
+Loader* GuiElementFactory::loader = nullptr;
 
 map<Tile, MapObject*> Map::mapObjects = {
-{GRASS_0, new MapObject(new GoAction(), true, true, "grass_0.png", 32, 32)},
-{GRASS_1, new MapObject(new GoAction(), true, true, "grass_1.png", 32, 32)},
-{GRASS_2, new MapObject(new GoAction(), true, true, "grass_2.png", 32, 32)},
-{STONE_0, new MapObject(new GoAction(), true, true, "stone_0.png", 32, 32)},
-{STONE_1, new MapObject(new GoAction(), true, true, "stone_1.png", 32, 32)},
-{STONE_2, new MapObject(new GoAction(), true, true, "stone_2.png", 32, 32)},
-{STONE_3, new MapObject(new GoAction(), true, true, "stone_3.png", 32, 32)},
-{STONE_4, new MapObject(new GoAction(), true, true, "stone_4.png", 32, 32)},
-{MONUMENT, new MapObject(new Action(), false, true, "monument.png", 32, 64)},
-{TREE_SIZE_0, new MapObject(new Action(), false, true, "tree_size_0.png", 64, 72)},
-{TREE_SIZE_1, new MapObject(new Action(), false, true, "tree_size_1.png", 96, 112)},
-{TREE_SIZE_2, new MapObject(new Action(), false, true, "tree_size_2.png", 170, 187)},
-{TREE_SIZE_3, new MapObject(new Action(), false, true, "tree_size_3.png", 271, 288)}
+{GRASS_0, new MapObject(new GoAction(), true, "grass_0.png", 32, 32)},
+{GRASS_1, new MapObject(new GoAction(), true, "grass_1.png", 32, 32)},
+{GRASS_2, new MapObject(new GoAction(), true, "grass_2.png", 32, 32)},
+{STONE_0, new MapObject(new GoAction(), true, "stone_0.png", 32, 32)},
+{STONE_1, new MapObject(new GoAction(), true, "stone_1.png", 32, 32)},
+{STONE_2, new MapObject(new GoAction(), true, "stone_2.png", 32, 32)},
+{STONE_3, new MapObject(new GoAction(), true, "stone_3.png", 32, 32)},
+{STONE_4, new MapObject(new GoAction(), true, "stone_4.png", 32, 32)},
+{MONUMENT, new MapObject(new Action(), false, "monument.png", 32, 64)},
+{TREE_SIZE_0, new MapObject(new Action(), false, "tree_size_0.png", 64, 72)},
+{TREE_SIZE_1, new MapObject(new Action(), false, "tree_size_1.png", 96, 112)},
+{TREE_SIZE_2, new MapObject(new Action(), false, "tree_size_2.png", 170, 187)},
+{TREE_SIZE_3, new MapObject(new Action(), false, "tree_size_3.png", 271, 288)},
+{HOUSE_0_MIDDLE_FRONT_WALL, new MapObject(new Action(), false, "house_0_middle_front_wall.png", 32, 96)},
+{HOUSE_0_LEFT_FRONT_WALL, new MapObject(new Action(), false, "house_0_left_front_wall.png", 93, 96)},
+{HOUSE_0_RIGHT_FRONT_WALL, new MapObject(new Action(), false, "house_0_right_front_wall.png", 93, 96)},
+{HOUSE_0_DOOR, new MapObject(new Action(), false, "house_0_door.png", 32, 96)},
+{HOUSE_0_WINDOW, new MapObject(new Action(), false, "house_0_window.png", 32, 96)},
+{HOUSE_0_LEFT_MIDDLE_WALL, new MapObject(new Action(), false, "house_0_left_middle_wall.png", 93, 96)},
+{HOUSE_0_RIGHT_MIDDLE_WALL, new MapObject(new Action(), false, "house_0_right_middle_wall.png", 93, 96)},
+{HOUSE_0_LEFT_BACK_WALL, new MapObject(new Action(), false, "house_0_left_back_wall.png", 92, 110)},
+{HOUSE_0_RIGHT_BACK_WALL, new MapObject(new Action(), false, "house_0_right_back_wall.png", 93, 110)},
+{HOUSE_0_MIDDLE_BACK_WALL, new MapObject(new Action(), false, "house_0_middle_back_wall.png", 32, 100)},
+{HOUSE_0_MIDDLE_WALL, new MapObject(new Action(), false, "house_0_middle_wall.png", 32, 96)},
+{HOUSE_0_FLOOR, new MapObject(new GoAction(), true, "house_0_floor.png", 32, 32)}
 };
 
 int WayHandler::mapWidth = 0;
@@ -73,10 +90,10 @@ queue<vec2>* WayHandler::resultWay = nullptr;
 
 Map* GameController::map = nullptr;
 Player* GameController::player = nullptr;
-Entity* GameController::cursor = nullptr;
 Camera* GameController::camera = nullptr;
-vec2 GameController::mousePosition = vec2(0.0f);
+vec2 GameController::mousePosition = vec2(-1.0f);
 vec2 GameController::lastMouseClick = vec2(0.0f);
+Gui* GameController::gui = nullptr;
 
 int main() {
 	initializeGLFW();
@@ -85,11 +102,10 @@ int main() {
 
 	Loader *loader = new Loader();
 	EntityFactory::setLoader(loader);
+	GuiElementFactory::setLoader(loader);
 
 	int size = 64;
 	Map* map = new Map("tarkan.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * size);
-
-	Entity* cursor = EntityFactory::createEntity("cursor.png", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.4f);
 
 	float x = 0.125f * (1 - size);
 	float y = 0.125f * (size - 1);
@@ -101,14 +117,13 @@ int main() {
 	Camera* camera = new Camera();
 	camera->setPosition(x, y, 1.0f);
 
-	Entity *playerAvatar = EntityFactory::createEntity("magicGladiator.png",
+	Entity *playerAvatar = EntityFactory::createEntity("darkWizard.png",
 		new AnimationPendulum(INFINITY, 6, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
 		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
 	Player* player = new Player(playerAvatar, 1.0f, destination);
 
 	GameController::setMap(map);
 	GameController::setPlayer(player);
-	GameController::setCursor(cursor);
 	GameController::setCamera(camera);
 	
 	vec2 skeletonSpawnerLocation = Converter::fromMapToOpenGL(vec2(12.0f + 0.5f, 2.0f));
@@ -137,20 +152,24 @@ int main() {
 		goblinSpawner,
 		batSpawner
 	};
-
 	
-	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
 	glfwSetMouseButtonCallback(display->getWindow(), GameController::mouseButtonCallback);
 	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);
 	glfwSetKeyCallback(display->getWindow(), GameController::keyCallback);
 
-	float lastTime = glfwGetTime();
+	Gui* gui = new Gui();
+	GameController::setGui(gui);
 
+	float lastTime = glfwGetTime();
 	MasterRenderer* renderer = new MasterRenderer();
+	GuiRenderer* guiRenderer = new GuiRenderer();
 	while (!display->isCloseRequested()) {
-		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
-		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
+    vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
+		list<Entity*> mapObjects = map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19);
+
+		renderer->processEntities(mapObjects);
 
 		renderer->processEntity(player->getAvatar());
 
@@ -165,6 +184,7 @@ int main() {
 		}
 
 		renderer->render(camera);
+		guiRenderer->render(gui->getGuiElements());
 
 		float currentTime = glfwGetTime();
 
@@ -181,16 +201,23 @@ int main() {
 
 		glfwPollEvents();
 		display->update();
+
+		EntityFactory::cleanEntities(mapObjects);
 	}
 
 	renderer->cleanUp();
+	guiRenderer->cleanUp();
 	loader->cleanUp();
+	delete guiRenderer;
 	delete renderer;
 	delete loader;
 
 	EntityFactory::cleanUp();
+	GuiElementFactory::cleanUp();
 
 	delete camera;
+
+	delete gui;
 
 	delete display;
 

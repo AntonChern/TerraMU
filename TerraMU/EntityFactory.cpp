@@ -67,4 +67,41 @@ void EntityFactory::cleanUp() {
 		delete entity;
 	}
 	delete entities;
+
+	for (RawModel* model : *rawModels) {
+		delete model;
+	}
+	delete rawModels;
+}
+
+RawModel* EntityFactory::createRawModel() {
+	float positions[] = {
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+	};
+
+	int indices[] = {
+		2, 1, 0,
+		3, 2, 0,
+	};
+
+	float textureCoords[] = {
+		0.0f, 0.0f,
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f,
+	};
+
+	RawModel* rawModel = loader->loadToVao(positions, 12, indices, 6, textureCoords, 8);
+	rawModels->push_back(rawModel);
+	return rawModel;
+}
+
+void EntityFactory::cleanEntities(list<Entity*> entities) {
+	for (Entity* entity : entities) {
+		EntityFactory::entities->remove(entity);
+		delete entity;
+	}
 }

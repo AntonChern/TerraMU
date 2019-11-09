@@ -15,7 +15,7 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 	for (int i = 0; i < columns; i++) {
 		base[i] = new Tile[rows];
 	}
-	hat = new Tile * [columns];
+	hat = new Tile*[columns];
 	for (int i = 0; i < columns; i++) {
 		hat[i] = new Tile[rows];
 	}
@@ -83,7 +83,7 @@ void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, floa
 
 			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,
 				position.y + scale.y * ((-2 * (j + 1) + (float)currMapObject->getHeight() / cellHeight) / rows + 1) / 2,
-				offset * (j + 1));
+				offset * (j + 1) + offset * i / (2 * columns));
 
 			vec3 currScale = vec3(this->scale.x * currMapObject->getWidth() / (columns * cellWidth),
 				this->scale.y * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
@@ -91,9 +91,7 @@ void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, floa
 			Entity* currEntity = EntityFactory::createEntity(currMapObject->getTexturePath(),
 				currPosition, this->rotationX, this->rotationY, this->rotationZ, currScale);
 
-			if (currMapObject->getIsVisible()) {
-				entities.push_back(currEntity);
-			}
+			entities.push_back(currEntity);
 		}
 	}
 }

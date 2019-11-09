@@ -10,8 +10,7 @@ private:
 
 public:
 	Entity(TexturedModel* model, Animation* animation, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-		Moveable(position, rotationX, rotationY, rotationZ, scale), model(model),
-		animation(animation) {};
+		Moveable(position, rotationX, rotationY, rotationZ, scale), model(model), animation(animation) {};
 
 	~Entity();
 

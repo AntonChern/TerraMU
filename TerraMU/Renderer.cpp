@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "Maths.h"
 #include "Display.h"
+#include "Camera.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -51,7 +52,6 @@ void Renderer::render(list<Entity*> entities) {
 }
 
 void Renderer::createProjectionMatrix() {
-	float aspect = (float)Display::getWidth() / (float)Display::getHeight();
-	projection = ortho(-1.0f * aspect, 1.0f * aspect, -1.0f, 1.0f, 0.0f, 100.0f);
+	projection = ortho(-Camera::getWidth() / 2, Camera::getWidth() / 2, -Camera::getHeight() / 2, Camera::getHeight() / 2, 0.0f, 100.0f);
 	//projection = perspective(45.0f, (float)Display::getWidth() / Display::getHeight(), 0.1f, 100.0f);
 }
