@@ -21,7 +21,7 @@ private:
 	float scale;
 
 	int spawnPeriod;
-	int time = 0;
+	int time;
 	list<Monster*>* mobs;
 	int maxNumOfMobs;
 	bool isAnimated;
@@ -35,7 +35,7 @@ public:
 		numberOfTimes(numberOfTimes), animationPeriod(animationPeriod), animationPosition(animationPosition), animationScale(animationScale), offset(offset),
 		position(position), rotationX(rotationX), rotationY(rotationY), rotationZ(rotationZ), scale(scale),
 		speed(speed), isAnimated(isAnimated), visibilityRadius(visibilityRadius), movingProbability(movingProbability), movingPeriod(movingPeriod),
-		spawnPeriod(spawnPeriod), maxNumOfMobs(maxNumOfMobs) { mobs = new list<Monster*>; };
+		spawnPeriod(spawnPeriod), maxNumOfMobs(maxNumOfMobs) { mobs = new list<Monster*>; time = spawnPeriod; };
 	
 	list<Monster*>* getMobs() { return this->mobs; };
 	void update();

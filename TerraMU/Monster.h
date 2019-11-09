@@ -34,12 +34,12 @@ protected:
 	float visibilityRadius;
 	float movingProbability;
 	int movingPeriod;
-	int time = 0;
+	int time;
 	bool isAnimated;
 public:
 	Monster(Entity* avatar, float speed, bool isAnimated, float visibilityRadius, float movingProbability, int movingPeriod) :
 		Creature(avatar, speed), isAnimated(isAnimated), visibilityRadius(visibilityRadius), movingProbability(movingProbability), movingPeriod(movingPeriod)
-	{ this->state = new Pacific(this); if (isAnimated) { avatar->getAnimation()->play(); } };
+	{ this->state = new Pacific(this); if (isAnimated) { avatar->getAnimation()->play(); } time = movingPeriod; };
 
 	void goToAttack();
 	void update(float deltaTime);
