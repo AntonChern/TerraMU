@@ -6,15 +6,8 @@
 #include "Display.h"
 using namespace glm;
 
-class Converter
-{
-private:
-	static Map* map;
-	static Camera* camera;
+class Converter {
 public:
-	static void setMap(Map* map) { Converter::map = map; };
-	static void setCamera(Camera* camera) { Converter::camera = camera; };
-
 	static vec2 fromOpenGLToMap(vec2 vector);
 	static vec2 fromMapToOpenGL(vec2 vector);
 

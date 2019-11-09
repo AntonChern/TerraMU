@@ -2,7 +2,7 @@
 
 void MobSpawner::update() {
 	if (mobs->size() < maxNumOfMobs) {
-		if (time == spawnPeriod * 20) {
+		if (time == spawnPeriod) {
 			time = 0;
 
 			Entity* avatar = EntityFactory::createEntity(texturePath,

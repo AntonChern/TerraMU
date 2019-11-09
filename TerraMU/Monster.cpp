@@ -55,7 +55,7 @@ void Monster::Pacific::checkAttitudeToPlayer() {
 }
 
 void Monster::Pacific::execute() {
-	if (monster->getTime() == monster->getMovingPeriod() * 10) {
+	if (monster->getTime() == monster->getMovingPeriod()) {
 		monster->nullTime();
 		float randValue = ((float)rand() / (RAND_MAX));
 		if (randValue <= monster->getMovingProbability()) {
