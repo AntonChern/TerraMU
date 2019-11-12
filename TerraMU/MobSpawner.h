@@ -10,7 +10,7 @@ private:
 	int movingPeriod;
 	char const* texturePath;
 	float numberOfTimes;
-	int animationPeriod;
+	float animationPeriod;
 	vec2 animationPosition;
 	vec2 animationScale;
 	float offset;
@@ -27,7 +27,7 @@ private:
 	bool isAnimated;
 public:
 	MobSpawner(char const texturePath[],
-		float numberOfTimes, int animationPeriod, vec2 animationPosition, vec2 animationScale, float offset,
+		float numberOfTimes, float animationPeriod, vec2 animationPosition, vec2 animationScale, float offset,
 		vec3 position, float rotationX, float rotationY, float rotationZ, float scale,
 		float speed, bool isAnimated, float visibilityRadius, float movingProbability, int movingPeriod,
 		int spawnPeriod, int maxNumOfMobs) :

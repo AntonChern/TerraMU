@@ -55,19 +55,20 @@ void Monster::Pacific::execute() {
 		float randValue = ((float)rand() / (RAND_MAX));
 		if (randValue <= monster->getMovingProbability()) {
 
-			float randX = ((float)rand() / (RAND_MAX)-0.5f) * monster->getVisibilityRadius();
-			float randY = ((float)rand() / (RAND_MAX)-0.5f) * monster->getVisibilityRadius();
+			float randX = ((float)rand() / (RAND_MAX) - 0.5f) * monster->getVisibilityRadius();
+			float randY = ((float)rand() / (RAND_MAX) - 0.5f) * monster->getVisibilityRadius();
 
 			vec3 expandedMonsterPosition = monster->getAvatar()->getPosition();
 			vec2 monsterPosition = vec2(expandedMonsterPosition.x, expandedMonsterPosition.y - (float)monster->getAvatar()->getScale().y / 2);
 
 			vec2 result = Converter::fromOpenGLToMap(monsterPosition + vec2(randX, randY));
 
-			if (!monster->isInMotion() && !monster->IsAnimated()) {
-				monster->getAvatar()->getAnimation()->play();
-			}
+			if ((result.x >= 0 && result.x < GameController::getMap()->getColumns()) && (result.y >= 0 && result.y < GameController::getMap()->getRows()) &&
+				GameController::getMap()->getReachMap()[(int)result.x][(int)result.y]) {
 
-			if (GameController::getMap()->getReachMap()[(int)result.x][(int)result.y]) {
+				if (!monster->isInMotion() && !monster->IsAnimated()) {
+					monster->getAvatar()->getAnimation()->play();
+				}
 				monster->go(result.x, result.y);
 			}
 		}
