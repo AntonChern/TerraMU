@@ -1,17 +1,21 @@
 #include "AnimationDirect.h"
 
 mat3 AnimationDirect::next() {
-	mat3 textureMatrix(1.0f);
-	if (time <= period * numberOfTimes / length(scale)) {
-		if (time % period == 0) {
+	float deltaTime = glfwGetTime() - initialTime;
+	initialTime += deltaTime;
+	if (numberOfTimes > 0) {
+		if (time >= period) {
+			time = 0.0f;
 			currPosition.x += currOffset;
+			if (currPosition.x >= 1.0f) {
+				numberOfTimes -= 1.0f;
+				currPosition.x -= 1.0f;
+			}
 		}
-		time++;
+		time += deltaTime;
 	}
 	else {
 		stop();
 	}
-	textureMatrix = translate(textureMatrix, currPosition);
-	textureMatrix = glm::scale(textureMatrix, scale);
-	return textureMatrix;
+	return Maths::createTextureMatrix(currPosition, scale);
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -7,9 +8,10 @@ using namespace glm;
 
 class Animation {
 protected:
+	float initialTime;
 	float numberOfTimes;
-	int period;
-	int time = 0;
+	float period;
+	float time = 0.0f;
 	float initialOffset;
 	float currOffset;
 	vec2 initialPosition;
@@ -17,9 +19,9 @@ protected:
 	vec2 scale;
 
 public:
-	Animation(float numberOfTimes, int period, vec2 position, vec2 scale, float offset) :
+	Animation(float numberOfTimes, float period, vec2 position, vec2 scale, float offset) :
 		numberOfTimes(numberOfTimes), period(period), initialOffset(offset),
-		initialPosition(position), scale(scale), currPosition(position), currOffset(0.0f) {};
+		initialPosition(position), scale(scale), currPosition(position), currOffset(0.0f), initialTime(glfwGetTime()) {};
 
 	virtual mat3 next() = 0;
 
