@@ -136,6 +136,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
@@ -179,6 +180,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Creature.h" />
+    <ClInclude Include="Cursor.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />

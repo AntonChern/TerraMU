@@ -51,6 +51,14 @@ void Renderer::render(list<Entity*> entities) {
 	}
 }
 
+void Renderer::render(map<float, list<Entity*>> entities) {
+	for (std::map<float, list<Entity*>>::reverse_iterator it = entities.rbegin(); it != entities.rend(); it++) {
+		glDisable(GL_DEPTH_TEST);
+		render(it->second);
+		glEnable(GL_DEPTH_TEST);
+	}
+}
+
 void Renderer::createProjectionMatrix() {
 	projection = ortho(-Camera::getWidth() / 2, Camera::getWidth() / 2, -Camera::getHeight() / 2, Camera::getHeight() / 2, 0.0f, 100.0f);
 	//projection = perspective(45.0f, (float)Display::getWidth() / Display::getHeight(), 0.1f, 100.0f);

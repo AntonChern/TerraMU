@@ -19,6 +19,7 @@ public:
 	SlotArray(int columns, int rows, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
 		SlotArray(columns, rows, position, rotationX, rotationY, rotationZ, vec3(scale)) {};
 
-	list<GuiElement*> getIcons() override;
+	//list<GuiElement*> getIcons() override;
+	//void prepareForGettingIcons() override;
 
 };

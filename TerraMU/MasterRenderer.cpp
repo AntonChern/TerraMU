@@ -1,7 +1,7 @@
 #include <map>
 #include "MasterRenderer.h"
 
-list<Entity*> MasterRenderer::sortEntities(vec3 cameraPosition) {
+map<float, list<Entity*>> MasterRenderer::getEntitiesByDistance(vec3 cameraPosition) {
 	map<float, list<Entity*>> entitiesByDistance;
 	for (Entity* entity : entities) {
 
@@ -15,14 +15,18 @@ list<Entity*> MasterRenderer::sortEntities(vec3 cameraPosition) {
 		entitiesByDistance[distance] = list;
 	}
 
-	list<Entity*> sortedEntities;
+	return entitiesByDistance;
+}
+
+void MasterRenderer::sortEntities(vec3 cameraPosition) {
+	map<float, list<Entity*>> entitiesByDistance = getEntitiesByDistance(cameraPosition);
+
+	entities.clear();
 	for (std::map<float, list<Entity*>>::reverse_iterator it = entitiesByDistance.rbegin(); it != entitiesByDistance.rend(); it++) {
 		for (Entity* entity : it->second) {
-			sortedEntities.push_back(entity);
+			entities.push_back(entity);
 		}
 	}
-
-	return sortedEntities;
 }
 
 void MasterRenderer::processEntity(Entity* entity) {
@@ -36,11 +40,11 @@ void MasterRenderer::processEntities(list<Entity*> entities) {
 }
 
 void MasterRenderer::render(Camera* camera) {
-	entities = sortEntities(camera->getPosition());
+	sortEntities(camera->getPosition());
 	renderer->prepare();
 	shader->start();
 	shader->loadViewMatrix(camera);
-	renderer->render(entities);
+	renderer->render(getEntitiesByDistance(camera->getPosition()));
 	shader->stop();
 	entities.clear();
 }

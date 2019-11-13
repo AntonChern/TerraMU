@@ -7,21 +7,23 @@
 #include "GuiItem.h"
 #include "Display.h"
 #include "GuiItemBuilder.h"
+#include "Cursor.h"
 using namespace std;
 
-class Gui : public Moveable {
+class Gui {
 private:
 	GuiItem* bars;
 	GuiItem* inventory;
-	//GuiItem* chest;
+	GuiItem* chest;
 	GuiItem* points;
 
-	GuiElement* cursor;
+	Cursor* cursor;
 
 	//void changeVisibility(list<GuiElement*> guis);
 
 public:
-	Gui();
+	Gui(GLFWwindow* window);
+	~Gui();
 
 	list<GuiElement*> getGuiElements();
 
@@ -35,7 +37,7 @@ public:
 	GuiItem* getPoints() { return points; };
 	GuiItem* getBars() { return bars; };
 
-	GuiElement* getCursor() { return cursor; };
+	Cursor* getCursor() { return cursor; };
 
 	void interact(float x, float y);
 

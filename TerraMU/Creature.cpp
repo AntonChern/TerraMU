@@ -49,7 +49,7 @@ void Creature::update(float deltaTime) {
 			step = rest;
 		}
 
-		int index = Converter::fromOpenGLToMap(vec2(avatar->getPosition().y)).y;
+		float index = Converter::fromOpenGLToMap(vec2(avatar->getPosition().y)).y;
 		avatar->increasePosition(step.x, step.y, 0);
 		avatar->setPosition(avatar->getPosition().x, avatar->getPosition().y, index * 0.001f + 0.0015f);
 		hookChangeCamera(step);

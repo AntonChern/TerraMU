@@ -9,9 +9,9 @@ class EntityFactory {
 private:
 	static Loader* loader;
 
-	static list<Entity*>* entities;
-	static map<string, TexturedModel*>* models;
-	static list<RawModel*>* rawModels;
+	static list<Entity*> entities;
+	static map<string, TexturedModel*> models;
+	static list<RawModel*> rawModels;
 
 	static TexturedModel* createTexturedModel(char const texturePath[]);
 
@@ -22,8 +22,8 @@ public:
 
 	static void cleanEntities(list<Entity*> entities);
 	static Entity* createEntity(char const texturePath[], vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale);
-
 	static Entity* createEntity(char const texturePath[], vec3 position, float rotationX, float rotationY, float rotationZ, float scale);
+
 	static Entity* createEntity(char const texturePath[], Animation* animation,
 		vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale);
 	static Entity* createEntity(char const texturePath[], Animation* animation,
