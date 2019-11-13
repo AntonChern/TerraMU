@@ -12,7 +12,8 @@ private:
 
 	list<Entity*> entities;
 
-	list<Entity*> sortEntities(vec3 cameraPosition);
+	void sortEntities(vec3 cameraPosition);
+	map<float, list<Entity*>> getEntitiesByDistance(vec3 cameraPosition);
 
 public:
 	MasterRenderer() : shader(new StreamShader()), renderer(new Renderer(shader)) {};

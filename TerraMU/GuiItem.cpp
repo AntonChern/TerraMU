@@ -1,5 +1,12 @@
 #include "GuiItem.h"
 
+GuiItem::~GuiItem() {
+	for (GuiItem* child : children) {
+		delete child;
+	}
+	GuiElementFactory::cleanGuis(icons);
+}
+
 void GuiItem::changeVisibility() {
 	isVisible = !isVisible;
 	for (GuiItem* child : children) {
@@ -21,6 +28,12 @@ void GuiItem::removeChildren(list<GuiItem*> children) {
 
 list<GuiElement*> GuiItem::getIcons() {
 	list<GuiElement*> icons;
+
+	prepareForGettingIcons();
+
+	for (GuiElement* icon : this->icons) {
+		icons.push_back(icon);
+	}
 
 	for (GuiItem* child : children) {
 		for (GuiElement* gui : child->getIcons()) {

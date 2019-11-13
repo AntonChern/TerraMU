@@ -58,7 +58,7 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 	}
 }
 
-void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide) {
+void Map::processLayer(Tile** layer, float offset, float posX, float posY, int horyzontalSide, int verticalSide) {
 	horyzontalSide += (horyzontalSide + 1) % 2;
 	verticalSide += (verticalSide + 1) % 2;
 
@@ -83,7 +83,7 @@ void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, floa
 
 			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,
 				position.y + scale.y * ((-2 * (j + 1) + (float)currMapObject->getHeight() / cellHeight) / rows + 1) / 2,
-				offset * (j + 1) + offset * i / (2 * columns));
+				offset * (j + 1));
 
 			vec3 currScale = vec3(this->scale.x * currMapObject->getWidth() / (columns * cellWidth),
 				this->scale.y * currMapObject->getHeight() / (rows * cellHeight), 1.0f);
@@ -97,9 +97,10 @@ void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, floa
 }
 
 list<Entity*> Map::getRectangleArea(float posX, float posY, int horyzontalSide, int verticalSide) {
-	list<Entity*> entities;
-	processLayer(base, 0.0f, entities, posX, posY, horyzontalSide, verticalSide);
-	processLayer(hat, 0.001f, entities, posX, posY, horyzontalSide, verticalSide);
+	EntityFactory::cleanEntities(entities);
+	entities.clear();
+	processLayer(base, 0.0f, posX, posY, horyzontalSide, verticalSide);
+	processLayer(hat, 0.001f, posX, posY, horyzontalSide, verticalSide);
 	return entities;
 }
 

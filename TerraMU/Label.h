@@ -16,7 +16,6 @@ using namespace std;
 class Label : public GuiItem {
 private:
 	string text;
-	list<GuiElement*> icons;
 
 public:
 	Label(string text, vec3 position, float rotationX, float rotationY, float rotationZ, float scaleY);
@@ -25,6 +24,7 @@ public:
 	void setText(char const text[]) { this->text = text; };
 	string getText() { return text; };
 
-	list<GuiElement*> getIcons() override;
+	//list<GuiElement*> getIcons() override;
+	//void prepareForGettingIcons() override;
 
 };

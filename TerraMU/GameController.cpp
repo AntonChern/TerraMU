@@ -9,9 +9,9 @@ void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double y
 
 	mousePosition = vec2(xPos, yPos);
 
-	GuiElement* cursor = gui->getCursor();
+	/*GuiElement* cursor = gui->getCursor();
 	vec2 updatedMousePosition = Converter::fromDisplayToOpenGL(mousePosition);
-	cursor->setPosition(2 * mousePosition.x / Display::getWidth() - 1, 1 - 2 * mousePosition.y / Display::getHeight(), 0.0f);
+	cursor->setPosition(2 * mousePosition.x / Display::getWidth() - 1, 1 - 2 * mousePosition.y / Display::getHeight(), 0.0f);*/
 
 	gui->getInventory()->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 }
@@ -47,6 +47,14 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 		}
 		camera->increasePosition(cameraOffset);
 		inventory->changeVisibility();
+	}
+	
+	if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+		//Moveable* inv = 
+		gui->getInventory()->increasePosition(-0.01f, 0.0f, 0.0f);
+	}
+	if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+		gui->getInventory()->increasePosition(0.01f, 0.0f, 0.0f);
 	}
 }
 

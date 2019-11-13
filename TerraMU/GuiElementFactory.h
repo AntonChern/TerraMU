@@ -6,7 +6,7 @@ class GuiElementFactory {
 private:
 	static Loader* loader;
 
-	static list<GuiElement*>* guis;
+	static list<GuiElement*> guis;
 
 public:
 	static void setLoader(Loader* loader) { GuiElementFactory::loader = loader; };
