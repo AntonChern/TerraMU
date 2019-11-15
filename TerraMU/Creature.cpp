@@ -9,7 +9,7 @@ void Creature::hookUpdate() {
 	return;
 }
 
-void Creature::hookChangeCamera(vec3 step) {
+void Creature::hookChangeCamera(vec2 step) {
 	return;
 }
 
@@ -18,10 +18,12 @@ void Creature::hookStopAnimation() {
 }
 
 void Creature::go(float coordX, float coordY) {
-	initialPosition = vec3(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2, 0);
+	initialPosition = vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2);
 
-	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2));
-	way = WayHandler::buildWay(origin.x, origin.y, coordX, coordY, GameController::getMap()->getReachMap(), GameController::getMap()->getColumns(), GameController::getMap()->getRows());
+	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2));
+
+	nullWay();
+	way = WayHandler::buildWay((float)visibilityRadius / (float)GameController::getMap()->getScale().x * GameController::getMap()->getColumns(), origin, vec2(coordX, coordY));
 
 	hookGo(coordX, coordY);
 }
@@ -30,20 +32,19 @@ void Creature::update(float deltaTime) {
 	hookUpdate();
 
 	if (way && !way->empty()) {
-		vec2 flatLocalWay = way->front();
-		if (flatLocalWay == vec2(0.0f, 0.0f)) {
-			way->pop();
+		vec2 localWay = way->front();
+		if (localWay == vec2(0.0f, 0.0f)) {
+			way->pop_front();
 			return;
 		}
-		flatLocalWay = vec2(flatLocalWay.x * GameController::getMap()->getScale().x / GameController::getMap()->getColumns(), -flatLocalWay.y * GameController::getMap()->getScale().y / GameController::getMap()->getRows());
-		vec3 localWay = vec3(flatLocalWay.x, flatLocalWay.y, 0);
-		vec4 expandedStep = scale(mat4(1.0f), vec3(speed * deltaTime, speed * deltaTime, 1.0f)) * normalize(vec4(localWay.x, localWay.y, localWay.z, 0));
-		vec3 step = vec3(expandedStep.x, expandedStep.y, expandedStep.z);
+		localWay = vec2(localWay.x * GameController::getMap()->getScale().x / GameController::getMap()->getColumns(), -localWay.y * GameController::getMap()->getScale().y / GameController::getMap()->getRows());
+		vec4 expandedStep = scale(mat4(1.0f), vec3(speed * deltaTime, speed * deltaTime, 1.0f)) * normalize(vec4(localWay.x, localWay.y, 0.0f, 0.0f));
+		vec2 step = vec2(expandedStep.x, expandedStep.y);
 
-		vec3 rest = (initialPosition + localWay) - vec3(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2, 0);
+		vec2 rest = (initialPosition + localWay) - vec2(avatar->getPosition().x, avatar->getPosition().y - avatar->getScale().y / 2);
 
 		if (length(step) > length(rest)) {
-			way->pop();
+			way->pop_front();
 			initialPosition += localWay;
 			this->update((float)length(step - rest) / speed);
 			step = rest;
@@ -66,10 +67,11 @@ void Creature::update(float deltaTime) {
 		if (step.y > abs(step.x)) {
 			avatar->getAnimation()->setPosition(0.75f);
 		}
-	}
-	else {
+	} else {
 		hookStopAnimation();
 	}
+
+	GameController::getMap()->updateMobMap();
 }
 
 void Creature::nullWay() {

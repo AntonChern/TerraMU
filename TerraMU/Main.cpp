@@ -79,14 +79,13 @@ map<Tile, MapObject*> Map::mapObjects = {
 {HOUSE_0_FLOOR, new MapObject(new GoAction(), true, "house_0_floor.png", 32, 32)}
 };
 
-int WayHandler::mapWidth = 0;
-int WayHandler::mapHeight = 0;;
+float WayHandler::radius = 0.0f;
 bool** WayHandler::wayMap = nullptr;
 WayHandler::Point*** WayHandler::map = nullptr;
 WayHandler::Point* WayHandler::end = nullptr;
 WayHandler::Point* WayHandler::start = nullptr;
 list<WayHandler::Point*> WayHandler::wayAStar = {};
-queue<vec2>* WayHandler::resultWay = nullptr;
+list<vec2>* WayHandler::resultWay = nullptr;
 
 Map* GameController::map = nullptr;
 Player* GameController::player = nullptr;
@@ -120,7 +119,7 @@ int main() {
 	Entity *playerAvatar = EntityFactory::createEntity("darkWizard.png",
 		new AnimationPendulum(INFINITY, 6 * 0.015f, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f),
 		vec3(x, y, 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f);
-	Player* player = new Player(playerAvatar, 1.0f, destination);
+	Player* player = new Player(playerAvatar, 1.0f, /*(float)map->getScale().x / map->getColumns() * 3*/ INFINITY, destination);
 
 	GameController::setMap(map);
 	GameController::setPlayer(player);
@@ -130,28 +129,27 @@ int main() {
 	MobSpawner* skeletonSpawner = new MobSpawner("skeleton.png",
 		INFINITY, 6 * 0.015f, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
 		vec3(skeletonSpawnerLocation.x, skeletonSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(skeletonSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
-		0.6f, false, (float)map->getScale().x / map->getColumns() * 4, 0.7f, 100,
+		0.6f, false, (float)map->getScale().x / (float)map->getColumns() * 3, 0.7f, 100,
 		500, 1);
 
-	vec2 goblinSpawnerLocation = Converter::fromMapToOpenGL(vec2(4.0f + 0.5f, 9.0f));
+	vec2 goblinSpawnerLocation = Converter::fromMapToOpenGL(vec2(4.0f + 0.5f, 0.0f));
 	MobSpawner* goblinSpawner = new MobSpawner("goblin.png",
 		INFINITY, 6 * 0.015f, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
 		vec3(goblinSpawnerLocation.x, goblinSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(goblinSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
 		0.75f, false, (float)map->getScale().x / map->getColumns() * 5, 0.7f, 100,
-		500, 1);
+		100, 3);
 
 	vec2 batSpawnerLocation = Converter::fromMapToOpenGL(vec2(7.0f + 0.5f, 8.0f));
 	MobSpawner* batSpawner = new MobSpawner("bat.png",
 		INFINITY, 6 * 0.015f, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
 		vec3(batSpawnerLocation.x, batSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(batSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
 		0.6f, true, (float)map->getScale().x / map->getColumns() * 3, 0.7f, 100,
-		375, 1);
+		375, 3);
 
-	list<MobSpawner*> spawners = {
-		skeletonSpawner,
-		goblinSpawner,
-		batSpawner
-	};
+
+	//map->addMobSpawner(skeletonSpawner);
+	map->addMobSpawner(goblinSpawner);
+	//map->addMobSpawner(batSpawner);
 	
 	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
@@ -165,6 +163,7 @@ int main() {
 	float lastTime = glfwGetTime();
 	MasterRenderer* renderer = new MasterRenderer();
 	GuiRenderer* guiRenderer = new GuiRenderer();
+
 	while (!display->isCloseRequested()) {
     vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
 		list<Entity*> mapObjects = map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19);
@@ -173,7 +172,7 @@ int main() {
 
 		renderer->processEntity(player->getAvatar());
 
-		for (MobSpawner* spawner : spawners) {
+		for (MobSpawner* spawner : *map->getSpawners()) {
 			for (Monster* mob : *spawner->getMobs()) {
 				renderer->processEntity(mob->getAvatar());
 			}
@@ -190,12 +189,13 @@ int main() {
 
 		player->update(currentTime - lastTime);
 
-		for (MobSpawner* spawner : spawners) {
+		for (MobSpawner* spawner : *map->getSpawners()) {
 			spawner->update();
 			for (Monster* mob : *spawner->getMobs()) {
 				mob->update(currentTime - lastTime);
 			}
 		}
+		map->nullMobMap();
 
 		lastTime = currentTime;
 

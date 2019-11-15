@@ -1,6 +1,6 @@
 #pragma once
+class Monster;
 #include "Monster.h"
-#include "AnimationPendulum.h"
 
 class MobSpawner {
 private:

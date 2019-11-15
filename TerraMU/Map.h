@@ -1,12 +1,14 @@
 #pragma once
 #include "Renderer.h"
 class MapObject;
+class MobSpawner;
 #include "MapObject.h"
 #include "TexturedModel.h"
 #include "EntityFactory.h"
 #include "Tile.h"
 #include "Loader.h"
 #include "Moveable.h"
+#include "MobSpawner.h"
 #include <list>
 #include <map>
 #include <iostream>
@@ -24,6 +26,7 @@ private:
 	Tile** hat;
 
 	bool** reachMap = nullptr;
+	bool** mobMap = nullptr;
 
 	static map<Tile, MapObject*> mapObjects;
 
@@ -34,6 +37,8 @@ private:
 	MapObject* getMapObject(Tile tile);
 
 	Tile getTile(int x, int y);
+
+	list<MobSpawner*>* spawners;
 
 public:
 	Map(int columns, int rows, Tile** base, Tile** hat, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
@@ -55,6 +60,11 @@ public:
 
 	void interact(float x, float y);
 
-	bool** getReachMap();
-
+	bool** getReachMap() { return reachMap; };
+	bool** getMobMap() { return mobMap; };
+	void markMob(Entity* mobAvatar);
+	void nullMobMap();
+	void addMobSpawner(MobSpawner* spawner) { spawners->push_front(spawner); };
+	void updateMobMap();
+	list<MobSpawner*>* getSpawners() { return spawners; };
 };

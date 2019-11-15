@@ -70,9 +70,6 @@
     <ClCompile Include="AnimationDirect.cpp">
       <Filter>Исходные файлы\animations</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
     <ClCompile Include="Converter.cpp">
       <Filter>Исходные файлы\converters</Filter>
     </ClCompile>
@@ -109,9 +106,6 @@
     <ClCompile Include="TextField.cpp">
       <Filter>Исходные файлы\guis\items</Filter>
     </ClCompile>
-    <ClCompile Include="Gui.cpp">
-      <Filter>Исходные файлы\guis</Filter>
-    </ClCompile>
     <ClCompile Include="GuiElementFactory.cpp">
       <Filter>Исходные файлы\guis</Filter>
     </ClCompile>
@@ -123,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="Picture.cpp">
       <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Исходные файлы\guis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,9 +199,6 @@
     <ClInclude Include="Converter.h">
       <Filter>Файлы заголовков\converters</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClInclude>
     <ClInclude Include="GameController.h">
       <Filter>Файлы заголовков\controllers</Filter>
     </ClInclude>
@@ -238,9 +235,6 @@
     <ClInclude Include="GuiElementFactory.h">
       <Filter>Файлы заголовков\guis</Filter>
     </ClInclude>
-    <ClInclude Include="Gui.h">
-      <Filter>Файлы заголовков\guis</Filter>
-    </ClInclude>
     <ClInclude Include="GuiElement.h">
       <Filter>Файлы заголовков\guis</Filter>
     </ClInclude>
@@ -255,6 +249,12 @@
     </ClInclude>
     <ClInclude Include="Picture.h">
       <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Файлы заголовков\guis</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

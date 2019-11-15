@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Tile.h"
+#include "Converter.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -56,6 +57,16 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 			}
 		}
 	}
+
+	mobMap = new bool* [columns];
+	for (int i = 0; i < columns; i++) {
+		mobMap[i] = new bool[rows];
+		for (int j = 0; j < rows; j++) {
+			mobMap[i][j] = true;
+		}
+	}
+
+	spawners = new list<MobSpawner*>();
 }
 
 void Map::processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide) {
@@ -124,6 +135,8 @@ Map::~Map() {
 		}
 		delete[] hat;
 	}
+
+	delete spawners;
 }
 
 MapObject* Map::getMapObject(Tile tile) {
@@ -169,6 +182,26 @@ void Map::interact(float x, float y) {
 	mapObject->interact(x, y);
 }
 
-bool** Map::getReachMap() {
-	return reachMap;
+void Map::markMob(Entity* mobAvatar) {
+	vec3 openGLPosition = mobAvatar->getPosition();
+	openGLPosition.y -= (float)mobAvatar->getScale().y / 2;
+	vec2 position = Converter::fromOpenGLToMap(vec2(openGLPosition.x, openGLPosition.y));
+	mobMap[(int)position.x][(int)position.y] = false;
+}
+
+void Map::nullMobMap() {
+	for (int i = 0; i < columns; i++) {
+		for (int j = 0; j < rows; j++) {
+			mobMap[i][j] = true;
+		}
+	}
+}
+
+void Map::updateMobMap() {
+	nullMobMap();
+	for (MobSpawner* spawner : *spawners) {
+		for (Monster* mob : *spawner->getMobs()) {
+			markMob(mob->getAvatar());
+		}
+	}
 }
