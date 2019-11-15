@@ -18,7 +18,7 @@ private:
 public:
 	Camera() : position(vec3(0.0f, 0.0f, 0.0f)), roll(0.0f), yaw(0.0f), pitch(0.0f) {};
 
-	static constexpr float getWidth() { return 2.0f * (float)Display::getWidth() / (float)Display::getHeight(); };
+	static constexpr float getWidth() { return 2.0f* (float)Display::getWidth() / (float)Display::getHeight(); };
 	static constexpr float getHeight() { return 2.0f; };
 
 	vec3 getPosition() { return position; };

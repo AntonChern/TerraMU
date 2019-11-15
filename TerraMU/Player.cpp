@@ -8,7 +8,7 @@ void Player::hookGo(float coordX, float coordY) {
 	destination->setPosition(whither.x, whither.y, destination->getPosition().z);
 }
 
-void Player::hookChangeCamera(vec3 step) {
+void Player::hookChangeCamera(vec2 step) {
 	GameController::getCamera()->increasePosition(step.x, step.y, 0);
 }
 

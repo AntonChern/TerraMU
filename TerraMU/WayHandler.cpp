@@ -1,4 +1,5 @@
 #include "WayHandler.h"
+#include "GameController.h"
 
 void WayHandler::paveRoute() {
 	Point* current = end;
@@ -15,7 +16,7 @@ void WayHandler::paveRoute() {
 }
 
 void WayHandler::nullAll() {
-	deleteMap(mapWidth, mapHeight);
+	deleteMap();
 
 	wayAStar.clear();
 
@@ -23,35 +24,150 @@ void WayHandler::nullAll() {
 	end = nullptr;
 }
 
-queue<vec2>* WayHandler::buildWay(float startX, float startY, float endX, float endY, bool** map, int mapWidth, int mapHeight) {
-	resultWay = new queue<vec2>();
-	
-	initMap(mapWidth, mapHeight);
-	wayMap = map;
-	WayHandler::mapWidth = mapWidth;
-	WayHandler::mapHeight = mapHeight;
+bool WayHandler::isInRadius(Point* cell) {
+	return H(cell, start) <= radius;
+}
 
-	aStar(startX, startY, endX, endY);
-	paveRoute();
-	if (!wayAStar.empty()) {
-		straightenWay(startX, startY, endX, endY);
+void WayHandler::nullOddCells() {
+	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
+		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
+			Point* cell = getPoint(i, j);
+			if (cell && !isInRadius(cell)) {
+				wayMap[i][j] = false;
+			}
+		}
 	}
-	nullAll();
+}
 
+void WayHandler::initAll(float visibilityRadius, vec2 origin, vec2 whither) {
+	WayHandler::radius = visibilityRadius;
+
+	initMap();
+	wayMap[(int)origin.x][(int)origin.y] = GameController::getMap()->getReachMap()[(int)origin.x][(int)origin.y];
+
+	start = WayHandler::map[(int)origin.x][(int)origin.y];
+	end = WayHandler::map[(int)whither.x][(int)whither.y];
+
+	nullOddCells();
+}
+
+bool WayHandler::existsPath(float visibilityRadius, vec2 origin, vec2 whither) {
+	initAll(visibilityRadius, origin, whither);
+
+	start->setG(0);
+	start->setF(WayHandler::start->getG() + H(WayHandler::start, end));
+
+	list<Point*> open = { start };
+	list<Point*> closed = {};
+
+	while (!open.empty()) {
+		Point* current = min_F(open);
+		if (current == end) {
+			nullAll();
+			return true;
+		}
+		open.remove(current);
+		closed.push_back(current);
+
+		list<Point*> neighbours = { getPoint(current->getX() + 1, current->getY()),
+									getPoint(current->getX() - 1, current->getY()),
+									getPoint(current->getX(), current->getY() + 1),
+									getPoint(current->getX(), current->getY() - 1) };
+		for (Point* neighbour : neighbours) {
+			if (neighbour && !contains(closed, neighbour)) {
+				float temp_G = current->getG() + 1;
+				if (!contains(open, neighbour) || temp_G < neighbour->getG()) {
+					neighbour->setG(temp_G);
+					neighbour->setF(neighbour->getG() + H(neighbour, end));
+				}
+				if (!contains(open, neighbour)) {
+					open.push_back(neighbour);
+				}
+			}
+		}
+	}
+
+	nullAll();
+	return false;
+}
+
+vec2 WayHandler::getOptimalEnd(float visibilityRadius, vec2 origin, vec2 whither) {
+	initAll(visibilityRadius, origin, whither);
+
+	list<Point*> closed = {};
+	list<Point*> open = { start };
+
+	Point* result = start;
+	float resultH = H(result, end);
+
+	while (!open.empty()) {
+		Point* current = open.front();
+		open.remove(current);
+		closed.push_back(current);
+
+		list<Point*> neighbours = { getPoint(current->getX() + 1, current->getY()),
+									getPoint(current->getX() - 1, current->getY()),
+									getPoint(current->getX(), current->getY() + 1),
+									getPoint(current->getX(), current->getY() - 1) };
+		for (Point* neighbour : neighbours) {
+			if (neighbour && !contains(closed, neighbour)) {
+				open.push_back(neighbour);
+				if (H(neighbour, end) < resultH) {
+					resultH = H(neighbour, end);
+					result = neighbour;
+				}
+			}
+		}
+	}
+
+	vec2 coordResult = vec2(result->getX() + 0.5f, result->getY() + 0.5f);
+	nullAll();
+	return coordResult;
+}
+
+bool WayHandler::isWalkable(list<vec2>* path, vec2 origin, vec2 initial) {
+	if (!path) {
+		return false;
+	}
+	initMap();
+
+	list<vec2>::iterator iterator = path->begin();
+	vec2 localWay = *iterator - origin + initial;
+	vec2 start = origin;
+	while (iterator != path->end()) {
+		if (!existsWay(start, localWay)) {
+			nullAll();
+			return false;
+		}
+		start += localWay;
+		localWay = *++iterator;
+	}
+	bool result = existsWay(start, localWay);
+	nullAll();
+	return result;
+}
+
+list<vec2>* WayHandler::buildWay(float visibilityRadius, vec2 origin, vec2 whither) {
+	resultWay = new list<vec2>();
+	initAll(visibilityRadius, origin, whither);
+
+	aStar();
+	paveRoute();
+
+	if (!wayAStar.empty()) {
+		straightenWay(origin, whither);
+	}
+
+	nullAll();
 	return resultWay;
 }
 
-void WayHandler::aStar(float startX, float startY, float endX, float endY) {
-	end = getPoint((int)endX, (int)endY);
-
-	start = getPoint((int)startX, (int)startY);
+void WayHandler::aStar() {
 	start->setG(0);
-	start->setF(start->getG() + H(start));
+	start->setF(start->getG() + H(start, end));
 
-	list<Point*> open = {};
+	list<Point*> open = { start };
 	list<Point*> closed = {};
-
-	open.push_back(start);
 
 	while (!open.empty()) {
 		Point* current = min_F(open);
@@ -66,12 +182,12 @@ void WayHandler::aStar(float startX, float startY, float endX, float endY) {
 								    getPoint(current->getX(), current->getY() + 1),
 								    getPoint(current->getX(), current->getY() - 1) };
 		for (Point* neighbour : neighbours) {
-			if (neighbour != nullptr && !contains(closed, neighbour)) {
+			if (neighbour && !contains(closed, neighbour)) {
 				float temp_G = current->getG() + 1;
 				if (!contains(open, neighbour) || temp_G < neighbour->getG()) {
 					neighbour->setFrom(current);
 					neighbour->setG(temp_G);
-					neighbour->setF(neighbour->getG() + H(neighbour));
+					neighbour->setF(neighbour->getG() + H(neighbour, end));
 				}
 				if (!contains(open, neighbour)) {
 					open.push_back(neighbour);
@@ -91,7 +207,7 @@ bool WayHandler::contains(list<Point*> list, Point* select) {
 }
 
 WayHandler::Point* WayHandler::getPoint(int x, int y) {
-	if ((x >= 0 && x < mapWidth) && (y >= 0 && y < mapHeight) && wayMap[x][y]) {
+	if ((x >= 0 && x < GameController::getMap()->getColumns()) && (y >= 0 && y < GameController::getMap()->getRows()) && wayMap[x][y]) {
 		return map[x][y];
 	}
 	return nullptr;
@@ -109,44 +225,59 @@ WayHandler::Point* WayHandler::min_F(list<Point*> list) {
 	return result;
 }
 
-float WayHandler::H(Point* cell) {
-	float widthSquare = (cell->getX() - end->getX()) * (cell->getX() - end->getX());
-	float heightSquare = (cell->getY() - end->getY()) * (cell->getY() - end->getY());
+float WayHandler::H(Point* origin, Point* whither) {
+	float widthSquare = (origin->getX() - whither->getX()) * (origin->getX() - whither->getX());
+	float heightSquare = (origin->getY() - whither->getY()) * (origin->getY() - whither->getY());
 	return std::sqrt(widthSquare + heightSquare);
 }
 
-void WayHandler::initMap(int width, int height) {
-	map = new Point** [width] {nullptr};
-	for (int i = 0; i < width; i++) {
-		map[i] = new Point* [height] {nullptr};
-		for (int j = 0; j < height; j++) {
+void WayHandler::initMap() {
+	map = new Point** [GameController::getMap()->getColumns()] {};
+	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
+		map[i] = new Point* [GameController::getMap()->getRows()] {};
+		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
 			map[i][j] = new Point(i, j);
+		}
+	}
+
+	wayMap = new bool* [GameController::getMap()->getColumns()];
+	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
+		wayMap[i] = new bool[GameController::getMap()->getRows()];
+		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
+			wayMap[i][j] = GameController::getMap()->getReachMap()[i][j] && GameController::getMap()->getMobMap()[i][j];
 		}
 	}
 }
 
-void WayHandler::deleteMap(int width, int height) {
-	for(int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
+void WayHandler::deleteMap() {
+	for(int i = 0; i < GameController::getMap()->getColumns(); i++) {
+		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
 			delete map[i][j];
 		}
 		delete[] map[i];
 	}
 	delete[] map;
+
+	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
+		delete[] wayMap[i];
+	}
+	delete[] wayMap;
 }
 
-void WayHandler::straightenWay(float startX, float startY, float endX, float endY) {
-	vec2 start = vec2(startX, startY);
+void WayHandler::straightenWay(vec2 origin, vec2 whither) {
+	vec2 start = vec2(origin.x, origin.y);
 
 	list<Point*>::iterator iterator = wayAStar.begin();
 	Point* curCell = *iterator;
 
-	vec2 last = vec2(endX, endY);
+	vec2 last = vec2(whither.x, whither.y);
 	vec2 end = vec2(curCell->getX() + 0.5, curCell->getY() + 0.5);
 	vec2 localWay = end - start;
 
 	if (curCell == WayHandler::end) {
-		resultWay->push(last - start);
+		if (last - start != vec2(0.0f, 0.0f)) {
+			resultWay->push_back(last - start);
+		}
 		return;
 	}
 
@@ -169,7 +300,9 @@ void WayHandler::straightenWay(float startX, float startY, float endX, float end
 		vec2 result = existingWays.top();
 		start = end = start + result;
 		localWay = end - start;
-		resultWay->push(result);
+		if (result != vec2(0.0f, 0.0f)) {
+			resultWay->push_back(result);
+		}
 		iterator = bufferedIterator;
 	}
 }
@@ -183,7 +316,7 @@ bool WayHandler::existsWay(vec2 start, vec2 way) {
 		vec2 selectPoint = start + helper;
 		int xIndex = (int)selectPoint.x;
 		int yIndex = (int)selectPoint.y;
-		if (!wayMap[xIndex][yIndex] || (yIndex == selectPoint.y && (yIndex > 0 && yIndex <= mapHeight) && !wayMap[xIndex][yIndex - 1])) {
+		if (!wayMap[xIndex][yIndex] || (yIndex == selectPoint.y && (yIndex > 0 && yIndex <= GameController::getMap()->getRows()) && !wayMap[xIndex][yIndex - 1])) {
 			return false;
 		}
 		divisionX += step;
@@ -197,7 +330,7 @@ bool WayHandler::existsWay(vec2 start, vec2 way) {
 		vec2 selectPoint = start + helper;
 		int xIndex = (int)selectPoint.x;
 		int yIndex = (int)selectPoint.y + (sgn(way.x * way.y) - 1) / 2;
-		if (!wayMap[xIndex][yIndex] || (xIndex == selectPoint.x && (xIndex > 0 && xIndex <= mapWidth) && !wayMap[xIndex - 1][yIndex])) {
+		if (!wayMap[xIndex][yIndex] || (xIndex == selectPoint.x && (xIndex > 0 && xIndex <= GameController::getMap()->getColumns()) && !wayMap[xIndex - 1][yIndex])) {
 			return false;
 		}
 		divisionY += step;

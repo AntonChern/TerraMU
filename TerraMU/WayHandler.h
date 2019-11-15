@@ -35,32 +35,38 @@ private:
 		void setFrom(Point* from) { Point::from = from; };
 	};
 
-	static int mapWidth;
-	static int mapHeight;
+	static float radius;
 	static bool** wayMap;
 	static Point*** map;
 	static Point* end;
 	static Point* start;
 	static list<Point*> wayAStar;
-	static queue<vec2>* resultWay;
+	static list<vec2>* resultWay;
 
 	static Point* getPoint(int x, int y);
 	static Point* min_F(list<Point*> list);
 	static bool contains(list<Point*> list, Point* select);
-	static float H(Point* cell);
-	static void initMap(int width, int height);
-	static void deleteMap(int width, int height);
+	static float H(Point* origin, Point* whither);
+	static void initMap();
+	static void initAll(float visibilityRadius, vec2 origin, vec2 whither);
+	static void deleteMap();
 	static void paveRoute();
 
-	static void aStar(float startX, float startY, float finishX, float finishY);
-	static void straightenWay(float startX, float startY, float endX, float endY);
+	static void aStar();
+	static void straightenWay(vec2 origin, vec2 whither);
 	static bool existsWay(vec2 start, vec2 way);
 	static void nullAll();
 	static int sgn(float value);
+
+	static bool isInRadius(Point* cell);
+	static void nullOddCells();
 public:
 	WayHandler() {};
-	~WayHandler() { deleteMap(mapWidth, mapHeight); };
+	~WayHandler() { deleteMap(); };
 
-	static queue<vec2>* buildWay(float startX, float startY, float finishX, float finishY, bool** map, int mapWidth, int mapHeight);
+	static list<vec2>* buildWay(float visibilityRadius, vec2 origin, vec2 whither);
+	static bool existsPath(float visibilityRadius, vec2 origin, vec2 whither);
+	static vec2 getOptimalEnd(float visibilityRadius, vec2 origin, vec2 whither);
+	static bool isWalkable(list<vec2>* path, vec2 origin, vec2 initial);
 };
 
