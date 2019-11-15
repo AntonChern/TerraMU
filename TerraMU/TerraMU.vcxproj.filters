@@ -118,10 +118,7 @@
     <ClCompile Include="Picture.cpp">
       <Filter>Исходные файлы\guis\items</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Исходные файлы\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Gui.cpp">
+    <ClCompile Include="Cursor.cpp">
       <Filter>Исходные файлы\guis</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,11 +247,11 @@
     <ClInclude Include="Picture.h">
       <Filter>Файлы заголовков\guis\items</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Файлы заголовков\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Gui.h">
+    <ClInclude Include="Cursor.h">
       <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

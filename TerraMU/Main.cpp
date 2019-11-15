@@ -1,4 +1,5 @@
 #define GLEW_STATIC
+#define GLM_FORCE_RADIANS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
@@ -32,6 +33,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "MobSpawner.h"
+#include "Cursor.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -43,12 +45,12 @@ using namespace glm;
 void initializeGLFW();
 void initializeGLEW();
 
-map<string, TexturedModel*>* EntityFactory::models = new map<string, TexturedModel*>();
-list<Entity*>* EntityFactory::entities = new list<Entity*>();
+map<string, TexturedModel*> EntityFactory::models = {};
+list<Entity*> EntityFactory::entities = {};
 Loader* EntityFactory::loader = nullptr;
-list<RawModel*>* EntityFactory::rawModels = new list<RawModel*>();
+list<RawModel*> EntityFactory::rawModels = {};
 
-list<GuiElement*>* GuiElementFactory::guis = new list<GuiElement*>();
+list<GuiElement*> GuiElementFactory::guis = {};
 Loader* GuiElementFactory::loader = nullptr;
 
 map<Tile, MapObject*> Map::mapObjects = {
@@ -146,18 +148,33 @@ int main() {
 		0.6f, true, (float)map->getScale().x / map->getColumns() * 3, 0.7f, 100,
 		375, 3);
 
-
 	//map->addMobSpawner(skeletonSpawner);
 	map->addMobSpawner(goblinSpawner);
 	//map->addMobSpawner(batSpawner);
+
+	/*GLFWimage image;
+	int width;
+	int height;
+	unsigned char* pixels = SOIL_load_image("cursor.png", &width, &height, 0, SOIL_LOAD_RGBA);
+
 	
-	glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	image.height = width;
+	image.width = width;
+	image.pixels = pixels;
+
+	GLFWcursor* mouse = glfwCreateCursor(&image, 0, 0);
+	glfwSetCursor(display->getWindow(), mouse);
+
+	SOIL_free_image_data(pixels);*/
+
+
+	//glfwSetInputMode(display->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetCursorPosCallback(display->getWindow(), GameController::cursorPosCallback);
 	glfwSetMouseButtonCallback(display->getWindow(), GameController::mouseButtonCallback);
 	glfwSetCursorEnterCallback(display->getWindow(), GameController::cursorEnterCallback);
 	glfwSetKeyCallback(display->getWindow(), GameController::keyCallback);
 
-	Gui* gui = new Gui();
+	Gui* gui = new Gui(display->getWindow());
 	GameController::setGui(gui);
 
 	float lastTime = glfwGetTime();
@@ -165,12 +182,8 @@ int main() {
 	GuiRenderer* guiRenderer = new GuiRenderer();
 
 	while (!display->isCloseRequested()) {
-    vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
-		list<Entity*> mapObjects = map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19);
-
-		renderer->processEntities(mapObjects);
-
-		renderer->processEntity(player->getAvatar());
+		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
+		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
 		for (MobSpawner* spawner : *map->getSpawners()) {
 			for (Monster* mob : *spawner->getMobs()) {
@@ -181,6 +194,8 @@ int main() {
 		if (player->isInMotion()) {
 			renderer->processEntity(player->getDestination());
 		}
+
+		renderer->processEntity(player->getAvatar());
 
 		renderer->render(camera);
 		guiRenderer->render(gui->getGuiElements());
@@ -201,8 +216,6 @@ int main() {
 
 		glfwPollEvents();
 		display->update();
-
-		EntityFactory::cleanEntities(mapObjects);
 	}
 
 	renderer->cleanUp();
@@ -212,12 +225,12 @@ int main() {
 	delete renderer;
 	delete loader;
 
-	EntityFactory::cleanUp();
+	delete gui;
+
 	GuiElementFactory::cleanUp();
+	EntityFactory::cleanUp();
 
 	delete camera;
-
-	delete gui;
 
 	delete display;
 

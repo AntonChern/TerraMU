@@ -1,7 +1,7 @@
 #include "TextField.h"
 
 TextField::TextField(int length, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ, scale), length(length), icons({}) {
+	GuiItem(false, position, rotationX, rotationY, rotationZ, scale), length(length) {
 	for (int i = 0; i < length; i++) {
 		GuiElement* gui = GuiElementFactory::createGuiElement("text_field.png",
 			vec3(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z),
@@ -26,25 +26,37 @@ TextField::TextField(int length, vec3 position, float rotationX, float rotationY
 	}
 }
 
-list<GuiElement*> TextField::getIcons() {
-	list<GuiElement*> guis;
-	/*int i = 0;
-	for (GuiElement* icon : icons) {
-		icon->setPosition(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z);
-		icon->setRotationX(rotationX);
-		icon->setRotationY(rotationY);
-		icon->setRotationZ(rotationZ);
-		icon->setScale(vec3(scale.x / length, scale.y, scale.z));
-		i++;
-	}*/
+//void TextField::prepareForGettingIcons() {
+//	int i = 0;
+//	for (GuiElement* icon : icons) {
+//		icon->setPosition(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z);
+//		icon->setRotationX(rotationX);
+//		icon->setRotationY(rotationY);
+//		icon->setRotationZ(rotationZ);
+//		icon->setScale(vec3(scale.x / length, scale.y, scale.z));
+//		i++;
+//	}
+//}
 
-	for (GuiElement* icon : icons) {
-		guis.push_back(icon);
-	}
-
-	for (GuiElement* icon : GuiItem::getIcons()) {
-		guis.push_back(icon);
-	}
-
-	return guis;
-}
+//list<GuiElement*> TextField::getIcons() {
+//	list<GuiElement*> guis;
+//	/*int i = 0;
+//	for (GuiElement* icon : icons) {
+//		icon->setPosition(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z);
+//		icon->setRotationX(rotationX);
+//		icon->setRotationY(rotationY);
+//		icon->setRotationZ(rotationZ);
+//		icon->setScale(vec3(scale.x / length, scale.y, scale.z));
+//		i++;
+//	}*/
+//
+//	for (GuiElement* icon : icons) {
+//		guis.push_back(icon);
+//	}
+//
+//	for (GuiElement* icon : GuiItem::getIcons()) {
+//		guis.push_back(icon);
+//	}
+//
+//	return guis;
+//}

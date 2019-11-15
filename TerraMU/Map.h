@@ -29,10 +29,11 @@ private:
 	bool** mobMap = nullptr;
 
 	static map<Tile, MapObject*> mapObjects;
+	list<Entity*> entities;
 
 	//add mob spawners and NPCs
 
-	void processLayer(Tile** layer, float offset, list<Entity*> &entities, float posX, float posY, int horyzontalSide, int verticalSide);
+	void processLayer(Tile** layer, float offset, float posX, float posY, int horyzontalSide, int verticalSide);
 
 	MapObject* getMapObject(Tile tile);
 
