@@ -127,12 +127,12 @@ int main() {
 	GameController::setPlayer(player);
 	GameController::setCamera(camera);
 	
-	vec2 skeletonSpawnerLocation = Converter::fromMapToOpenGL(vec2(12.0f + 0.5f, 2.0f));
+	vec2 skeletonSpawnerLocation = Converter::fromMapToOpenGL(vec2(4.0f + 0.5f, 5.0f));
 	MobSpawner* skeletonSpawner = new MobSpawner("skeleton.png",
 		INFINITY, 6 * 0.015f, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
 		vec3(skeletonSpawnerLocation.x, skeletonSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(skeletonSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
-		0.6f, false, (float)map->getScale().x / (float)map->getColumns() * 3, 0.7f, 100,
-		500, 1);
+		0.1f, false, (float)map->getScale().x / (float)map->getColumns() * 5, 0.7f, 100,
+		3, 5);
 
 	vec2 goblinSpawnerLocation = Converter::fromMapToOpenGL(vec2(4.0f + 0.5f, 0.0f));
 	MobSpawner* goblinSpawner = new MobSpawner("goblin.png",
@@ -145,11 +145,11 @@ int main() {
 	MobSpawner* batSpawner = new MobSpawner("bat.png",
 		INFINITY, 6 * 0.015f, vec2(1.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 0.25f), 1.0f / 3.0f,
 		vec3(batSpawnerLocation.x, batSpawnerLocation.y, Converter::fromOpenGLToMap(vec2(batSpawnerLocation.y)).y * 0.001f + 0.0015f), 0.0f, 0.0f, 0.0f, 0.25f,
-		0.6f, true, (float)map->getScale().x / map->getColumns() * 3, 0.7f, 100,
-		375, 3);
+		0.6f, true, (float)map->getScale().x / map->getColumns() * 5, 0.7f, 100,
+		375, 9);
 
-	//map->addMobSpawner(skeletonSpawner);
-	map->addMobSpawner(goblinSpawner);
+	map->addMobSpawner(skeletonSpawner);
+	//map->addMobSpawner(goblinSpawner);
 	//map->addMobSpawner(batSpawner);
 
 	/*GLFWimage image;

@@ -232,33 +232,37 @@ float WayHandler::H(Point* origin, Point* whither) {
 }
 
 void WayHandler::initMap() {
-	map = new Point** [GameController::getMap()->getColumns()] {};
-	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
-		map[i] = new Point* [GameController::getMap()->getRows()] {};
-		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
+	int columns = GameController::getMap()->getColumns();
+	int rows = GameController::getMap()->getRows();
+	map = new Point** [columns] {};
+	for (int i = 0; i < columns; i++) {
+		map[i] = new Point* [rows] {};
+		for (int j = 0; j < rows; j++) {
 			map[i][j] = new Point(i, j);
 		}
 	}
 
-	wayMap = new bool* [GameController::getMap()->getColumns()];
-	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
-		wayMap[i] = new bool[GameController::getMap()->getRows()];
-		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
-			wayMap[i][j] = GameController::getMap()->getReachMap()[i][j] && GameController::getMap()->getMobMap()[i][j];
+	wayMap = new bool*[columns];
+	for (int i = 0; i < columns; i++) {
+		wayMap[i] = new bool[rows];
+		for (int j = 0; j < rows; j++) {
+			wayMap[i][j] = (bool)(GameController::getMap()->getReachMap()[i][j] && GameController::getMap()->getMobMap()[i][j]);
 		}
 	}
 }
 
 void WayHandler::deleteMap() {
-	for(int i = 0; i < GameController::getMap()->getColumns(); i++) {
-		for (int j = 0; j < GameController::getMap()->getRows(); j++) {
+	int columns = GameController::getMap()->getColumns();
+	int rows = GameController::getMap()->getRows();
+	for(int i = 0; i < columns; i++) {
+		for (int j = 0; j < rows; j++) {
 			delete map[i][j];
 		}
 		delete[] map[i];
 	}
 	delete[] map;
 
-	for (int i = 0; i < GameController::getMap()->getColumns(); i++) {
+	for (int i = 0; i < columns; i++) {
 		delete[] wayMap[i];
 	}
 	delete[] wayMap;

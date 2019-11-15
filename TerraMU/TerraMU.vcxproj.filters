@@ -121,6 +121,12 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>Исходные файлы\guis</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Исходные файлы\guis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -252,6 +258,12 @@
     </ClInclude>
     <ClInclude Include="Frame.h">
       <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Файлы заголовков\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Файлы заголовков\guis</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

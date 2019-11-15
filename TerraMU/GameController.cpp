@@ -48,14 +48,6 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 		camera->increasePosition(cameraOffset);
 		inventory->changeVisibility();
 	}
-	
-	if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-		//Moveable* inv = 
-		gui->getInventory()->increasePosition(-0.01f, 0.0f, 0.0f);
-	}
-	if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-		gui->getInventory()->increasePosition(0.01f, 0.0f, 0.0f);
-	}
 }
 
 void GameController::go(float coordX, float coordY) {
