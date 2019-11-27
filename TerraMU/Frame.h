@@ -13,6 +13,8 @@ private:
 	int columns;
 	int rows;
 
+	void prepareForGettingIcons() override;
+
 public:
 	Frame(int columns, int rows, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale);
 
@@ -20,6 +22,5 @@ public:
 		Frame(columns, rows, position, rotationX, rotationY, rotationZ, vec3(scale)) {};
 
 	//list<GuiElement*> getIcons() override;
-	//void prepareForGettingIcons() override;
 
 };

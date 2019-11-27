@@ -6,13 +6,13 @@ Picture::Picture(const char filePath[], vec3 position, float rotationX, float ro
 	icons.push_back(icon);
 }
 
-//void Picture::prepareForGettingIcons() {
-//	icon->setPosition(position);
-//	icon->setRotationX(rotationX);
-//	icon->setRotationY(rotationY);
-//	icon->setRotationZ(rotationZ);
-//	icon->setScale(scale);
-//}
+void Picture::prepareForGettingIcons() {
+	icon->setPosition(position);
+	icon->setRotationX(rotationX);
+	icon->setRotationY(rotationY);
+	icon->setRotationZ(rotationZ);
+	icon->setScale(scale);
+}
 
 //list<GuiElement*> Picture::getIcons() {
 //	list<GuiElement*> icons;

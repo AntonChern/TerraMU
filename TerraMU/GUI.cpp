@@ -1,15 +1,16 @@
 #include "Gui.h"
 
-Gui::Gui(GLFWwindow* window) {
+Gui::Gui(GLFWwindow* window) : visiblePanels({}) {
 	/*float aspect = (float)Display::getWidth() / (float)Display::getHeight();
 	bars = GuiElementFactory::createGuiElement("bars.png", vec3(0.0f, aspect * 70.0f / 611.0f - 1.0f, 0.0f), 0.0f, 0.0f, 0.0f,
 		vec3(2.0f, 2.0f * aspect * 70.0f / 611.0f, 1.0f));*/
 
-	//cursor = GuiElementFactory::createGuiElement("Player.png", vec3(0.0f), 0.0f, 0.0f, 0.0f, vec3(0.01f/*0.4f*/ / Camera::getWidth() * 2, 0.01f/*0.4f*/, 1.0f));
+		//cursor = GuiElementFactory::createGuiElement("Player.png", vec3(0.0f), 0.0f, 0.0f, 0.0f, vec3(0.01f/*0.4f*/ / Camera::getWidth() * 2, 0.01f/*0.4f*/, 1.0f));
 	cursor = new Cursor(window, "cursor.png");
 
 	inventory = GuiItemBuilder::buildInventory();
 	bars = GuiItemBuilder::buildBars();
+	points = GuiItemBuilder::buildPoints();
 	bars->changeVisibility();
 }
 
@@ -18,25 +19,35 @@ Gui::~Gui() {
 	delete bars;
 	delete inventory;
 	//delete chest;
-	//delete points;
+	delete points;
 }
 
 list<GuiElement*> Gui::getGuiElements() {
 	list<GuiElement*> guis;
 
-	if (bars->getIsVisible()) {
-		for (GuiElement* gui : bars->getIcons()) {
-			guis.push_back(gui);
-		}
+	for (GuiElement* gui : bars->getIcons()) {
+		guis.push_back(gui);
 	}
 
-	if (inventory->getIsVisible()) {
-		for (GuiElement* gui : inventory->getIcons()) {
+	for (GuiItem* item : visiblePanels) {
+		for (GuiElement* gui : item->getIcons()) {
 			guis.push_back(gui);
 		}
 	}
 
 	return guis;
+}
+
+void Gui::placed(float x, float y) {
+	inventory->placed(x, y);
+	bars->placed(x, y);
+	points->placed(x, y);
+}
+
+void Gui::unplaced(float x, float y) {
+	inventory->unplaced(x, y);
+	bars->unplaced(x, y);
+	points->unplaced(x, y);
 }
 
 //void Gui::reset() {

@@ -51,23 +51,23 @@ Frame::Frame(int columns, int rows, vec3 position, float rotationX, float rotati
 	}
 }
 
-//void Frame::prepareForGettingIcons() {
-//	int i = 0;
-//	int j = 0;
-//	for (GuiElement* icon : icons) {
-//		icon->setPosition(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,
-//			position.y + scale.y * (1 - (float)(2 * j + 1) / rows) / 2, position.z);
-//		icon->setRotationX(rotationX);
-//		icon->setRotationY(rotationY);
-//		icon->setRotationZ(rotationZ);
-//		icon->setScale(vec3(scale.x / columns, scale.y / rows, scale.z));
-//		i++;
-//		if (i == columns) {
-//			i = 0;
-//			j++;
-//		}
-//	}
-//}
+void Frame::prepareForGettingIcons() {
+	int i = 0;
+	int j = 0;
+	for (GuiElement* icon : icons) {
+		icon->setPosition(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,
+			position.y + scale.y * (1 - (float)(2 * j + 1) / rows) / 2, position.z);
+		icon->setRotationX(rotationX);
+		icon->setRotationY(rotationY);
+		icon->setRotationZ(rotationZ);
+		icon->setScale(vec3(scale.x / columns, scale.y / rows, scale.z));
+		i++;
+		if (i == columns) {
+			i = 0;
+			j++;
+		}
+	}
+}
 
 //list<GuiElement*> Frame::getIcons() {
 //	list<GuiElement*> guis;

@@ -5,7 +5,7 @@
 #include "Converter.h"
 
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
-	gui->getInventory()->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
+	gui->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 
 	mousePosition = vec2(xPos, yPos);
 
@@ -13,7 +13,7 @@ void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double y
 	vec2 updatedMousePosition = Converter::fromDisplayToOpenGL(mousePosition);
 	cursor->setPosition(2 * mousePosition.x / Display::getWidth() - 1, 1 - 2 * mousePosition.y / Display::getHeight(), 0.0f);*/
 
-	gui->getInventory()->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
+	gui->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 }
 
 void GameController::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
@@ -32,21 +32,40 @@ void GameController::cursorEnterCallback(GLFWwindow* window, int entered) {
 
 }
 
+void GameController::processPanel(GuiItem* currPanel) {
+	list<GuiItem*> visiblePanels = *gui->getVisiblePanels();
+	bool exists = false;
+	for (GuiItem* panel : visiblePanels) {
+		if (panel == currPanel) {
+			exists = true;
+			break;
+		}
+	}
+
+	vec3 cameraOffset(0.0f);
+	for (GuiItem* panel : visiblePanels) {
+		cameraOffset += vec3(-panel->getScale().x * Camera::getWidth() / 2 / 2, 0.0f, 0.0f);
+	}
+
+	if (exists) {
+		*gui->getVisiblePanels() = {};
+	}
+	else {
+		*gui->getVisiblePanels() = {currPanel};
+		cameraOffset += vec3(currPanel->getScale().x * Camera::getWidth() / 2 / 2, 0.0f, 0.0f);
+	}
+	camera->increasePosition(cameraOffset);
+}
+
 void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 	if (key == GLFW_KEY_V && action == GLFW_PRESS) {
-		GuiItem* inventory = gui->getInventory();
-		vec3 cameraOffset(0.0f);
-		if (inventory->getIsVisible()) {
-			cameraOffset = vec3(-inventory->getScale().x * Camera::getWidth() / 2 / 2, 0.0f, 0.0f);
-		}
-		else {
-			cameraOffset = vec3(inventory->getScale().x * Camera::getWidth() / 2 / 2, 0.0f, 0.0f);
-		}
-		camera->increasePosition(cameraOffset);
-		inventory->changeVisibility();
+		GameController::processPanel(gui->getInventory());
+	}
+	if (key == GLFW_KEY_C && action == GLFW_PRESS) {
+		GameController::processPanel(gui->getPoints());
 	}
 }
 

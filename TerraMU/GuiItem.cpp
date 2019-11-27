@@ -61,3 +61,43 @@ void GuiItem::unplaced(float x, float y) {
 		}
 	}
 }
+
+void GuiItem::setPosition(vec3 position) {
+	vec3 delta = position - this->position;
+	for (GuiItem* child : children) {
+		child->increasePosition(delta);
+	}
+	this->position = position;
+}
+
+void GuiItem::setScale(vec3 s) {
+	vec3 delta = s - scale;
+	for (GuiItem* child : children) {
+		child->increaseScale(delta);
+	}
+	scale = s;
+}
+
+void GuiItem::setRotationX(float r) {
+	float delta = r - rotationX;
+	for (GuiItem* child : children) {
+		child->increaseRotationX(delta);
+	}
+	rotationX = r;
+}
+
+void GuiItem::setRotationY(float r) {
+	float delta = r - rotationY;
+	for (GuiItem* child : children) {
+		child->increaseRotationY(delta);
+	}
+	rotationY = r;
+}
+
+void GuiItem::setRotationZ(float r) {
+	float delta = r - rotationZ;
+	for (GuiItem* child : children) {
+		child->increaseRotationZ(delta);
+	}
+	rotationZ = r;
+}

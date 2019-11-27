@@ -14,13 +14,13 @@ void Slot::prepareForGettingIcons() {
 		icons.push_back(iconPlaced);
 	}
 
-	/*for (GuiElement* icon : icons) {
+	for (GuiElement* icon : icons) {
 		icon->setPosition(position);
 		icon->setRotationX(rotationX);
 		icon->setRotationY(rotationY);
 		icon->setRotationZ(rotationZ);
 		icon->setScale(scale);
-	}*/
+	}
 }
 
 //list<GuiElement*> Slot::getIcons() {

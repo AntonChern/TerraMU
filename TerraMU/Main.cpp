@@ -148,7 +148,7 @@ int main() {
 		0.6f, true, (float)map->getScale().x / map->getColumns() * 5, 0.7f, 100,
 		375, 9);
 
-	map->addMobSpawner(skeletonSpawner);
+	//map->addMobSpawner(skeletonSpawner);
 	//map->addMobSpawner(goblinSpawner);
 	//map->addMobSpawner(batSpawner);
 

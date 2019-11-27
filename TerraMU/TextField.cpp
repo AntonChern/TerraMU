@@ -26,17 +26,17 @@ TextField::TextField(int length, vec3 position, float rotationX, float rotationY
 	}
 }
 
-//void TextField::prepareForGettingIcons() {
-//	int i = 0;
-//	for (GuiElement* icon : icons) {
-//		icon->setPosition(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z);
-//		icon->setRotationX(rotationX);
-//		icon->setRotationY(rotationY);
-//		icon->setRotationZ(rotationZ);
-//		icon->setScale(vec3(scale.x / length, scale.y, scale.z));
-//		i++;
-//	}
-//}
+void TextField::prepareForGettingIcons() {
+	int i = 0;
+	for (GuiElement* icon : icons) {
+		icon->setPosition(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z);
+		icon->setRotationX(rotationX);
+		icon->setRotationY(rotationY);
+		icon->setRotationZ(rotationZ);
+		icon->setScale(vec3(scale.x / length, scale.y, scale.z));
+		i++;
+	}
+}
 
 //list<GuiElement*> TextField::getIcons() {
 //	list<GuiElement*> guis;

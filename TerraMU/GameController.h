@@ -27,6 +27,8 @@ private:
 
 	static Player* player;
 
+	static void processPanel(GuiItem* panel);
+
 public:
 	static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);

@@ -17,6 +17,8 @@ class Label : public GuiItem {
 private:
 	string text;
 
+	void prepareForGettingIcons() override;
+
 public:
 	Label(string text, vec3 position, float rotationX, float rotationY, float rotationZ, float scaleY);
 
@@ -25,6 +27,4 @@ public:
 	string getText() { return text; };
 
 	//list<GuiElement*> getIcons() override;
-	//void prepareForGettingIcons() override;
-
 };

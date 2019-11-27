@@ -163,12 +163,14 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RoundButton.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="SlotArray.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="StreamShader.cpp" />
     <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="TextFieldWithButton.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
     <ClCompile Include="WayHandler.cpp" />
   </ItemGroup>
@@ -209,6 +211,7 @@
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RoundButton.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Slot.h" />
     <ClInclude Include="SlotArray.h" />
@@ -216,6 +219,7 @@
     <ClInclude Include="StreamShader.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="TextField.h" />
+    <ClInclude Include="TextFieldWithButton.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="WayHandler.h" />
