@@ -1,7 +1,7 @@
 #include "TextField.h"
 
 TextField::TextField(int length, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ, scale), length(length) {
+	GuiItem(position, rotationX, rotationY, rotationZ, scale), length(length) {
 	for (int i = 0; i < length; i++) {
 		GuiElement* gui = GuiElementFactory::createGuiElement("text_field.png",
 			vec3(position.x + scale.x * ((float)(1 + 2 * i) / length - 1) / 2, position.y, position.z),

@@ -7,13 +7,6 @@ GuiItem::~GuiItem() {
 	GuiElementFactory::cleanGuis(icons);
 }
 
-void GuiItem::changeVisibility() {
-	isVisible = !isVisible;
-	for (GuiItem* child : children) {
-		child->changeVisibility();
-	}
-}
-
 void GuiItem::addChildren(list<GuiItem*> children) {
 	for (GuiItem* item : children) {
 		addChild(item);

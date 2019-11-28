@@ -10,20 +10,16 @@ protected:
 	list<GuiItem*> children;
 	list<GuiElement*> icons;
 
-	bool isVisible;
-
 	virtual void prepareForGettingIcons() {};
 
 public:
-	GuiItem(bool isVisible, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-		Moveable(position, rotationX, rotationY, rotationZ, scale), isVisible(isVisible), children({}), icons({}) {};
+	GuiItem(vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
+		Moveable(position, rotationX, rotationY, rotationZ, scale), children({}), icons({}) {};
 
-	GuiItem(bool isVisible, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
-		GuiItem(isVisible, position, rotationX, rotationY, rotationZ, vec3(scale)) {};
+	GuiItem(vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
+		GuiItem(position, rotationX, rotationY, rotationZ, vec3(scale)) {};
 
 	~GuiItem();
-
-	void changeVisibility();
 
 	void addChild(GuiItem* child) { children.push_back(child); };
 	void addChildren(list<GuiItem*> children);
@@ -40,8 +36,6 @@ public:
 
 	virtual void clicked(float x, float y);
 	virtual void unclicked(float x, float y);
-
-	bool getIsVisible() { return isVisible; };
 
 	virtual void setPosition(vec3 position);
 	virtual void setPosition(float x, float y, float z) { setPosition(vec3(x, y, z)); };

@@ -11,7 +11,6 @@ Gui::Gui(GLFWwindow* window) : visiblePanels({}) {
 	inventory = GuiItemBuilder::buildInventory();
 	bars = GuiItemBuilder::buildBars();
 	points = GuiItemBuilder::buildPoints();
-	bars->changeVisibility();
 }
 
 Gui::~Gui() {

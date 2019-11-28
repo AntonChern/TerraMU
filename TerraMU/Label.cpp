@@ -1,7 +1,7 @@
 #include "Label.h"
 
 Label::Label(string text, vec3 position, float rotationX, float rotationY, float rotationZ, float scaleY) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ,
+	GuiItem(position, rotationX, rotationY, rotationZ,
 		vec3(scaleY* 28.0f / 32.0f * text.length() / (float)Display::getWidth() * (float)Display::getHeight(), scaleY, 1.0f)),
 	text(text) {
 	int length = text.length();

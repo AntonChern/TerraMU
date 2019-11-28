@@ -17,19 +17,19 @@ void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double y
 }
 
 void GameController::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+	vec2 mousePosMap = Converter::fromDisplayToMap(mousePosition);
+	vec2 mousePosGui = Converter::fromDisplayToGui(mousePosition);
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		if (!player->isInMotion()) {
 			player->getAvatar()->getAnimation()->play();
 		}
 		player->nullWay();
 
-		lastMouseClick = Converter::fromDisplayToMap(mousePosition);
-		gui->clicked(lastMouseClick.x, lastMouseClick.y);
-		map->interact(lastMouseClick.x, lastMouseClick.y);
+		gui->clicked(mousePosGui.x, mousePosGui.y);
+		map->interact(mousePosMap.x, mousePosMap.y);
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-		lastMouseClick = Converter::fromDisplayToMap(mousePosition);
-		//gui->unclicked(lastMouseClick.x, lastMouseClick.y);
+		gui->unclicked(mousePosGui.x, mousePosGui.y);
 	}
 }
 

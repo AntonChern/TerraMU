@@ -21,6 +21,4 @@ public:
 	Frame(int columns, int rows, vec3 position, float rotationX, float rotationY, float rotationZ, float scale) :
 		Frame(columns, rows, position, rotationX, rotationY, rotationZ, vec3(scale)) {};
 
-	//list<GuiElement*> getIcons() override;
-
 };

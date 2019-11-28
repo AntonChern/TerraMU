@@ -48,6 +48,4 @@ public:
 	void clicked(float x, float y);
 	void unclicked(float x, float y);
 
-	void interact(float x, float y);
-
 };

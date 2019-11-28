@@ -1,7 +1,7 @@
 #include "Picture.h"
 
 Picture::Picture(const char filePath[], vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ, scale) {
+	GuiItem(position, rotationX, rotationY, rotationZ, scale) {
 	icon = GuiElementFactory::createGuiElement(filePath, position, rotationX, rotationY, rotationZ, scale);
 	icons.push_back(icon);
 }

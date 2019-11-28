@@ -1,7 +1,7 @@
 #include "TextFieldWithButton.h"
 
 TextFieldWithButton::TextFieldWithButton(int length, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ, scale), length(length) {
+	GuiItem(position, rotationX, rotationY, rotationZ, scale), length(length) {
 	position.x -= 11.0f * scale.x / (24 * length + 22);
 	scale.x *= (float)(24 * length) / (24 * length + 22);
 	for (int i = 0; i < length; i++) {

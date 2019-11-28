@@ -1,7 +1,7 @@
 #include "Frame.h"
 
 Frame::Frame(int columns, int rows, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ, scale), columns(columns), rows(rows) {
+	GuiItem(position, rotationX, rotationY, rotationZ, scale), columns(columns), rows(rows) {
 	for (int j = 0; j < rows; j++) {
 		for (int i = 0; i < columns; i++) {
 			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,

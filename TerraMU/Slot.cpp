@@ -1,7 +1,7 @@
 #include "Slot.h"
 
 Slot::Slot(vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
-	GuiItem(false, position, rotationX, rotationY, rotationZ, scale), isPlaced(false) {
+	GuiItem(position, rotationX, rotationY, rotationZ, scale), isPlaced(false) {
 	icon = GuiElementFactory::createGuiElement("slot.png", position, rotationX, rotationY, rotationZ, scale);
 	iconPlaced = GuiElementFactory::createGuiElement("slot_placed.png", position, rotationX, rotationY, rotationZ, scale);
 	icons.push_back(icon);

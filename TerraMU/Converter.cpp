@@ -30,3 +30,11 @@ vec2 Converter::fromDisplayToOpenGL(vec2 vector) {
 	return vec2(GameController::getCamera()->getPosition().x + (float)(2 * vector.x - Display::getWidth()) / (float)Display::getHeight(),
 		GameController::getCamera()->getPosition().y + 1 - (float)(2 * vector.y) / (float)Display::getHeight());
 }
+
+vec2 Converter::fromDisplayToGui(vec2 vector) {
+	return vec2(2 * vector.x / Display::getWidth() - 1, 1 - 2 * vector.y / Display::getHeight());
+}
+
+vec2 Converter::fromGuiToDisplay(vec2 vector) {
+	return vec2(Display::getWidth() * (vector.x + 1.0f) / 2, Display::getHeight() * (1.0f - vector.y) / 2);
+}
