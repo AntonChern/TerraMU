@@ -1,6 +1,43 @@
 #include "WayHandler.h"
 #include "GameController.h"
 
+void WayHandler::initialize() {
+	int columns = GameController::getMap()->getColumns();
+	int rows = GameController::getMap()->getRows();
+	map = new Point * *[columns] {};
+	for (int i = 0; i < columns; i++) {
+		map[i] = new Point * [rows] {};
+		for (int j = 0; j < rows; j++) {
+			map[i][j] = new Point(i, j);
+		}
+	}
+
+	wayMap = new bool* [columns];
+	for (int i = 0; i < columns; i++) {
+		wayMap[i] = new bool[rows];
+		for (int j = 0; j < rows; j++) {
+			wayMap[i][j] = (bool)(GameController::getMap()->getReachMap()[i][j] && GameController::getMap()->getMobMap()[i][j]);
+		}
+	}
+}
+
+void WayHandler::deinitialize() {
+	int columns = GameController::getMap()->getColumns();
+	int rows = GameController::getMap()->getRows();
+	for (int i = 0; i < columns; i++) {
+		for (int j = 0; j < rows; j++) {
+			delete map[i][j];
+		}
+		delete[] map[i];
+	}
+	delete[] map;
+
+	for (int i = 0; i < columns; i++) {
+		delete[] wayMap[i];
+	}
+	delete[] wayMap;
+}
+
 void WayHandler::paveRoute() {
 	Point* current = end;
 	while (current != start) {
@@ -16,7 +53,8 @@ void WayHandler::paveRoute() {
 }
 
 void WayHandler::nullAll() {
-	deleteMap();
+	//deleteMap();
+	nullMap();
 
 	wayAStar.clear();
 
@@ -234,39 +272,57 @@ float WayHandler::H(Point* origin, Point* whither) {
 void WayHandler::initMap() {
 	int columns = GameController::getMap()->getColumns();
 	int rows = GameController::getMap()->getRows();
-	map = new Point** [columns] {};
+	/*map = new Point** [columns] {};
 	for (int i = 0; i < columns; i++) {
 		map[i] = new Point* [rows] {};
 		for (int j = 0; j < rows; j++) {
 			map[i][j] = new Point(i, j);
 		}
-	}
+	}*/
 
-	wayMap = new bool*[columns];
+	//wayMap = new bool*[columns];
 	for (int i = 0; i < columns; i++) {
-		wayMap[i] = new bool[rows];
+		//wayMap[i] = new bool[rows];
 		for (int j = 0; j < rows; j++) {
 			wayMap[i][j] = (bool)(GameController::getMap()->getReachMap()[i][j] && GameController::getMap()->getMobMap()[i][j]);
 		}
 	}
 }
 
-void WayHandler::deleteMap() {
+void WayHandler::nullMap() {
 	int columns = GameController::getMap()->getColumns();
 	int rows = GameController::getMap()->getRows();
-	for(int i = 0; i < columns; i++) {
+	for (int i = 0; i < columns; i++) {
 		for (int j = 0; j < rows; j++) {
-			delete map[i][j];
+			map[i][j]->setFrom(nullptr);
+			map[i][j]->setG(0.0f);
+			map[i][j]->setF(0.0f);
 		}
-		delete[] map[i];
 	}
-	delete[] map;
 
 	for (int i = 0; i < columns; i++) {
-		delete[] wayMap[i];
+		for (int j = 0; j < rows; j++) {
+			wayMap[i][j] = true;
+		}
 	}
-	delete[] wayMap;
 }
+
+//void WayHandler::deleteMap() {
+//	int columns = GameController::getMap()->getColumns();
+//	int rows = GameController::getMap()->getRows();
+//	for(int i = 0; i < columns; i++) {
+//		for (int j = 0; j < rows; j++) {
+//			delete map[i][j];
+//		}
+//		delete[] map[i];
+//	}
+//	delete[] map;
+//
+//	for (int i = 0; i < columns; i++) {
+//		delete[] wayMap[i];
+//	}
+//	delete[] wayMap;
+//}
 
 void WayHandler::straightenWay(vec2 origin, vec2 whither) {
 	vec2 start = vec2(origin.x, origin.y);

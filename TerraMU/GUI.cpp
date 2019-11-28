@@ -10,6 +10,7 @@ Gui::Gui(GLFWwindow* window) {
 
 	inventory = GuiItemBuilder::buildInventory();
 	bars = GuiItemBuilder::buildBars();
+	points = GuiItemBuilder::buildPoints();
 	bars->changeVisibility();
 }
 
@@ -37,6 +38,18 @@ list<GuiElement*> Gui::getGuiElements() {
 	}
 
 	return guis;
+}
+
+void Gui::placed(float x, float y) {
+	inventory->placed(x, y);
+	bars->placed(x, y);
+	points->placed(x, y);
+}
+
+void Gui::unplaced(float x, float y) {
+	inventory->unplaced(x, y);
+	bars->unplaced(x, y);
+	points->unplaced(x, y);
 }
 
 //void Gui::reset() {

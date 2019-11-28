@@ -127,6 +127,12 @@
     <ClCompile Include="Gui.cpp">
       <Filter>Исходные файлы\guis</Filter>
     </ClCompile>
+    <ClCompile Include="TextFieldWithButton.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
+    <ClCompile Include="RoundButton.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -264,6 +270,12 @@
     </ClInclude>
     <ClInclude Include="Gui.h">
       <Filter>Файлы заголовков\guis</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFieldWithButton.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="RoundButton.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,9 @@ public:
 
 	Cursor* getCursor() { return cursor; };
 
+	void placed(float x, float y);
+	void unplaced(float x, float y);
+
 	void interact(float x, float y);
 
 };
