@@ -62,6 +62,24 @@ void GuiItem::unplaced(float x, float y) {
 	}
 }
 
+void GuiItem::clicked(float x, float y) {
+	for (GuiItem* child : getChildren()) {
+		if (abs(x - child->getPosition().x) < child->getScale().x / 2 && abs(y - child->getPosition().y) < child->getScale().y / 2) {
+			child->clicked(x, y);
+			return;
+		}
+	}
+}
+
+void GuiItem::unclicked(float x, float y) {
+	for (GuiItem* child : getChildren()) {
+		if (abs(x - child->getPosition().x) < child->getScale().x / 2 && abs(y - child->getPosition().y) < child->getScale().y / 2) {
+			child->unclicked(x, y);
+			return;
+		}
+	}
+}
+
 void GuiItem::setPosition(vec3 position) {
 	vec3 delta = position - this->position;
 	for (GuiItem* child : children) {

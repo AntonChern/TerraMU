@@ -45,6 +45,9 @@ public:
 	void placed(float x, float y);
 	void unplaced(float x, float y);
 
+	void clicked(float x, float y);
+	void unclicked(float x, float y);
+
 	void interact(float x, float y);
 
 };

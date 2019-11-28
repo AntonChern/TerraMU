@@ -39,15 +39,29 @@ list<GuiElement*> Gui::getGuiElements() {
 }
 
 void Gui::placed(float x, float y) {
-	inventory->placed(x, y);
+	for (GuiItem* panel : visiblePanels) {
+		panel->placed(x, y);
+	}
 	bars->placed(x, y);
-	points->placed(x, y);
 }
 
 void Gui::unplaced(float x, float y) {
 	inventory->unplaced(x, y);
 	bars->unplaced(x, y);
 	points->unplaced(x, y);
+}
+
+void Gui::clicked(float x, float y) {
+	for (GuiItem* panel : visiblePanels) {
+		panel->clicked(x, y);
+	}
+	bars->clicked(x, y);
+}
+
+void Gui::unclicked(float x, float y) {
+	inventory->unclicked(x, y);
+	bars->unclicked(x, y);
+	points->unclicked(x, y);
 }
 
 //void Gui::reset() {

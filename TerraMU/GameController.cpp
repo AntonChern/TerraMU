@@ -24,7 +24,12 @@ void GameController::mouseButtonCallback(GLFWwindow* window, int button, int act
 		player->nullWay();
 
 		lastMouseClick = Converter::fromDisplayToMap(mousePosition);
+		gui->clicked(lastMouseClick.x, lastMouseClick.y);
 		map->interact(lastMouseClick.x, lastMouseClick.y);
+	}
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+		lastMouseClick = Converter::fromDisplayToMap(mousePosition);
+		//gui->unclicked(lastMouseClick.x, lastMouseClick.y);
 	}
 }
 
