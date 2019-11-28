@@ -5,7 +5,7 @@
 #include "Converter.h"
 
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
-	gui->getInventory()->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
+	gui->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 
 	mousePosition = vec2(xPos, yPos);
 
@@ -13,7 +13,7 @@ void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double y
 	vec2 updatedMousePosition = Converter::fromDisplayToOpenGL(mousePosition);
 	cursor->setPosition(2 * mousePosition.x / Display::getWidth() - 1, 1 - 2 * mousePosition.y / Display::getHeight(), 0.0f);*/
 
-	gui->getInventory()->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
+	gui->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 }
 
 void GameController::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {

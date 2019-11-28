@@ -57,3 +57,24 @@ GuiItem* GuiItemBuilder::buildInventory() {
 
 	return inventory;
 }
+
+GuiItem* GuiItemBuilder::buildPoints() {
+	constexpr float maxHeight = 2.0f;
+	constexpr float maxWidth = 2.0f;
+
+	int columns = 9;
+	int rows = 14;
+	float height = maxHeight;
+	float width = height * (float)columns / (float)rows / aspect;
+	vec3 position = vec3(1.0f - width / 2, 0.0f, 0.0f);
+	vec3 scale = vec3(width, height, 1.0f);
+	GuiItem* points = new Frame(columns, rows, position, 0.0f, 0.0f, 0.0f, scale);
+
+	GuiItem* energyPoints = new TextFieldWithButton(5, vec3(-0.0f, 0.5f, 0.0f), 0.0f, 0.0f, 0.0f, vec3(1.0f, 0.5f, 0.0f));
+
+	GuiItem* label = new Label("Level:12345678901234567890", vec3(position.x, position.y + scale.y / 2 - scale.y * 15.0f / 336.0f, position.z), 0.0f, 0.0f, 0.0f, scale.y * 10.0f / 336.0f);
+	
+	//points->addChildren({energyPoints, label});
+
+	return points;
+}
