@@ -50,11 +50,17 @@ void Gui::unplaced(float x, float y) {
 	points->unplaced(x, y);
 }
 
-void Gui::clicked(float x, float y) {
+bool Gui::clicked(float x, float y) {
 	for (GuiItem* panel : visiblePanels) {
-		panel->clicked(x, y);
+		if (panel->clicked(x, y)) {
+			return true;
+		}
 	}
-	bars->clicked(x, y);
+	if (bars->clicked(x, y)) {
+		return true;
+	}
+
+	return false;
 }
 
 void Gui::unclicked(float x, float y) {

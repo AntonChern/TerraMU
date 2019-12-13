@@ -19,7 +19,7 @@ public:
 	void placed(float x, float y) override;
 	void unplaced(float x, float y) override;
 
-	void clicked(float x, float y) override;
+	bool clicked(float x, float y) override;
 	void unclicked(float x, float y) override;
 
 	//void clicked();

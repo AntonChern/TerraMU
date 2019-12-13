@@ -7,8 +7,8 @@ Entity::~Entity() {
 }
 
 void Entity::setAnimation(Animation* animation) {
-	if (animation) {
-		delete animation;
+	if (this->animation) {
+		delete this->animation;
 	}
 	this->animation = animation;
 }

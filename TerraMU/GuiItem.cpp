@@ -20,21 +20,21 @@ void GuiItem::removeChildren(list<GuiItem*> children) {
 }
 
 list<GuiElement*> GuiItem::getIcons() {
-	list<GuiElement*> icons;
+	list<GuiElement*> resIcons;
 
 	prepareForGettingIcons();
 
 	for (GuiElement* icon : this->icons) {
-		icons.push_back(icon);
+		resIcons.push_back(icon);
 	}
 
 	for (GuiItem* child : children) {
 		for (GuiElement* gui : child->getIcons()) {
-			icons.push_back(gui);
+			resIcons.push_back(gui);
 		}
 	}
 
-	return icons;
+	return resIcons;
 }
 
 void GuiItem::placed(float x, float y) {
@@ -55,13 +55,18 @@ void GuiItem::unplaced(float x, float y) {
 	}
 }
 
-void GuiItem::clicked(float x, float y) {
+bool GuiItem::clicked(float x, float y) {
 	for (GuiItem* child : getChildren()) {
 		if (abs(x - child->getPosition().x) < child->getScale().x / 2 && abs(y - child->getPosition().y) < child->getScale().y / 2) {
-			child->clicked(x, y);
-			return;
+			if (child->clicked(x, y)) {
+				return true;
+			}
 		}
 	}
+	if (abs(x - this->getPosition().x) < this->getScale().x / 2 && abs(y - this->getPosition().y) < this->getScale().y / 2) {
+		return true;
+	}
+	return false;
 }
 
 void GuiItem::unclicked(float x, float y) {

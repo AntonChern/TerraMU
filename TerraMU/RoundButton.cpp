@@ -21,12 +21,16 @@ void RoundButton::unplaced(float x, float y) {
 	}
 }
 
-void RoundButton::clicked(float x, float y) {
-	GuiItem::clicked(x, y);
+bool RoundButton::clicked(float x, float y) {
+	if (GuiItem::clicked(x, y)) {
+		if (isEnable) {
+			icon->setTextureMatrix(Maths::createTextureMatrix(vec2(2.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 1.0f)));
+		}
 
-	if (isEnable) {
-		icon->setTextureMatrix(Maths::createTextureMatrix(vec2(2.0f / 3.0f, 0.0f), vec2(1.0f / 3.0f, 1.0f)));
+		return true;
 	}
+
+	return false;
 }
 
 void RoundButton::unclicked(float x, float y) {

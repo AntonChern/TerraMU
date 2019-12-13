@@ -34,7 +34,7 @@ public:
 	virtual void placed(float x, float y);
 	virtual void unplaced(float x, float y);
 
-	virtual void clicked(float x, float y);
+	virtual bool clicked(float x, float y);
 	virtual void unclicked(float x, float y);
 
 	virtual void setPosition(vec3 position);

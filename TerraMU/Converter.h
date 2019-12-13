@@ -18,5 +18,11 @@ public:
 	static vec2 fromDisplayToGui(vec2 vector);
 	static vec2 fromGuiToDisplay(vec2 vector);
 
+	static vec2 fromOpenGLToGui(vec2 vector);
+	static vec2 fromGuiToOpenGL(vec2 vector);
+
+	static vec2 fromMapToGui(vec2 vector);
+	static vec2 fromGuiToMap(vec2 vector);
+
 };
 

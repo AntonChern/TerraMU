@@ -49,6 +49,7 @@ map<string, TexturedModel*> EntityFactory::models = {};
 list<Entity*> EntityFactory::entities = {};
 Loader* EntityFactory::loader = nullptr;
 list<RawModel*> EntityFactory::rawModels = {};
+//list<Item*> EntityFactory::items = {};
 
 list<GuiElement*> GuiElementFactory::guis = {};
 Loader* GuiElementFactory::loader = nullptr;
@@ -81,6 +82,10 @@ map<Tile, MapObject*> Map::mapObjects = {
 {HOUSE_0_FLOOR, new MapObject(new GoAction(), true, "house_0_floor.png", 32, 32)}
 };
 
+//map<int, Item*> items = {
+//	{0, new Item("apple.png", "Apple")}
+//};
+
 float WayHandler::radius = 0.0f;
 bool** WayHandler::wayMap = nullptr;
 WayHandler::Point*** WayHandler::map = nullptr;
@@ -105,8 +110,8 @@ int main() {
 	EntityFactory::setLoader(loader);
 	GuiElementFactory::setLoader(loader);
 
-	int size = 64;
-	Map* map = new Map("tarkan.txt", vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.25f * size);
+	int size = 128;
+	Map* map = new Map("Lorenzia_128_1.txt", vec3(0.0f), 0.0f, 0.0f, 0.0f, 0.25f * size);
 
 	float x = 0.125f * (1 - size);
 	float y = 0.125f * (size - 1);
@@ -181,7 +186,12 @@ int main() {
 	MasterRenderer* renderer = new MasterRenderer();
 	GuiRenderer* guiRenderer = new GuiRenderer();
 
+	map->addItem(new Item("apple.png", "Apple"), 2, 2);
+
 	while (!display->isCloseRequested()) {
+
+		//renderer->processEntity(item->getDropped()->getEntity());
+
 		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
 		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
@@ -198,6 +208,7 @@ int main() {
 		renderer->processEntity(player->getAvatar());
 
 		renderer->render(camera);
+		guiRenderer->render(map->getTitles(playerPosition.x, playerPosition.y, 19, 19));
 		guiRenderer->render(gui->getGuiElements());
 
 		float currentTime = glfwGetTime();

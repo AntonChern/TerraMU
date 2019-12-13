@@ -138,9 +138,11 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="DroppedItem.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="FramedLabel.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GoAction.cpp" />
     <ClCompile Include="Gui.cpp" />
@@ -149,6 +151,7 @@
     <ClCompile Include="GuiItemBuilder.cpp" />
     <ClCompile Include="GuiRenderer.cpp" />
     <ClCompile Include="GuiShader.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="MobSpawner.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="PickedItem.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -183,7 +187,9 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="DroppedItem.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="FramedLabel.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />
@@ -196,6 +202,7 @@
     <ClInclude Include="GuiElement.h" />
     <ClInclude Include="GuiRenderer.h" />
     <ClInclude Include="GuiShader.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
@@ -206,6 +213,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="OpenChestAction.h" />
+    <ClInclude Include="PickedItem.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RawModel.h" />

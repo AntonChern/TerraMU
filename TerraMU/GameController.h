@@ -30,6 +30,8 @@ private:
 	static void processPanel(GuiItem* panel);
 
 public:
+	static constexpr float WORLD_SCALE = 0.25f;
+
 	static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 	static void cursorEnterCallback(GLFWwindow* window, int entered);

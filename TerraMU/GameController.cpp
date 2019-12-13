@@ -20,13 +20,14 @@ void GameController::mouseButtonCallback(GLFWwindow* window, int button, int act
 	vec2 mousePosMap = Converter::fromDisplayToMap(mousePosition);
 	vec2 mousePosGui = Converter::fromDisplayToGui(mousePosition);
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		if (!player->isInMotion()) {
-			player->getAvatar()->getAnimation()->play();
-		}
-		player->nullWay();
+		if (!gui->clicked(mousePosGui.x, mousePosGui.y)) {
+			if (!player->isInMotion()) {
+				player->getAvatar()->getAnimation()->play();
+			}
+			player->nullWay();
 
-		gui->clicked(mousePosGui.x, mousePosGui.y);
-		map->interact(mousePosMap.x, mousePosMap.y);
+			map->interact(mousePosMap.x, mousePosMap.y);
+		}
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
 		gui->unclicked(mousePosGui.x, mousePosGui.y);
