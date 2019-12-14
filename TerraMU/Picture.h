@@ -7,6 +7,8 @@ class Picture : public GuiItem {
 private:
 	GuiElement* icon;
 
+	void prepareForGettingIcons() override;
+
 public:
 	Picture(const char filePath[], vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale);
 
@@ -14,6 +16,5 @@ public:
 		Picture(filePath, position, rotationX, rotationY, rotationY, vec3(scale)) {};
 
 	//list<GuiElement*> getIcons() override;
-	//void prepareForGettingIcons() override;
 
 };

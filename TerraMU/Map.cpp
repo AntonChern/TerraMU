@@ -21,20 +21,38 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 		hat[i] = new Tile[rows];
 	}
 
+	int size = columns * rows;
+	string str;
+	getline(fin, str);
 	for (int j = 0; j < rows; j++) {
+		getline(fin, str);
+		for (int i = 0; i < columns; i++) {
+			int tile = str.at(i) - '0';
+			base[i][j] = (Tile)tile;
+		}
+	}
+
+	for (int j = 0; j < rows; j++) {
+		for (int i = 0; i < columns; i++) {
+			hat[i][j] = EMPTY;
+		}
+	}
+
+	/*for (int j = 0; j < rows; j++) {
 		for (int i = 0; i < columns; i++) {
 			int tile;
 			fin >> tile;
 			base[i][j] = (Tile)tile;
 		}
 	}
+
 	for (int j = 0; j < rows; j++) {
 		for (int i = 0; i < columns; i++) {
 			int tile;
 			fin >> tile;
 			hat[i][j] = (Tile)tile;
 		}
-	}
+	}*/
 	fin.close();
 
 	reachMap = new bool* [columns];
@@ -112,7 +130,26 @@ list<Entity*> Map::getRectangleArea(float posX, float posY, int horyzontalSide, 
 	entities.clear();
 	processLayer(base, 0.0f, posX, posY, horyzontalSide, verticalSide);
 	processLayer(hat, 0.001f, posX, posY, horyzontalSide, verticalSide);
-	return entities;
+
+	list<Entity*> mapItems = {};
+
+	for (Item* item : items) {
+		vec3 pos = item->getDropped()->getPosition();
+		vec2 pos2D = Converter::fromOpenGLToMap(vec2(pos.x, pos.y));
+		if (pos2D.x < posX + horyzontalSide && pos2D.x > posX - horyzontalSide && pos2D.y < posY + verticalSide && pos2D.y > posY - verticalSide) {
+			mapItems.push_back(item->getDropped()->getEntity());
+		}
+	}
+
+	list<Entity*> result = {};
+	for (Entity* entity : entities) {
+		result.push_back(entity);
+	}
+	for (Entity* entity : mapItems) {
+		result.push_back(entity);
+	}
+
+	return result;
 }
 
 Map::~Map() {
@@ -205,4 +242,25 @@ void Map::updateMobMap() {
 			markMob(mob->getAvatar());
 		}
 	}
+}
+
+void Map::addItem(Item* item, float x, float y) {
+	vec2 coords = Converter::fromMapToOpenGL(vec2(x, y));
+	item->getDropped()->setPosition(vec3(coords.x, coords.y, y * 0.001f + 0.0015f));
+	items.push_back(item);
+}
+
+list<GuiElement*> Map::getTitles(float posX, float posY, int horyzontalSide, int verticalSide) {
+	list<GuiElement*> result = {};
+	for (Item* item : items) {
+		vec3 pos = item->getDropped()->getPosition();
+		vec2 pos2D = Converter::fromOpenGLToMap(vec2(pos.x, pos.y));
+		if (pos2D.x < posX + horyzontalSide && pos2D.x > posX - horyzontalSide && pos2D.y < posY + verticalSide && pos2D.y > posY - verticalSide) {
+			item->getDropped()->update();
+			for (GuiElement* gui : item->getDropped()->getTitle()->getIcons()) {
+				result.push_back(gui);
+			}
+		}
+	}
+	return result;
 }

@@ -17,6 +17,8 @@ private:
 	GuiItem* chest;
 	GuiItem* points;
 
+	list<GuiItem*> visiblePanels;
+
 	Cursor* cursor;
 
 	//void changeVisibility(list<GuiElement*> guis);
@@ -26,6 +28,7 @@ public:
 	~Gui();
 
 	list<GuiElement*> getGuiElements();
+	list<GuiItem*>* getVisiblePanels() { return &visiblePanels; };
 
 	/*void changeInventoryVisibility();
 	void changeChestVisibility();
@@ -42,6 +45,7 @@ public:
 	void placed(float x, float y);
 	void unplaced(float x, float y);
 
-	void interact(float x, float y);
+	bool clicked(float x, float y);
+	void unclicked(float x, float y);
 
 };

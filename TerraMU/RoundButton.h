@@ -8,6 +8,8 @@ private:
 	GuiElement* icon;
 	bool isEnable;
 
+	void prepareForGettingIcons() override;
+
 public:
 	RoundButton(bool isEnable, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale);
 
@@ -17,6 +19,7 @@ public:
 	void placed(float x, float y) override;
 	void unplaced(float x, float y) override;
 
-	//void clicked();
+	bool clicked(float x, float y) override;
+	void unclicked(float x, float y) override;
 
 };

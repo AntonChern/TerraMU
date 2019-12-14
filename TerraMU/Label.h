@@ -14,17 +14,17 @@ using namespace glm;
 using namespace std;
 
 class Label : public GuiItem {
-private:
+protected:
 	string text;
+
+	virtual void prepareForGettingIcons();
 
 public:
 	Label(string text, vec3 position, float rotationX, float rotationY, float rotationZ, float scaleY);
 
-	void setText(string text) { this->text = text; };
-	void setText(char const text[]) { this->text = text; };
+	void setText(string text) { setText(text.c_str()); };
+	virtual void setText(char const text[]) { this->text = text; };
 	string getText() { return text; };
 
 	//list<GuiElement*> getIcons() override;
-	//void prepareForGettingIcons() override;
-
 };
