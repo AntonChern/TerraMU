@@ -9,3 +9,7 @@ Item::~Item() {
 	delete dropped;
 	delete picked;
 }
+
+void Item::interact() {
+	cout << "ITEM INTERACT!" << endl;
+}

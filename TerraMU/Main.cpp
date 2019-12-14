@@ -100,6 +100,7 @@ Camera* GameController::camera = nullptr;
 vec2 GameController::mousePosition = vec2(-1.0f);
 vec2 GameController::lastMouseClick = vec2(0.0f);
 Gui* GameController::gui = nullptr;
+list<Action*> GameController::actions = {};
 
 int main() {
 	initializeGLFW();
@@ -215,15 +216,7 @@ int main() {
 
 		float currentTime = glfwGetTime();
 
-		player->update(currentTime - lastTime);
-
-		for (MobSpawner* spawner : *map->getSpawners()) {
-			spawner->update();
-			for (Monster* mob : *spawner->getMobs()) {
-				mob->update(currentTime - lastTime);
-			}
-		}
-		map->nullMobMap();
+		GameController::update(currentTime - lastTime);
 
 		lastTime = currentTime;
 

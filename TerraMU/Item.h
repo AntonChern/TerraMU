@@ -9,6 +9,7 @@ private:
 protected:
 	DroppedItem* dropped;
 	PickedItem* picked;
+	string name;
 
 public:
 	Item(string texturePath, string name);
@@ -16,5 +17,8 @@ public:
 
 	DroppedItem* getDropped() { return dropped; };
 	PickedItem* getPicked() { return picked; };
+	string getName() { return name; };
+
+	void interact();
 
 };
