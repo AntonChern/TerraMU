@@ -22,6 +22,4 @@ public:
 	bool clicked(float x, float y) override;
 	void unclicked(float x, float y) override;
 
-	//void clicked();
-
 };

@@ -155,7 +155,9 @@ int main() {
 
 	//map->addMobSpawner(skeletonSpawner);
 	//map->addMobSpawner(goblinSpawner);
-	//map->addMobSpawner(batSpawner);
+	map->addMobSpawner(batSpawner);
+
+	WayHandler::initialize();
 
 	/*GLFWimage image;
 	int width;
@@ -228,6 +230,8 @@ int main() {
 		glfwPollEvents();
 		display->update();
 	}
+
+	WayHandler::deinitialize();
 
 	renderer->cleanUp();
 	guiRenderer->cleanUp();

@@ -49,7 +49,8 @@ private:
 	static float H(Point* origin, Point* whither);
 	static void initMap();
 	static void initAll(float visibilityRadius, vec2 origin, vec2 whither);
-	static void deleteMap();
+	//static void deleteMap();
+	static void nullMap();
 	static void paveRoute();
 
 	static void aStar();
@@ -60,9 +61,12 @@ private:
 
 	static bool isInRadius(Point* cell);
 	static void nullOddCells();
+
 public:
-	WayHandler() {};
-	~WayHandler() { deleteMap(); };
+	WayHandler();
+	~WayHandler();
+	static void initialize();
+	static void deinitialize();
 
 	static list<vec2>* buildWay(float visibilityRadius, vec2 origin, vec2 whither);
 	static bool existsPath(float visibilityRadius, vec2 origin, vec2 whither);
