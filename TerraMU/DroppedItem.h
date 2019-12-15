@@ -1,8 +1,10 @@
 #pragma once
-#include "Entity.h"
-#include "FramedLabel.h"
-#include "EntityFactory.h"
-#include "Converter.h"
+#define GLM_FORCE_RADIANS
+class Entity;
+class FramedLabel;
+#include "Moveable.h"
+#include <string>
+using namespace std;
 
 class DroppedItem : public Moveable {
 private:

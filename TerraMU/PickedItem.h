@@ -1,5 +1,7 @@
 #pragma once
-#include "Picture.h"
+class Picture;
+#include <string>
+using namespace std;
 
 class PickedItem {
 private:

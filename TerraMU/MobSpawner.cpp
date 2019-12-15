@@ -1,6 +1,8 @@
 #include "MobSpawner.h"
 #include "GameController.h"
 #include "AnimationPendulum.h"
+#include "EntityFactory.h"
+#include "Monster.h"
 
 void MobSpawner::update() {
 	if (mobs->size() < maxNumOfMobs) {

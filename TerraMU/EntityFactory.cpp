@@ -1,4 +1,9 @@
 #include "EntityFactory.h"
+#include "ModelTexture.h"
+#include "TexturedModel.h"
+#include "AnimationDirect.h"
+#include "Entity.h"
+#include "RawModel.h"
 
 TexturedModel* EntityFactory::createTexturedModel(char const texturePath[]) {
 	RawModel* rawModel = createRawModel();

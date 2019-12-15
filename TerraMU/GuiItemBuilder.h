@@ -1,15 +1,7 @@
 #pragma once
-#include "GuiElementFactory.h"
-#include "GuiItem.h"
-#include "Display.h"
+#define GLM_FORCE_RADIANS
 #include "Camera.h"
-#include "Frame.h"
-#include "SlotArray.h"
-#include "Slot.h"
-#include "TextField.h"
-#include "Label.h"
-#include "Picture.h"
-#include "TextFieldWithButton.h"
+class GuiItem;
 
 class GuiItemBuilder {
 private:

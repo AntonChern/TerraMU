@@ -1,12 +1,6 @@
 #pragma once
-#include <iostream>
 #include <list>
-#include "GuiElement.h"
 #include "GuiItem.h"
-#include "Entity.h"
-#include "GuiElementFactory.h"
-#include "Slot.h"
-using namespace std;
 
 class SlotArray : public GuiItem {
 private:

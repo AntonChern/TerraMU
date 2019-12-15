@@ -1,4 +1,5 @@
 #include "GuiItem.h"
+#include "GuiElementFactory.h"
 
 GuiItem::~GuiItem() {
 	for (GuiItem* child : children) {

@@ -1,6 +1,9 @@
 #pragma once
 class Monster;
-#include "Monster.h"
+#include <list>
+#include <glm/glm.hpp>
+using namespace glm;
+using namespace std;
 
 class MobSpawner {
 private:

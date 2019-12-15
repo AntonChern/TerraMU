@@ -1,4 +1,14 @@
 #include "GuiItemBuilder.h"
+#include "GuiElementFactory.h"
+#include "GuiItem.h"
+#include "Display.h"
+#include "Frame.h"
+#include "SlotArray.h"
+#include "Slot.h"
+#include "TextField.h"
+#include "Label.h"
+#include "Picture.h"
+#include "TextFieldWithButton.h"
 
 GuiItem* GuiItemBuilder::buildBars() {
 	GuiItem* bars = new Picture("bars.png", vec3(0.0f, aspect * 70.0f / 611.0f - 1.0f, 0.0f), 0.0f, 0.0f, 0.0f,

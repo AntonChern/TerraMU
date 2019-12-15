@@ -1,4 +1,8 @@
 #include "TextFieldWithButton.h"
+#include "Maths.h"
+#include "RoundButton.h"
+#include "GuiElementFactory.h"
+#include "GuiElement.h"
 
 TextFieldWithButton::TextFieldWithButton(int length, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	GuiItem(position, rotationX, rotationY, rotationZ, scale), length(length) {

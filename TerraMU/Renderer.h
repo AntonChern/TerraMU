@@ -1,9 +1,12 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include <iostream>
 #include <list>
 #include <map>
-#include "Entity.h"
-#include "StreamShader.h"
+class Entity;
+class StreamShader;
+#include <glm/glm.hpp>
+using namespace glm;
 using namespace std;
 
 class Renderer {

@@ -1,4 +1,6 @@
 #include "Picture.h"
+#include "GuiElement.h"
+#include "GuiElementFactory.h"
 
 Picture::Picture(const char filePath[], vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	GuiItem(position, rotationX, rotationY, rotationZ, scale) {

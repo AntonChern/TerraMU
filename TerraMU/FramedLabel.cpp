@@ -1,4 +1,8 @@
 #include "FramedLabel.h"
+#include "GuiElement.h"
+#include "GuiElementFactory.h"
+#include "Display.h"
+#include "Maths.h"
 
 FramedLabel::FramedLabel(string text, vec3 position, float rotationX, float rotationY, float rotationZ, float scaleY) : 
 	Label(text, position, rotationX, rotationY, rotationZ, scaleY) {

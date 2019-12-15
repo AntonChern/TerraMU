@@ -1,17 +1,10 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include "GuiElement.h"
 #include "GuiItem.h"
-#include "GuiElementFactory.h"
-#include "Display.h"
-#include "Maths.h"
+#include <string>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_transform_2d.hpp>
-#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
-using namespace std;
 
 class Label : public GuiItem {
 protected:

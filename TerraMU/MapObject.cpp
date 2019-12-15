@@ -1,4 +1,6 @@
 #include "MapObject.h"
+#include "Action.h"
+#include "GameController.h"
 
 MapObject::~MapObject() {
 	if (action) {

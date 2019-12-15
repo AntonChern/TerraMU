@@ -1,9 +1,11 @@
 #include "Animation.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_transform_2d.hpp>
-#include <glm/gtc/type_ptr.hpp>
-using namespace glm;
+#include <GLFW/glfw3.h>
+
+Animation::Animation(float numberOfTimes, float period, vec2 position, vec2 scale, float offset) :
+	numberOfTimes(numberOfTimes), period(period), initialOffset(offset),
+	initialPosition(position), scale(scale), currPosition(position), currOffset(0.0f), initialTime((float)glfwGetTime()) {
+
+}
 
 void Animation::play() {
 	currOffset = initialOffset;

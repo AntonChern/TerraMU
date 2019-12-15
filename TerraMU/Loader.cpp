@@ -1,7 +1,7 @@
-#include <GL/glew.h>
+#include "Loader.h"
+#include "RawModel.h"
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
-#include "Loader.h"
 
 Loader::Loader() {
 	vaos = new list<GLuint>();

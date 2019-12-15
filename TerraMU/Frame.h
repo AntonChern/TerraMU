@@ -1,12 +1,7 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include "GuiElement.h"
 #include "GuiItem.h"
-#include "Entity.h"
-#include "GuiElementFactory.h"
-#include "Maths.h"
-using namespace std;
 
 class Frame : public GuiItem {
 private:

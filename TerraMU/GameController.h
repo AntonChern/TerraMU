@@ -2,19 +2,22 @@
 class Map;
 class Player;
 //class Creature;
-#include "Map.h"
 //#include "MapObject.h"
-#include "Entity.h"
-#include "WayHandler.h"
-#include "Gui.h"
-#include "Creature.h"
+//#include "Entity.h"
+class WayHandler;
+class Camera;
+class Gui;
+class GuiItem;
+class Creature;
 #include "Player.h"
 #include "Action.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <list>
+#include <glm/glm.hpp>
 //#include <iostream>
 using namespace std;
+using namespace glm;
 
 class GameController {
 private:

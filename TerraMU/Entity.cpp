@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Animation.h"
 
 Entity::~Entity() {
 	if (animation) {

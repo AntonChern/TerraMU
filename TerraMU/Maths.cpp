@@ -1,4 +1,5 @@
 #include "Maths.h"
+#include "Camera.h"
 
 mat4 Maths::createTransformMatrix(vec3 position, float rotX, float rotY, float rotZ, vec3 scal) {
 	mat4 transform(1.0f);

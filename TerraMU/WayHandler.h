@@ -1,4 +1,5 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include <list>
 #include <queue>
 #include <stack>
@@ -7,8 +8,8 @@
 #include <glm/gtx/matrix_transform_2d.hpp>
 #include <cmath>
 #include <iostream>
-using namespace std;
 using namespace glm;
+using namespace std;
 
 class WayHandler {
 private:

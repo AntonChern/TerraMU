@@ -1,12 +1,13 @@
 #pragma once
-#include <GLFW/glfw3.h>
-#include <SOIL.h>
+struct GLFWimage;
+struct GLFWcursor;
+struct GLFWwindow;
 
 class Cursor {
 private:
 	GLFWwindow* window;
 	GLFWcursor* cursor;
-	GLFWimage image;
+	GLFWimage* image;
 	unsigned char* pixels;
 
 public:

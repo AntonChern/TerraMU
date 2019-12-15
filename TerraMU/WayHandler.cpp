@@ -1,5 +1,6 @@
 #include "WayHandler.h"
 #include "GameController.h"
+#include "Map.h"
 
 void WayHandler::initialize() {
 	int columns = GameController::getMap()->getColumns();

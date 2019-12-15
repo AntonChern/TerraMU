@@ -1,7 +1,9 @@
 #pragma once
-#include "DroppedItem.h"
-#include "PickedItem.h"
-#include "GameController.h"
+#define GLM_FORCE_RADIANS
+class DroppedItem;
+class PickedItem;
+#include <string>
+using namespace std;
 
 class Item {
 private:

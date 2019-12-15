@@ -1,4 +1,6 @@
 #include "AnimationDirect.h"
+#include <GLFW/glfw3.h>
+#include "Maths.h"
 
 mat3 AnimationDirect::next() {
 	float deltaTime = glfwGetTime() - initialTime;

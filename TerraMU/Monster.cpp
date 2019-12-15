@@ -1,4 +1,8 @@
 #include "Monster.h"
+#include "Map.h"
+#include "WayHandler.h"
+#include "GameController.h"
+#include "Converter.h"
 
 bool Monster::seesPlayerIn(float radius) {
 	vec3 playerPosition = GameController::getPlayer()->getAvatar()->getPosition();

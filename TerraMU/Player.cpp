@@ -1,4 +1,8 @@
 #include "Player.h"
+#include "Converter.h"
+#include "Camera.h"
+#include "GameController.h"
+#include "Animation.h"
 
 void Player::hookGo(float coordX, float coordY) {
 	destination->getAnimation()->reset();

@@ -1,8 +1,11 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include <iostream>
 #include <list>
+#include <map>
 #include "Renderer.h"
 #include "StreamShader.h"
+class Camera;
 using namespace std;
 
 class MasterRenderer {

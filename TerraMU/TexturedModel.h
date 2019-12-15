@@ -1,9 +1,7 @@
 #pragma once
-#include "RawModel.h"
-#include "ModelTexture.h"
+class RawModel;
+class ModelTexture;
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 
 class TexturedModel {

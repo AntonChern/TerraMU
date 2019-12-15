@@ -1,9 +1,6 @@
 #pragma once
-#include <GLFW/glfw3.h>
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_transform_2d.hpp>
-#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 
 class Animation {
@@ -19,9 +16,7 @@ protected:
 	vec2 scale;
 
 public:
-	Animation(float numberOfTimes, float period, vec2 position, vec2 scale, float offset) :
-		numberOfTimes(numberOfTimes), period(period), initialOffset(offset),
-		initialPosition(position), scale(scale), currPosition(position), currOffset(0.0f), initialTime(glfwGetTime()) {};
+	Animation(float numberOfTimes, float period, vec2 position, vec2 scale, float offset);
 
 	virtual mat3 next() = 0;
 
