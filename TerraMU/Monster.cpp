@@ -5,6 +5,7 @@
 #include "Converter.h"
 #include "ShortGoAction.h"
 #include "HitAction.h"
+#include "Player.h"
 
 bool Monster::seesPlayerIn(float radius) {
 	vec3 playerPosition = GameController::getPlayer()->getAvatar()->getPosition();

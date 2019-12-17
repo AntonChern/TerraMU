@@ -10,6 +10,8 @@
 #include "MobSpawner.h"
 #include "GuiItem.h"
 #include "Camera.h"
+#include "Player.h"
+#include "Action.h"
 
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
 	gui->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
@@ -91,6 +93,7 @@ void GameController::setActions(list<Action*> actions) {
 	for (Action* action : actions) {
 		addAction(action);
 	}
+}
 
 void GameController::update(float deltaTime) {
 	if (!actions.empty() && !player->isInMotion()) {

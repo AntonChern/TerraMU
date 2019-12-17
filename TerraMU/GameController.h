@@ -9,8 +9,7 @@ class Camera;
 class Gui;
 class GuiItem;
 class Creature;
-#include "Player.h"
-#include "Action.h"
+class Action;
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <list>
@@ -33,8 +32,6 @@ private:
 	static list<Action*> actions;
 
 	static void processPanel(GuiItem* panel);
-
-	static list<Action*> actions;
 
 public:
 	static constexpr float WORLD_SCALE = 0.25f;

@@ -1,6 +1,7 @@
 #include "ShortGoAction.h"
 #include "GameController.h"
+#include "Player.h"
 
 void ShortGoAction::execute() {
-	GameController::shortGo(coordX, coordY);
+	GameController::getPlayer()->shortGo(coordX, coordY);
 }

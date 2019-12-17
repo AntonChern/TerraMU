@@ -2,5 +2,5 @@
 #include "GameController.h"
 
 void HitAction::execute() {
-	target->hit();
+	this->target->hit();
 }
