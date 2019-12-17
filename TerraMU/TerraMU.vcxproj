@@ -152,6 +152,7 @@
     <ClCompile Include="GuiItemBuilder.cpp" />
     <ClCompile Include="GuiRenderer.cpp" />
     <ClCompile Include="GuiShader.cpp" />
+    <ClCompile Include="HitAction.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Loader.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RoundButton.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShortGoAction.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="SlotArray.cpp" />
     <ClCompile Include="StaticShader.cpp" />
@@ -203,6 +205,7 @@
     <ClInclude Include="GuiElement.h" />
     <ClInclude Include="GuiRenderer.h" />
     <ClInclude Include="GuiShader.h" />
+    <ClInclude Include="HitAction.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
@@ -222,6 +225,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="RoundButton.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShortGoAction.h" />
     <ClInclude Include="Slot.h" />
     <ClInclude Include="SlotArray.h" />
     <ClInclude Include="StaticShader.h" />
