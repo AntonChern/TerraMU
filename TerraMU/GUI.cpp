@@ -1,4 +1,10 @@
 #include "Gui.h"
+#include "GuiElement.h"
+#include "GuiElementFactory.h"
+#include "GuiItem.h"
+#include "Display.h"
+#include "GuiItemBuilder.h"
+#include "Cursor.h"
 
 Gui::Gui(GLFWwindow* window) : visiblePanels({}) {
 	/*float aspect = (float)Display::getWidth() / (float)Display::getHeight();

@@ -3,6 +3,13 @@
 #include "WayHandler.h"
 #include "Maths.h"
 #include "Converter.h"
+#include "Map.h"
+#include "Gui.h"
+#include "Creature.h"
+#include "Monster.h"
+#include "MobSpawner.h"
+#include "GuiItem.h"
+#include "Camera.h"
 
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
 	gui->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
@@ -75,18 +82,19 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 	}
 }
 
-void GameController::shortGo(float coordX, float coordY) {
-	player->shortGo(coordX, coordY);
+void GameController::clearActions() {
+	actions.clear();
 }
 
-void GameController::go(float coordX, float coordY) {
-	player->go(coordX, coordY);
-}
+void GameController::setActions(list<Action*> actions) {
+	clearActions();
+	for (Action* action : actions) {
+		addAction(action);
+	}
 
 void GameController::update(float deltaTime) {
 	if (!actions.empty() && !player->isInMotion()) {
-		Action* action = actions.front();
-		action->execute();
+		actions.front()->execute();
 		actions.pop_front();
 	}
 

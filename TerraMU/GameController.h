@@ -2,18 +2,22 @@
 class Map;
 class Player;
 //class Creature;
-#include "Map.h"
 //#include "MapObject.h"
-#include "Entity.h"
-#include "WayHandler.h"
-#include "Gui.h"
-#include "Creature.h"
+//#include "Entity.h"
+class WayHandler;
+class Camera;
+class Gui;
+class GuiItem;
+class Creature;
 #include "Player.h"
+#include "Action.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <queue>
+#include <list>
+#include <glm/glm.hpp>
 //#include <iostream>
-//using namespace std;
+using namespace std;
+using namespace glm;
 
 class GameController {
 private:
@@ -30,6 +34,8 @@ private:
 
 	static void processPanel(GuiItem* panel);
 
+	static list<Action*> actions;
+
 public:
 	static constexpr float WORLD_SCALE = 0.25f;
 
@@ -38,18 +44,18 @@ public:
 	static void cursorEnterCallback(GLFWwindow* window, int entered);
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
+	static void update(float deltaTime);
+
+	static void addAction(Action* action) { actions.push_back(action); };
+	static void setActions(list<Action*> actions);
+	static void clearActions();
+
 	static void setMap(Map* map) { GameController::map = map; };
 	static void setGui(Gui* gui) { GameController::gui = gui; };
 	static void setPlayer(Player* player) { GameController::player = player; };
 	static void setCamera(Camera* camera) { GameController::camera = camera; };
 
-	static void go(float coordX, float coordY);
-	static void shortGo(float coordX, float coordY);
-	static void update(float deltaTime);
-
 	static Camera* getCamera() { return GameController::camera; };
 	static Map* getMap() { return GameController::map; };
 	static Player* getPlayer() { return GameController::player; };
-
-	static void addAction(Action* action) { actions.push_back(action); };
 };

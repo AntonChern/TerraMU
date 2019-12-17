@@ -1,12 +1,10 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include <iostream>
 #include <list>
-#include "Loader.h"
-#include "GuiShader.h"
-#include "GuiElement.h"
-#include "RawModel.h"
-#include "EntityFactory.h"
-#include "Maths.h"
+class GuiElement;
+class GuiShader;
+class RawModel;
 using namespace std;
 
 class GuiRenderer {

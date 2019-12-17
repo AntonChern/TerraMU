@@ -1,13 +1,11 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include <iostream>
 #include <list>
-#include "Moveable.h"
-#include "GuiElement.h"
-#include "GuiElementFactory.h"
-#include "GuiItem.h"
-#include "Display.h"
-#include "GuiItemBuilder.h"
-#include "Cursor.h"
+class Cursor;
+class GuiItem;
+class GuiElement;
+struct GLFWwindow;
 using namespace std;
 
 class Gui {

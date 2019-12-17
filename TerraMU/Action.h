@@ -1,5 +1,4 @@
 #pragma once
-#include "GameController.h"
 
 class Action {
 protected:
@@ -7,6 +6,8 @@ protected:
 	float coordY;
 
 public:
+	Action(float x, float y) : coordX(x), coordY(y) {};
+	Action() : Action(0.0f, 0.0f) {};
 
 	virtual void setPosition(float x, float y) { coordX = x; coordY = y; };
 

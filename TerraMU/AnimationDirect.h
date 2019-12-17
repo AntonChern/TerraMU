@@ -1,6 +1,6 @@
 #pragma once
 #include "Animation.h"
-#include "Maths.h"
+class Maths;
 
 class AnimationDirect : public Animation {
 public:

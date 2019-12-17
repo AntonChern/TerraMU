@@ -1,4 +1,8 @@
 #include "Monster.h"
+#include "Map.h"
+#include "WayHandler.h"
+#include "GameController.h"
+#include "Converter.h"
 #include "ShortGoAction.h"
 #include "HitAction.h"
 

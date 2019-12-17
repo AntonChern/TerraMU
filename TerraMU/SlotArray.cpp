@@ -1,4 +1,7 @@
 #include "SlotArray.h"
+#include "Slot.h"
+#include "GuiElement.h"
+#include "GuiElementFactory.h"
 
 SlotArray::SlotArray(int columns, int rows, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	GuiItem(position, rotationX, rotationY, rotationZ, scale), columns(columns), rows(rows) {

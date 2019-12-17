@@ -1,8 +1,9 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include <iostream>
 #include <list>
-#include "GuiElement.h"
-#include "GuiElementFactory.h"
+class GuiElement;
+#include "Moveable.h"
 using namespace std;
 
 class GuiItem : public Moveable {

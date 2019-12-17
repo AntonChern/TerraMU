@@ -1,6 +1,13 @@
 #include "Map.h"
 #include "Tile.h"
 #include "Converter.h"
+#include "Monster.h"
+#include "FramedLabel.h"
+#include "DroppedItem.h"
+#include "MapObject.h"
+#include "MobSpawner.h"
+#include "Item.h"
+#include "EntityFactory.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -97,8 +104,8 @@ void Map::processLayer(Tile** layer, float offset, float posX, float posY, int h
 	int endX = (int)(posX) + horyzontalSide / 2;
 	int endY = (int)(posY) + verticalSide / 2;
 
-	for (int j = std::max(0, startY); j < rows && j <= endY; j++) {
-		for (int i = std::max(0, startX); i < columns && i <= endX; i++) {
+	for (int j = max(0, startY); j < rows && j <= endY; j++) {
+		for (int i = max(0, startX); i < columns && i <= endX; i++) {
 			Tile currTile = layer[i][j];
 
 			if (currTile == EMPTY) {
@@ -201,7 +208,7 @@ void Map::interact(float x, float y) {
 		return;
 	}
 
-	for (MobSpawner* spawner : *spawners) {
+  for (MobSpawner* spawner : *spawners) {
 		for (Monster* mob : *spawner->getMobs()) {
 			vec3 position = mob->getAvatar()->getPosition();
 			float scaleX = mob->getAvatar()->getScale().x;
@@ -214,6 +221,16 @@ void Map::interact(float x, float y) {
 			}
 		}
 	}
+
+	for (Item* item : items) {
+		vec3 pos = item->getDropped()->getPosition();
+		vec2 pos2D = Converter::fromOpenGLToMap(vec2(pos.x, pos.y));
+		if (x < pos2D.x + item->getDropped()->getScale().x && x > pos2D.x - item->getDropped()->getScale().x &&
+			y < pos2D.y + item->getDropped()->getScale().y && y > pos2D.y - item->getDropped()->getScale().y) {
+			item->interact();
+			return;
+    }
+  }
 
 	int coordX = (int)x;
 	int coordY = (int)y;

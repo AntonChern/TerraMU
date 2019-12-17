@@ -1,4 +1,7 @@
 #include "RoundButton.h"
+#include "GuiElementFactory.h"
+#include "Maths.h"
+#include "GuiElement.h"
 
 RoundButton::RoundButton(bool isEnable, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) : 
 	GuiItem(position, rotationX, rotationY, rotationZ, scale), isEnable(isEnable) {

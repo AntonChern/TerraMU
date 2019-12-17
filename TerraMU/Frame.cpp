@@ -1,4 +1,8 @@
 #include "Frame.h"
+#include "GuiElement.h"
+#include "Entity.h"
+#include "GuiElementFactory.h"
+#include "Maths.h"
 
 Frame::Frame(int columns, int rows, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	GuiItem(position, rotationX, rotationY, rotationZ, scale), columns(columns), rows(rows) {

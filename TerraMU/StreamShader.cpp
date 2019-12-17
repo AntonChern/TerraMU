@@ -1,7 +1,6 @@
 #include "StreamShader.h"
 #include "Maths.h"
-#include <iostream> // delete
-using namespace std;
+#include "Camera.h"
 
 StreamShader::StreamShader() : ShaderProgram::ShaderProgram("StreamVertexShader.txt", "StreamFragmentShader.txt") {
 	bindAttributes();

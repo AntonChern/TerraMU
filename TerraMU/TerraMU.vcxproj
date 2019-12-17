@@ -165,6 +165,7 @@
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PickedItem.cpp" />
+    <ClCompile Include="PickUpItemAction.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="OpenChestAction.h" />
     <ClInclude Include="PickedItem.h" />
+    <ClInclude Include="PickUpItemAction.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RawModel.h" />

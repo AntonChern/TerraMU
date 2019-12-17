@@ -1,5 +1,10 @@
 #include "GameController.h"
 #include "Creature.h"
+#include "Map.h"
+#include "WayHandler.h"
+#include "Converter.h"
+#include "Animation.h"
+#include "Entity.h"
 
 void Creature::hookGo(float coordX, float coordY) {
 	return;

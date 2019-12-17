@@ -1,6 +1,5 @@
 #pragma once
 class Action;
-#include "Action.h"
 
 class MapObject {
 private:

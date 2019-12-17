@@ -1,6 +1,10 @@
 #pragma once
-#include "Loader.h"
-#include "GuiElement.h"
+class Loader;
+class GuiElement;
+#include <list>
+#include <glm/glm.hpp>
+using namespace glm;
+using namespace std;
 
 class GuiElementFactory {
 private:

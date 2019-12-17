@@ -1,5 +1,7 @@
 #pragma once
-#include "GameController.h"
+#define GLM_FORCE_RADIANS
+class GameController;
+#include "Animation.h"
 #include "Creature.h"
 
 class Monster : public Creature {

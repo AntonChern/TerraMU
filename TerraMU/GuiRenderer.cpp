@@ -1,4 +1,9 @@
 #include "GuiRenderer.h"
+#include "EntityFactory.h"
+#include "GuiShader.h"
+#include "GuiElement.h"
+#include "Maths.h"
+#include "RawModel.h"
 
 GuiRenderer::GuiRenderer() : shader(new GuiShader()) {
 	quad = EntityFactory::createRawModel();

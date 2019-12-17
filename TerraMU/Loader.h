@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
+#include <GL/glew.h>
 #include <list>
-#include "RawModel.h"
+class RawModel;
 using namespace std;
 
 class Loader {

@@ -1,5 +1,9 @@
 #include <map>
 #include "MasterRenderer.h"
+#include "Renderer.h"
+#include "StreamShader.h"
+#include "Entity.h"
+#include "Camera.h"
 
 map<float, list<Entity*>> MasterRenderer::getEntitiesByDistance(vec3 cameraPosition) {
 	map<float, list<Entity*>> entitiesByDistance;

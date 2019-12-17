@@ -1,4 +1,8 @@
 #include "Label.h"
+#include "GuiElement.h"
+#include "GuiElementFactory.h"
+#include "Display.h"
+#include "Maths.h"
 
 Label::Label(string text, vec3 position, float rotationX, float rotationY, float rotationZ, float scaleY) :
 	GuiItem(position, rotationX, rotationY, rotationZ,

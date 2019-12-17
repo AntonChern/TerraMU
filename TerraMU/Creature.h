@@ -1,7 +1,10 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include "Entity.h"
-#include "Converter.h"
-#include <queue>
+class Converter;
+#include <list>
+using namespace glm;
+using namespace std;
 
 class Creature {
 protected:

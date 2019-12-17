@@ -1,4 +1,6 @@
 #include "GuiElementFactory.h"
+#include "Loader.h"
+#include "GuiElement.h"
 
 GuiElement* GuiElementFactory::createGuiElement(char const texturePath[],
 	vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) {

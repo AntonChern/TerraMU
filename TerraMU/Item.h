@@ -1,7 +1,9 @@
 #pragma once
-#include "DroppedItem.h"
-#include "PickedItem.h"
-#include "GameController.h"
+#define GLM_FORCE_RADIANS
+class DroppedItem;
+class PickedItem;
+#include <string>
+using namespace std;
 
 class Item {
 private:
@@ -9,6 +11,7 @@ private:
 protected:
 	DroppedItem* dropped;
 	PickedItem* picked;
+	string name;
 
 public:
 	Item(string texturePath, string name);
@@ -16,5 +19,8 @@ public:
 
 	DroppedItem* getDropped() { return dropped; };
 	PickedItem* getPicked() { return picked; };
+	string getName() { return name; };
+
+	void interact();
 
 };

@@ -1,4 +1,6 @@
 #include "MapObject.h"
+#include "Action.h"
+#include "GameController.h"
 
 MapObject::~MapObject() {
 	if (action) {
@@ -8,6 +10,5 @@ MapObject::~MapObject() {
 
 void MapObject::interact(float x, float y) {
 	action->setPosition(x, y);
-	GameController::addAction(action);
-	//action->execute();
+	GameController::setActions({action});
 }

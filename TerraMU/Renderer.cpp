@@ -2,6 +2,13 @@
 #include "Maths.h"
 #include "Display.h"
 #include "Camera.h"
+#include "RawModel.h"
+#include "TexturedModel.h"
+#include "ModelTexture.h"
+#include "Entity.h"
+#include "Animation.h"
+#include "Entity.h"
+#include "StreamShader.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>

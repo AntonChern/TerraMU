@@ -1,4 +1,7 @@
 #include "DroppedItem.h"
+#include "FramedLabel.h"
+#include "EntityFactory.h"
+#include "Converter.h"
 
 DroppedItem::DroppedItem(string texturePath, string title, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	Moveable(position, rotationX, rotationY, rotationZ, scale) {

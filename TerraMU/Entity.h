@@ -1,7 +1,8 @@
 #pragma once
+#define GLM_FORCE_RADIANS
 #include "Moveable.h"
-#include "TexturedModel.h"
-#include "AnimationDirect.h"
+class TexturedModel;
+class Animation;
 
 class Entity : public Moveable {
 private:

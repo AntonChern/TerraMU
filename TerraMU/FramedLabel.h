@@ -1,6 +1,5 @@
 #pragma once
 #include "Label.h"
-#include "Picture.h"
 
 class FramedLabel : public Label {
 protected:

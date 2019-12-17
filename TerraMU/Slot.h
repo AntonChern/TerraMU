@@ -1,7 +1,5 @@
 #pragma once
-#include "GuiElement.h"
 #include "GuiItem.h"
-#include "GuiElementFactory.h"
 
 class Slot : public GuiItem {
 private:

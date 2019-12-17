@@ -1,4 +1,6 @@
 #include "AnimationPendulum.h"
+#include <GLFW/glfw3.h>
+#include "Maths.h"
 
 mat3 AnimationPendulum::next() {
 	float deltaTime = glfwGetTime() - initialTime;

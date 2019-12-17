@@ -1,11 +1,7 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include "GuiElement.h"
 #include "GuiItem.h"
-#include "GuiElementFactory.h"
-#include "Maths.h"
-using namespace std;
 
 class TextField : public GuiItem {
 private:

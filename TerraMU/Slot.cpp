@@ -1,4 +1,6 @@
 #include "Slot.h"
+#include "GuiElement.h"
+#include "GuiElementFactory.h"
 
 Slot::Slot(vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	GuiItem(position, rotationX, rotationY, rotationZ, scale), isPlaced(false) {

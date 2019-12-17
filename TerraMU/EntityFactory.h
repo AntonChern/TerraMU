@@ -1,4 +1,6 @@
 #pragma once
+#define GLM_FORCE_RADIANS
+//class Entity;
 #include "Entity.h"
 #include "Loader.h"
 #include <iostream>
