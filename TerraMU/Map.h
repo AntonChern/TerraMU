@@ -2,6 +2,8 @@
 #include "Renderer.h"
 class MapObject;
 class MobSpawner;
+class Item;
+#include "Item.h"
 #include "MapObject.h"
 #include "TexturedModel.h"
 #include "EntityFactory.h"
@@ -31,7 +33,9 @@ private:
 	static map<Tile, MapObject*> mapObjects;
 	list<Entity*> entities;
 
-	//add mob spawners and NPCs
+	list<Item*> items;
+
+	//add NPCs
 
 	void processLayer(Tile** layer, float offset, float posX, float posY, int horyzontalSide, int verticalSide);
 
@@ -55,6 +59,9 @@ public:
 	~Map();
 
 	list<Entity*> getRectangleArea(float posX, float posY, int horyzontalSide, int verticalSide);
+	list<GuiElement*> getTitles(float posX, float posY, int horyzontalSide, int verticalSide);
+
+	void addItem(Item* item, float x, float y);
 
 	int getColumns() { return columns; };
 	int getRows() { return rows; };

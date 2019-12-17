@@ -133,11 +133,24 @@
     <ClCompile Include="RoundButton.cpp">
       <Filter>Исходные файлы\guis\items</Filter>
     </ClCompile>
+
     <ClCompile Include="HitAction.cpp">
       <Filter>Исходные файлы\actions</Filter>
     </ClCompile>
     <ClCompile Include="ShortGoAction.cpp">
       <Filter>Исходные файлы\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Исходные файлы\entities\items</Filter>
+    </ClCompile>
+    <ClCompile Include="PickedItem.cpp">
+      <Filter>Исходные файлы\entities\items</Filter>
+    </ClCompile>
+    <ClCompile Include="DroppedItem.cpp">
+      <Filter>Исходные файлы\entities\items</Filter>
+    </ClCompile>
+    <ClCompile Include="FramedLabel.cpp">
+      <Filter>Исходные файлы\guis\items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +302,18 @@
     <ClInclude Include="ShortGoAction.h">
       <Filter>Файлы заголовков\actions</Filter>
     </ClInclude>
+    <ClInclude Include="PickedItem.h">
+      <Filter>Файлы заголовков\entities\items</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Файлы заголовков\entities\items</Filter>
+    </ClInclude>
+    <ClInclude Include="DroppedItem.h">
+      <Filter>Файлы заголовков\entities\items</Filter>
+    </ClInclude>
+    <ClInclude Include="FramedLabel.h">
+      <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="magicGladiator.png">
@@ -429,6 +454,12 @@
     </Filter>
     <Filter Include="Исходные файлы\guis\items">
       <UniqueIdentifier>{b6a936a8-ced5-4a75-9d6d-210e785fa871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\entities\items">
+      <UniqueIdentifier>{a2343236-40d1-4dce-8b8a-ca506e4d4ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\entities\items">
+      <UniqueIdentifier>{d98884fa-2519-45c7-94b8-f63ea1df0f32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -7,6 +7,8 @@ class TextFieldWithButton : public GuiItem {
 private:
 	int length;
 
+	void prepareForGettingIcons() override;
+
 public:
 	TextFieldWithButton(int length, vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale);
 

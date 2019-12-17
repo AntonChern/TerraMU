@@ -70,11 +70,71 @@ GuiItem* GuiItemBuilder::buildPoints() {
 	vec3 scale = vec3(width, height, 1.0f);
 	GuiItem* points = new Frame(columns, rows, position, 0.0f, 0.0f, 0.0f, scale);
 
-	GuiItem* energyPoints = new TextFieldWithButton(5, vec3(-0.0f, 0.5f, 0.0f), 0.0f, 0.0f, 0.0f, vec3(1.0f, 0.5f, 0.0f));
+	float xOffset = 16.0f;
+	float yOffset = 16.0f;
+	float letterHeight = 8.0f;
+	int energyPointsLength = 4;
+	int frameHeight = 336;
+	int frameWidth = 216;
 
-	GuiItem* label = new Label("Level:12345678901234567890", vec3(position.x, position.y + scale.y / 2 - scale.y * 15.0f / 336.0f, position.z), 0.0f, 0.0f, 0.0f, scale.y * 10.0f / 336.0f);
+	GuiItem* levelLabel = new Label("Level:",
+		vec3(position.x - scale.x / 2 + (3 * letterHeight * 28 / 32 + xOffset) * scale.x / frameWidth,
+			position.y + scale.y / 2 - scale.y * (letterHeight / 2 + yOffset) / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f, scale.y * letterHeight / frameHeight);
+
+	GuiItem* pointsLabel = new Label("Points:",
+		vec3(position.x - (4.5 * letterHeight * 28 / 32 + xOffset) * scale.x / frameWidth + scale.x / 2,
+			position.y + scale.y / 2 - scale.y * (letterHeight / 2 + yOffset) / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f, scale.y * letterHeight / frameHeight);
+
+	GuiItem* strengthPoints = new TextFieldWithButton(energyPointsLength,
+		vec3(position.x + scale.x / 2 - ((float)(24 * energyPointsLength + 22) / 2 + xOffset) * scale.x / frameWidth,
+			position.y + scale.y / 2 - (yOffset + letterHeight + (float)(frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f,
+		vec3(scale.x * (float)(24 * energyPointsLength + 22) / frameWidth, scale.y * 24.0f / frameHeight, scale.z));
+
+	GuiItem* strengthLabel = new Label("Strength",
+		vec3(position.x + (4 * letterHeight * 28 / 32 + xOffset) * scale.x / frameWidth - scale.x / 2,
+			position.y + scale.y / 2 - (yOffset + letterHeight + (float)(frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f, scale.y * letterHeight / frameHeight);
+
+	GuiItem* agilityPoints = new TextFieldWithButton(energyPointsLength,
+		vec3(position.x + scale.x / 2 - ((float)(24 * energyPointsLength + 22) / 2 + xOffset) * scale.x / frameWidth,
+			position.y + scale.y / 2 - (yOffset + letterHeight + 2.0f * (frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f,
+		vec3(scale.x * (float)(24 * energyPointsLength + 22) / frameWidth, scale.y * 24.0f / frameHeight, scale.z));
+
+	GuiItem* agilityLabel = new Label("Agility",
+		vec3(position.x + (4 * letterHeight * 28 / 32 + xOffset) * scale.x / frameWidth - scale.x / 2,
+			position.y + scale.y / 2 - (yOffset + letterHeight + 2.0f * (frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f, scale.y * letterHeight / frameHeight);
+
+	GuiItem* vitalityPoints = new TextFieldWithButton(energyPointsLength,
+		vec3(position.x + scale.x / 2 - ((float)(24 * energyPointsLength + 22) / 2 + xOffset) * scale.x / frameWidth,
+			position.y + scale.y / 2 - (yOffset + letterHeight + 3.0f * (frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f,
+		vec3(scale.x * (float)(24 * energyPointsLength + 22) / frameWidth, scale.y * 24.0f / frameHeight, scale.z));
+
+	GuiItem* vitalityLabel = new Label("Vitality",
+		vec3(position.x + (4 * letterHeight * 28 / 32 + xOffset) * scale.x / frameWidth - scale.x / 2,
+			position.y + scale.y / 2 - (yOffset + letterHeight + 3.0f * (frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f, scale.y * letterHeight / frameHeight);
+
+	GuiItem* energyPoints = new TextFieldWithButton(energyPointsLength,
+		vec3(position.x + scale.x / 2 - ((float)(24 * energyPointsLength + 22) / 2 + xOffset) * scale.x / frameWidth,
+			position.y + scale.y / 2 - (yOffset + letterHeight + 4.0f * (frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f,
+		vec3(scale.x * (float)(24 * energyPointsLength + 22) / frameWidth, scale.y * 24.0f / frameHeight, scale.z));
+
+	GuiItem* energyLabel = new Label("Energy",
+		vec3(position.x + (4 * letterHeight * 28 / 32 + xOffset) * scale.x / frameWidth - scale.x / 2,
+			position.y + scale.y / 2 - (yOffset + letterHeight + 4.0f * (frameHeight - yOffset) / 5) * scale.y / frameHeight, position.z),
+		0.0f, 0.0f, 0.0f, scale.y * letterHeight / frameHeight);
+
 	
-	//points->addChildren({energyPoints, label});
+	
+	points->addChildren({levelLabel, pointsLabel,
+		strengthPoints, strengthLabel, agilityPoints, agilityLabel, vitalityPoints, vitalityLabel, energyPoints, energyLabel});
 
 	return points;
 }
