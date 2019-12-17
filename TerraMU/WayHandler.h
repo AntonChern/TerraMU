@@ -69,6 +69,7 @@ public:
 	static void initialize();
 	static void deinitialize();
 
+	static list<vec2>* buildShortWay(float visibilityRadius, vec2 origin, vec2 whither);
 	static list<vec2>* buildWay(float visibilityRadius, vec2 origin, vec2 whither);
 	static bool existsPath(float visibilityRadius, vec2 origin, vec2 whither);
 	static vec2 getOptimalEnd(float visibilityRadius, vec2 origin, vec2 whither);

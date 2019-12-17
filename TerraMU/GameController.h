@@ -30,6 +30,7 @@ private:
 	static vec2 lastMouseClick;
 
 	static Player* player;
+	static list<Action*> actions;
 
 	static void processPanel(GuiItem* panel);
 
@@ -45,7 +46,7 @@ public:
 
 	static void update(float deltaTime);
 
-	static void addAction(Action* action);
+	static void addAction(Action* action) { actions.push_back(action); };
 	static void setActions(list<Action*> actions);
 	static void clearActions();
 

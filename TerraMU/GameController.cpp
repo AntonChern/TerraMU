@@ -82,28 +82,6 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 	}
 }
 
-void GameController::update(float deltaTime) {
-
-	if (!player->isInMotion() && actions.size() > 0) {
-		actions.front()->execute();
-		actions.pop_front();
-	}
-
-	player->update(deltaTime);
-
-	for (MobSpawner* spawner : *map->getSpawners()) {
-		spawner->update();
-		for (Monster* mob : *spawner->getMobs()) {
-			mob->update(deltaTime);
-		}
-	}
-	map->nullMobMap();
-}
-
-void GameController::addAction(Action* action) {
-	actions.push_back(action);
-}
-
 void GameController::clearActions() {
 	actions.clear();
 }
@@ -113,4 +91,16 @@ void GameController::setActions(list<Action*> actions) {
 	for (Action* action : actions) {
 		addAction(action);
 	}
+
+void GameController::update(float deltaTime) {
+	if (!actions.empty() && !player->isInMotion()) {
+		actions.front()->execute();
+		actions.pop_front();
+	}
+
+	player->update(deltaTime);
+	for (MobSpawner* spawner : *map->getSpawners()) {
+		spawner->update(deltaTime);
+	}
+	map->nullMobMap();
 }

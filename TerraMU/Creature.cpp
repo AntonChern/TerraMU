@@ -22,6 +22,16 @@ void Creature::hookStopAnimation() {
 	return;
 }
 
+void Creature::shortGo(float coordX, float coordY) {
+	this->isWithTask = true;
+	initialPosition = vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2);
+
+	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2));
+
+	nullWay();
+	way = WayHandler::buildShortWay((float)visibilityRadius / (float)GameController::getMap()->getScale().x * GameController::getMap()->getColumns(), origin, vec2(coordX, coordY));
+}
+
 void Creature::go(float coordX, float coordY) {
 	initialPosition = vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2);
 
@@ -36,7 +46,7 @@ void Creature::go(float coordX, float coordY) {
 void Creature::update(float deltaTime) {
 	hookUpdate();
 
-	if (way && !way->empty()) {
+	if (isInMotion()) {
 		vec2 localWay = way->front();
 		if (localWay == vec2(0.0f, 0.0f)) {
 			way->pop_front();
@@ -73,6 +83,7 @@ void Creature::update(float deltaTime) {
 			avatar->getAnimation()->setPosition(0.75f);
 		}
 	} else {
+		this->isWithTask = false;
 		hookStopAnimation();
 	}
 
@@ -84,4 +95,8 @@ void Creature::nullWay() {
 		delete way;
 		way = nullptr;
 	}
+}
+
+void Creature::hit() {
+	return;
 }

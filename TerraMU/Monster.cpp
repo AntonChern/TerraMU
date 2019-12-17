@@ -3,6 +3,8 @@
 #include "WayHandler.h"
 #include "GameController.h"
 #include "Converter.h"
+#include "ShortGoAction.h"
+#include "HitAction.h"
 
 bool Monster::seesPlayerIn(float radius) {
 	vec3 playerPosition = GameController::getPlayer()->getAvatar()->getPosition();
@@ -29,8 +31,9 @@ void Monster::goToAttack() {
 
 	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2));
 	if (WayHandler::existsPath((float)visibilityRadius / (float)GameController::getMap()->getScale().x * GameController::getMap()->getColumns(), origin, target)) {
-		Creature::go(target.x, target.y);
-		shortenPath();
+		//Creature::go(target.x, target.y);
+		//shortenPath();
+		Creature::shortGo(target.x, target.y);
 	} else {
 		vec2 newTarget = WayHandler::getOptimalEnd((float)visibilityRadius / (float)GameController::getMap()->getScale().x * GameController::getMap()->getColumns(), origin, target);
 		Creature::go(newTarget.x, newTarget.y);
@@ -94,13 +97,25 @@ void Monster::Angry::execute() {
 	}
 }
 
-void Monster::shortenPath() {
-	if (seesPlayerIn((float)GameController::getMap()->getScale().x / (float)GameController::getMap()->getColumns())) {
-		nullWay();
-	} else {
-		float distance = 1.0f;
-		vec2 final = way->back();
-		float coef = 1.0f - (float)distance / (float)std::sqrt(final.x * final.x + final.y * final.y);
-		way->back() *= coef;
-	}
+//void Monster::shortenPath() {
+//	if (seesPlayerIn((float)GameController::getMap()->getScale().x / (float)GameController::getMap()->getColumns())) {
+//		nullWay();
+//	} else {
+//		float distance = 1.0f;
+//		vec2 final = way->back();
+//		float coef = 1.0f - (float)distance / (float)std::sqrt(final.x * final.x + final.y * final.y);
+//		way->back() *= coef;
+//	}
+//}
+
+void Monster::hit() {
+	health -= GameController::getPlayer()->getStrength();
+}
+
+void Monster::interact(float x, float y) {
+	ShortGoAction* shortGoAction = new ShortGoAction();
+	shortGoAction->setPosition(x, y);
+	GameController::addAction(shortGoAction);
+	HitAction* hitAction = new HitAction(this);
+	GameController::addAction(hitAction);
 }
