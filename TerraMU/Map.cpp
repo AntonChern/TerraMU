@@ -164,6 +164,20 @@ void Map::interact(float x, float y) {
 		return;
 	}
 
+	for (MobSpawner* spawner : *spawners) {
+		for (Monster* mob : *spawner->getMobs()) {
+			vec3 position = mob->getAvatar()->getPosition();
+			float scaleX = mob->getAvatar()->getScale().x;
+			float scaleY = mob->getAvatar()->getScale().y;
+			vec2 mouse = Converter::fromMapToOpenGL(vec2(x, y));
+			if ((mouse.x > position.x - (float)scaleX / 2 && mouse.x < position.x + (float)scaleX / 2) && (mouse.y > position.y - (float)scaleY / 2 && mouse.y < position.y + (float)scaleY / 2)) {
+				vec2 mapPosition = Converter::fromOpenGLToMap(vec2(position.x, position.y - (float)mob->getAvatar()->getScale().y / 2));
+				mob->interact(mapPosition.x, mapPosition.y);
+				return;
+			}
+		}
+	}
+
 	int coordX = (int)x;
 	int coordY = (int)y;
 

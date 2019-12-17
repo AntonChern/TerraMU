@@ -8,5 +8,6 @@ MapObject::~MapObject() {
 
 void MapObject::interact(float x, float y) {
 	action->setPosition(x, y);
-	action->execute();
+	GameController::addAction(action);
+	//action->execute();
 }

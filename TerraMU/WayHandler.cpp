@@ -185,6 +185,19 @@ bool WayHandler::isWalkable(list<vec2>* path, vec2 origin, vec2 initial) {
 	return result;
 }
 
+list<vec2>* WayHandler::buildShortWay(float visibilityRadius, vec2 origin, vec2 whither) {
+	if (length(origin - whither) <= 1) {
+		return nullptr;
+	} else {
+		list<vec2>* temp = buildWay(visibilityRadius, origin, whither);
+		float distance = 1.0f;
+		vec2 final = temp->back();
+		float coef = 1.0f - (float)distance / (float)std::sqrt(final.x * final.x + final.y * final.y);
+		temp->back() *= coef;
+		return temp;
+	}
+}
+
 list<vec2>* WayHandler::buildWay(float visibilityRadius, vec2 origin, vec2 whither) {
 	resultWay = new list<vec2>();
 	initAll(visibilityRadius, origin, whither);

@@ -26,6 +26,7 @@ private:
 	static vec2 lastMouseClick;
 
 	static Player* player;
+	static list<Action*> actions;
 
 public:
 	static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
@@ -39,8 +40,12 @@ public:
 	static void setCamera(Camera* camera) { GameController::camera = camera; };
 
 	static void go(float coordX, float coordY);
+	static void shortGo(float coordX, float coordY);
+	static void update(float deltaTime);
 
 	static Camera* getCamera() { return GameController::camera; };
 	static Map* getMap() { return GameController::map; };
 	static Player* getPlayer() { return GameController::player; };
+
+	static void addAction(Action* action) { actions.push_back(action); };
 };

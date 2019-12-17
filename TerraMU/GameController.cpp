@@ -50,6 +50,24 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 	}
 }
 
+void GameController::shortGo(float coordX, float coordY) {
+	player->shortGo(coordX, coordY);
+}
+
 void GameController::go(float coordX, float coordY) {
 	player->go(coordX, coordY);
+}
+
+void GameController::update(float deltaTime) {
+	if (!actions.empty() && !player->isInMotion()) {
+		Action* action = actions.front();
+		action->execute();
+		actions.pop_front();
+	}
+
+	player->update(deltaTime);
+	for (MobSpawner* spawner : *map->getSpawners()) {
+		spawner->update(deltaTime);
+	}
+	map->nullMobMap();
 }

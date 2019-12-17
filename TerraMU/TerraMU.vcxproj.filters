@@ -133,6 +133,12 @@
     <ClCompile Include="RoundButton.cpp">
       <Filter>Исходные файлы\guis\items</Filter>
     </ClCompile>
+    <ClCompile Include="HitAction.cpp">
+      <Filter>Исходные файлы\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortGoAction.cpp">
+      <Filter>Исходные файлы\actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -276,6 +282,12 @@
     </ClInclude>
     <ClInclude Include="RoundButton.h">
       <Filter>Файлы заголовков\guis\items</Filter>
+    </ClInclude>
+    <ClInclude Include="HitAction.h">
+      <Filter>Файлы заголовков\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortGoAction.h">
+      <Filter>Файлы заголовков\actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

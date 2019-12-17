@@ -13,7 +13,7 @@ void Player::hookChangeCamera(vec2 step) {
 }
 
 void Player::hookUpdate() {
-	if (!way || way->empty()) {
+	if (!isInMotion()) {
 		destination->getAnimation()->stop();
 	}
 }
