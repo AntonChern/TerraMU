@@ -198,8 +198,6 @@ int main() {
 
 	while (!display->isCloseRequested()) {
 
-		//renderer->processEntity(item->getDropped()->getEntity());
-
 		vec2 playerPosition = Converter::fromOpenGLToMap(vec2(player->getAvatar()->getPosition().x, player->getAvatar()->getPosition().y));
 		renderer->processEntities(map->getRectangleArea(playerPosition.x, playerPosition.y, 19, 19));
 
