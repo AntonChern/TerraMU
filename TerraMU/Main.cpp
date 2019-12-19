@@ -193,6 +193,8 @@ int main() {
 	GuiRenderer* guiRenderer = new GuiRenderer();
 
 	map->addItem(new Item("apple.png", "Apple"), 2, 2);
+	map->addItem(new Item("apple.png", "Apple"), 3, 3);
+	map->addItem(new Item("apple.png", "Apple"), 3, 4);
 
 	while (!display->isCloseRequested()) {
 

@@ -9,6 +9,10 @@
 #include "Label.h"
 #include "Picture.h"
 #include "TextFieldWithButton.h"
+#include "GameController.h"
+#include "Player.h"
+#include "InventorySubscriber.h"
+#include "Slot.h"
 
 GuiItem* GuiItemBuilder::buildBars() {
 	GuiItem* bars = new Picture("bars.png", vec3(0.0f, aspect * 70.0f / 611.0f - 1.0f, 0.0f), 0.0f, 0.0f, 0.0f,
@@ -29,10 +33,12 @@ GuiItem* GuiItemBuilder::buildInventory() {
 	vec3 scale = vec3(width, height, 1.0f);
 	GuiItem* inventory = new Frame(columns, rows, position, 0.0f, 0.0f, 0.0f, scale);
 
-	columns = 5;
-	rows = 4;
-	GuiItem* slots = new SlotArray(columns, rows, vec3(position.x, position.y + scale.y * (118.0f / 336.0f - 0.5f), position.z),
+	columns = GameController::getPlayer()->getInventoryWidth();
+	rows = GameController::getPlayer()->getInventoryHeight();
+	SlotArray* slots = new SlotArray(columns, rows, vec3(position.x, position.y + scale.y * (118.0f / 336.0f - 0.5f), position.z),
 		0.0f, 0.0f, 0.0f, vec3(200.0f / 216.0f * scale.x, 160.0f / 336.0f * scale.y, 1.0f));
+
+	GameController::getPlayer()->setInventorySubscriber(new InventorySubscriber(GameController::getPlayer(), slots->getSlots()));
 
 	GuiItem* head = new Slot(vec3(position.x, position.y + scale.y * (0.5f - 28.0f / 336.0f), position.z),
 		0.0f, 0.0f, 0.0f, vec3(40.0f / 216.0f * scale.x, 40.0f / 336.0f * scale.y, 1.0f));

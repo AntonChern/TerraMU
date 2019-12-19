@@ -55,4 +55,6 @@ public:
 	static Camera* getCamera() { return GameController::camera; };
 	static Map* getMap() { return GameController::map; };
 	static Player* getPlayer() { return GameController::player; };
+	static Gui* getGui() { return gui; };
+
 };

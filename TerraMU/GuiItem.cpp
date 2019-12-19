@@ -2,10 +2,18 @@
 #include "GuiElementFactory.h"
 
 GuiItem::~GuiItem() {
-	for (GuiItem* child : children) {
-		delete child;
+	while (!children.empty()) {
+		GuiItem* gui = children.front();
+		children.pop_front();
+		delete gui;
 	}
-	GuiElementFactory::cleanGuis(icons);
+	list<GuiElement*> buff = {};
+	while (!icons.empty()) {
+		GuiElement* icon = icons.front();
+		children.pop_front();
+		buff.push_back(icon);
+	}
+	GuiElementFactory::cleanGuis(buff);
 }
 
 void GuiItem::addChildren(list<GuiItem*> children) {

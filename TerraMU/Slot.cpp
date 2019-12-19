@@ -1,6 +1,9 @@
 #include "Slot.h"
 #include "GuiElement.h"
 #include "GuiElementFactory.h"
+#include "PickedItem.h"
+#include "Item.h"
+#include "Picture.h"
 
 Slot::Slot(vec3 position, float rotationX, float rotationY, float rotationZ, vec3 scale) :
 	GuiItem(position, rotationX, rotationY, rotationZ, scale), isPlaced(false) {
@@ -23,6 +26,26 @@ void Slot::prepareForGettingIcons() {
 		icon->setRotationZ(rotationZ);
 		icon->setScale(scale);
 	}
+}
+
+bool Slot::setItem(Item* item) {
+	this->item = item;
+
+	if (!item) {
+		return false;
+	}
+
+	Picture* picture = item->getPicked()->getIcon();
+
+	//set picture coords and scale
+	picture->setPosition(position);
+	picture->setScale(scale);
+	picture->setRotationX(rotationX);
+	picture->setRotationY(rotationY);
+	picture->setRotationZ(rotationZ);
+
+	addChild(picture);
+	return true;
 }
 
 //list<GuiElement*> Slot::getIcons() {

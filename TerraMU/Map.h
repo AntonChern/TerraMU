@@ -59,6 +59,7 @@ public:
 	list<GuiElement*> getTitles(float posX, float posY, int horyzontalSide, int verticalSide);
 
 	void addItem(Item* item, float x, float y);
+	void removeItem(Item* item) { items.remove(item); };
 
 	int getColumns() { return columns; };
 	int getRows() { return rows; };

@@ -133,7 +133,6 @@
     <ClCompile Include="RoundButton.cpp">
       <Filter>Исходные файлы\guis\items</Filter>
     </ClCompile>
-
     <ClCompile Include="HitAction.cpp">
       <Filter>Исходные файлы\actions</Filter>
     </ClCompile>
@@ -154,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="PickUpItemAction.cpp">
       <Filter>Исходные файлы\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="InventorySubscriber.cpp">
+      <Filter>Исходные файлы\subscribers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +322,12 @@
     <ClInclude Include="PickUpItemAction.h">
       <Filter>Файлы заголовков\actions</Filter>
     </ClInclude>
+    <ClInclude Include="Subscriber.h">
+      <Filter>Файлы заголовков\subscribers</Filter>
+    </ClInclude>
+    <ClInclude Include="InventorySubscriber.h">
+      <Filter>Файлы заголовков\subscribers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="magicGladiator.png">
@@ -466,6 +474,12 @@
     </Filter>
     <Filter Include="Исходные файлы\entities\items">
       <UniqueIdentifier>{d98884fa-2519-45c7-94b8-f63ea1df0f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\subscribers">
+      <UniqueIdentifier>{b21b3bac-8703-46d5-b115-9ad4b60b1da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\subscribers">
+      <UniqueIdentifier>{f1e5a96f-f8e6-4272-849a-869e21099d46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

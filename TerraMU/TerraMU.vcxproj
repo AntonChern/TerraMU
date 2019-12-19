@@ -153,6 +153,7 @@
     <ClCompile Include="GuiRenderer.cpp" />
     <ClCompile Include="GuiShader.cpp" />
     <ClCompile Include="HitAction.cpp" />
+    <ClCompile Include="InventorySubscriber.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Loader.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="GuiRenderer.h" />
     <ClInclude Include="GuiShader.h" />
     <ClInclude Include="HitAction.h" />
+    <ClInclude Include="InventorySubscriber.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Map.h" />
@@ -233,6 +235,7 @@
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="StreamShader.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="Subscriber.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="TextFieldWithButton.h" />
     <ClInclude Include="TexturedModel.h" />

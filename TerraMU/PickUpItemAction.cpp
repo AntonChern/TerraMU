@@ -1,7 +1,11 @@
 #include "PickUpItemAction.h"
 #include "Item.h"
-#include <iostream> // delete
+#include "GameController.h"
+#include "Map.h"
+#include "Entity.h"
+#include "Player.h"
 
 void PickUpItemAction::execute() {
-	std::cout << "PICK UP ITEM ACTION" << std::endl;
+	GameController::getMap()->removeItem(item);
+	GameController::getPlayer()->addItem(item);
 }

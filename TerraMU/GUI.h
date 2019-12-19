@@ -19,19 +19,12 @@ private:
 
 	Cursor* cursor;
 
-	//void changeVisibility(list<GuiElement*> guis);
-
 public:
 	Gui(GLFWwindow* window);
 	~Gui();
 
 	list<GuiElement*> getGuiElements();
 	list<GuiItem*>* getVisiblePanels() { return &visiblePanels; };
-
-	/*void changeInventoryVisibility();
-	void changeChestVisibility();
-	void changePointsVisibility();
-	void reset();*/
 
 	GuiItem* getInventory() { return inventory; };
 	//GuiItem* getChest() { return chest; };

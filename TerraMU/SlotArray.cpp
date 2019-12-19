@@ -10,7 +10,9 @@ SlotArray::SlotArray(int columns, int rows, vec3 position, float rotationX, floa
 			vec3 currPosition = vec3(position.x + scale.x * ((float)(2 * i + 1) / columns - 1) / 2,
 				position.y + scale.y * (1 - (float)(2 * j + 1) / rows) / 2, position.z);
 
-			addChild({ new Slot(currPosition, rotationX, rotationY, rotationZ, vec3(scale.x / columns, scale.y / rows, scale.z)) });
+			Slot* newSlot = new Slot(currPosition, rotationX, rotationY, rotationZ, vec3(scale.x / columns, scale.y / rows, scale.z));
+			addChild(newSlot);
+			slots.push_back(newSlot);
 		}
 	}
 }
