@@ -5,6 +5,11 @@
 #include "Display.h"
 #include "GuiItemBuilder.h"
 #include "Cursor.h"
+#include "Item.h"
+#include "PickedItem.h"
+#include "Picture.h"
+#include "GameController.h"
+#include "Converter.h"
 
 Gui::Gui(GLFWwindow* window) : visiblePanels({}) {
 	/*float aspect = (float)Display::getWidth() / (float)Display::getHeight();
@@ -15,13 +20,13 @@ Gui::Gui(GLFWwindow* window) : visiblePanels({}) {
 	cursor = new Cursor(window, "cursor.png");
 
 	inventory = GuiItemBuilder::buildInventory();
-	bars = GuiItemBuilder::buildBars();
+	//bars = GuiItemBuilder::buildBars();
 	points = GuiItemBuilder::buildPoints();
 }
 
 Gui::~Gui() {
 	delete cursor;
-	delete bars;
+	//delete bars;
 	delete inventory;
 	//delete chest;
 	delete points;
@@ -30,13 +35,22 @@ Gui::~Gui() {
 list<GuiElement*> Gui::getGuiElements() {
 	list<GuiElement*> guis;
 
-	for (GuiElement* gui : bars->getIcons()) {
+	/*for (GuiElement* gui : bars->getIcons()) {
 		guis.push_back(gui);
-	}
+	}*/
 
 	for (GuiItem* item : visiblePanels) {
 		for (GuiElement* gui : item->getIcons()) {
 			guis.push_back(gui);
+		}
+	}
+
+	if (grabbedItem) {
+		GuiItem* grabbed = grabbedItem->getPicked()->getIcon();
+		vec2 pos = Converter::fromDisplayToGui(GameController::getMousePos());
+		grabbed->setPosition(pos.x, pos.y, 0.0f);
+		for (GuiElement* element : grabbed->getIcons()) {
+			guis.push_back(element);
 		}
 	}
 
@@ -47,12 +61,12 @@ void Gui::placed(float x, float y) {
 	for (GuiItem* panel : visiblePanels) {
 		panel->placed(x, y);
 	}
-	bars->placed(x, y);
+	//bars->placed(x, y);
 }
 
 void Gui::unplaced(float x, float y) {
 	inventory->unplaced(x, y);
-	bars->unplaced(x, y);
+	//bars->unplaced(x, y);
 	points->unplaced(x, y);
 }
 
@@ -62,16 +76,16 @@ bool Gui::clicked(float x, float y) {
 			return true;
 		}
 	}
-	if (bars->clicked(x, y)) {
+	/*if (bars->clicked(x, y)) {
 		return true;
-	}
+	}*/
 
 	return false;
 }
 
 void Gui::unclicked(float x, float y) {
 	inventory->unclicked(x, y);
-	bars->unclicked(x, y);
+	//bars->unclicked(x, y);
 	points->unclicked(x, y);
 }
 

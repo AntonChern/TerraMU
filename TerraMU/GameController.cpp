@@ -12,15 +12,15 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Action.h"
+#include "Cursor.h"
 
 void GameController::cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
 	gui->unplaced(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 
-	mousePosition = vec2(xPos, yPos);
+	/*camera->increaseYaw((xPos - mousePosition.x) * 0.1f);
+	camera->increasePitch((yPos - mousePosition.y) * 0.1f);*/
 
-	/*GuiElement* cursor = gui->getCursor();
-	vec2 updatedMousePosition = Converter::fromDisplayToOpenGL(mousePosition);
-	cursor->setPosition(2 * mousePosition.x / Display::getWidth() - 1, 1 - 2 * mousePosition.y / Display::getHeight(), 0.0f);*/
+	mousePosition = vec2(xPos, yPos);
 
 	gui->placed(mousePosition.x * 2.0f / Display::getWidth() - 1, 1 - mousePosition.y * 2.0f / Display::getHeight());
 }
@@ -29,6 +29,7 @@ void GameController::mouseButtonCallback(GLFWwindow* window, int button, int act
 	vec2 mousePosMap = Converter::fromDisplayToMap(mousePosition);
 	vec2 mousePosGui = Converter::fromDisplayToGui(mousePosition);
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+		gui->getCursor()->makeRed();
 		if (!gui->clicked(mousePosGui.x, mousePosGui.y)) {
 			if (!player->isInMotion()) {
 				player->getAvatar()->getAnimation()->play();
@@ -39,6 +40,7 @@ void GameController::mouseButtonCallback(GLFWwindow* window, int button, int act
 		}
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+		gui->getCursor()->reset();
 		gui->unclicked(mousePosGui.x, mousePosGui.y);
 	}
 }
@@ -82,24 +84,37 @@ void GameController::keyCallback(GLFWwindow* window, int key, int scancode, int 
 	if (key == GLFW_KEY_C && action == GLFW_PRESS) {
 		GameController::processPanel(gui->getPoints());
 	}
-}
 
-void GameController::clearActions() {
-	actions.clear();
-}
-
-void GameController::setActions(list<Action*> actions) {
-	clearActions();
-	for (Action* action : actions) {
-		addAction(action);
+	/*if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS)) {
+		camera->increasePosition(0.0f, 0.0f, -0.02f);
 	}
+	if (key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS)) {
+		camera->increasePosition(-0.02f, 0.0f, 0.0f);
+	}
+	if (key == GLFW_KEY_S && (action == GLFW_REPEAT || action == GLFW_PRESS)) {
+		camera->increasePosition(0.0f, 0.0f, 0.02f);
+	}
+	if (key == GLFW_KEY_D && (action == GLFW_REPEAT || action == GLFW_PRESS)) {
+		camera->increasePosition(0.02f, 0.0f, 0.0f);
+	}*/
 }
+
+//void GameController::clearActions() {
+//	actions.clear();
+//}
+//
+//void GameController::setActions(list<Action*> actions) {
+//	clearActions();
+//	for (Action* action : actions) {
+//		addAction(action);
+//	}
+//}
 
 void GameController::update(float deltaTime) {
-	if (!actions.empty() && !player->isInMotion()) {
+	/*if (!actions.empty() && !player->isInMotion()) {
 		actions.front()->execute();
 		actions.pop_front();
-	}
+	}*/
 
 	player->update(deltaTime);
 	for (MobSpawner* spawner : *map->getSpawners()) {

@@ -34,14 +34,18 @@ Map::Map(const char* sourcePath, vec3 position, float rotationX, float rotationY
 	for (int j = 0; j < rows; j++) {
 		getline(fin, str);
 		for (int i = 0; i < columns; i++) {
-			int tile = str.at(i) - '0';
+			int tile = str.at(i) - ' ';
 			base[i][j] = (Tile)tile;
 		}
 	}
 
+	getline(fin, str);
+
 	for (int j = 0; j < rows; j++) {
+		getline(fin, str);
 		for (int i = 0; i < columns; i++) {
-			hat[i][j] = EMPTY;
+			int tile = str.at(i) - ' ';
+			hat[i][j] = (Tile)tile;
 		}
 	}
 
@@ -224,9 +228,9 @@ void Map::interact(float x, float y) {
 
 	for (Item* item : items) {
 		vec3 pos = item->getDropped()->getPosition();
-		vec2 pos2D = Converter::fromOpenGLToMap(vec2(pos.x, pos.y));
-		if (x < pos2D.x + item->getDropped()->getScale().x && x > pos2D.x - item->getDropped()->getScale().x &&
-			y < pos2D.y + item->getDropped()->getScale().y && y > pos2D.y - item->getDropped()->getScale().y) {
+		vec2 click = Converter::fromMapToOpenGL(vec2(x, y));
+		if (click.x < pos.x + item->getDropped()->getScale().x && click.x > pos.x - item->getDropped()->getScale().x &&
+			click.y < pos.y + item->getDropped()->getScale().y && click.y > pos.y - item->getDropped()->getScale().y) {
 			item->interact();
 			return;
     }

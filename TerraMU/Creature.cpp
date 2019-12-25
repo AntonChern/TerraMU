@@ -5,6 +5,7 @@
 #include "Converter.h"
 #include "Animation.h"
 #include "Entity.h"
+#include "Action.h"
 
 void Creature::hookGo(float coordX, float coordY) {
 	return;
@@ -44,6 +45,11 @@ void Creature::go(float coordX, float coordY) {
 }
 
 void Creature::update(float deltaTime) {
+	if (!actions.empty() && !isInMotion()) {
+		actions.front()->execute();
+		actions.pop_front();
+	}
+
 	hookUpdate();
 
 	if (isInMotion()) {
@@ -99,4 +105,15 @@ void Creature::nullWay() {
 
 void Creature::hit() {
 	return;
+}
+
+void Creature::clearActions() {
+	actions.clear();
+}
+
+void Creature::setActions(list<Action*> actions) {
+	clearActions();
+	for (Action* action : actions) {
+		addAction(action);
+	}
 }

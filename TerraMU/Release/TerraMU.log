@@ -1,11 +1,20 @@
-﻿  GuiItem.cpp
+﻿  GameController.cpp
+  Main.cpp
+C:\Users\ch_Alex\source\repos\TerraMU\TerraMU\Main.cpp(205): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\ch_Alex\source\repos\TerraMU\TerraMU\Main.cpp(219): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\ch_Alex\source\repos\TerraMU\TerraMU\Main.cpp(262): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\ch_Alex\source\repos\TerraMU\TerraMU\Main.cpp(292): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  Map.cpp
+  MobSpawner.cpp
+C:\Users\ch_Alex\source\repos\TerraMU\TerraMU\MobSpawner.cpp(11): warning C4018: <: несоответствие типов со знаком и без знака
+  Monster.cpp
 SOIL.lib(SOIL.obj) : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/OPT:ICF"
 LINK : warning LNK4098: библиотека по умолчанию "LIBCMT" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
 LINK : warning LNK4098: библиотека по умолчанию "MSVCRTD" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
   Создание кода
-  45 of 2360 functions ( 1.9%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    18 functions had inline decision re-evaluated but remain unchanged
+  35 of 2336 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
+    12 functions were new in current compilation
+    56 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
 LINK : warning LNK4286: Символ "___glewDisableVertexAttribArray", определенный в "GLEW32s.lib(glew.obj)", импортирован "GuiRenderer.obj".
 LINK : warning LNK4286: Символ "___glewActiveTexture", определенный в "GLEW32s.lib(glew.obj)", импортирован "GuiRenderer.obj".
@@ -20,12 +29,6 @@ LINK : warning LNK4286: Символ "___glewBufferData", определенны
 LINK : warning LNK4286: Символ "___glewDeleteVertexArrays", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewBindBuffer", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
 LINK : warning LNK4286: Символ "___glewVertexAttribPointer", определенный в "GLEW32s.lib(glew.obj)", импортирован "Loader.obj".
-LINK : warning LNK4286: Символ "___glewLinkProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
-LINK : warning LNK4286: Символ "___glewDeleteShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
-LINK : warning LNK4286: Символ "___glewDetachShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
-LINK : warning LNK4286: Символ "___glewUniformMatrix4fv", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
-LINK : warning LNK4286: Символ "___glewShaderSource", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
-LINK : warning LNK4286: Символ "___glewDeleteProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewAttachShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewGetShaderInfoLog", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewCreateProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
@@ -35,9 +38,15 @@ LINK : warning LNK4286: Символ "___glewCompileShader", определен�
 LINK : warning LNK4286: Символ "___glewGetShaderiv", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewUseProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
 LINK : warning LNK4286: Символ "___glewUniformMatrix3fv", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
-GLEW32s.lib(glew.obj) : warning LNK4099: "vc120.pdb" PDB не найден с "GLEW32s.lib(glew.obj)" или на "C:\Users\User\source\repos\TerraMU\Release\vc120.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-SOIL.lib(image_DXT.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(image_DXT.obj)" или на "C:\Users\User\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-SOIL.lib(image_helper.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(image_helper.obj)" или на "C:\Users\User\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-SOIL.lib(SOIL.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(SOIL.obj)" или на "C:\Users\User\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-SOIL.lib(stb_image_aug.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(stb_image_aug.obj)" или на "C:\Users\User\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-  TerraMU.vcxproj -> C:\Users\User\source\repos\TerraMU\Release\TerraMU.exe
+LINK : warning LNK4286: Символ "___glewLinkProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewDeleteShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewDetachShader", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewUniformMatrix4fv", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewShaderSource", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+LINK : warning LNK4286: Символ "___glewDeleteProgram", определенный в "GLEW32s.lib(glew.obj)", импортирован "ShaderProgram.obj".
+GLEW32s.lib(glew.obj) : warning LNK4099: "vc120.pdb" PDB не найден с "GLEW32s.lib(glew.obj)" или на "C:\Users\ch_Alex\source\repos\TerraMU\Release\vc120.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(image_DXT.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(image_DXT.obj)" или на "C:\Users\ch_Alex\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(image_helper.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(image_helper.obj)" или на "C:\Users\ch_Alex\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(SOIL.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(SOIL.obj)" или на "C:\Users\ch_Alex\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: "SOIL.pdb" PDB не найден с "SOIL.lib(stb_image_aug.obj)" или на "C:\Users\ch_Alex\source\repos\TerraMU\Release\SOIL.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+  TerraMU.vcxproj -> C:\Users\ch_Alex\source\repos\TerraMU\Release\TerraMU.exe

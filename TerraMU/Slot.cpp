@@ -87,3 +87,13 @@ void Slot::unplaced(float x, float y) {
 
 	isPlaced = false;
 }
+
+bool Slot::clicked(float x, float y) {
+	if (GuiItem::clicked(x, y)) {
+		grab->setItem(item);
+		grab->execute();
+		item = grab->getGrabbedItem();
+		return true;
+	}
+	return false;
+}

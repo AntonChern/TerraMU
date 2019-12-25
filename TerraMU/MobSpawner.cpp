@@ -3,6 +3,9 @@
 #include "AnimationPendulum.h"
 #include "EntityFactory.h"
 #include "Monster.h"
+#include "Map.h"
+#include "Item.h"
+#include "Converter.h"
 
 void MobSpawner::update(float deltaTime) {
 	if (mobs->size() < maxNumOfMobs) {
@@ -28,6 +31,15 @@ void MobSpawner::update(float deltaTime) {
 	}
 	for (Monster* mob : dead) {
 		mobs->remove(mob);
+		vec2 position = Converter::fromOpenGLToMap(vec2(mob->getAvatar()->getPosition().x, mob->getAvatar()->getPosition().y - (float)mob->getAvatar()->getScale().y / 2));
+		float randValue = ((float)rand() / (RAND_MAX));
+		Item* loot = nullptr;
+		if (randValue < 0.5f) {
+			loot = new Item("apple.png", "Apple");
+		} else {
+			loot = new Item("book.png", "Book");
+		}
+		GameController::getMap()->addItem(loot, position.x, position.y);
 		delete mob;
 	}
 }

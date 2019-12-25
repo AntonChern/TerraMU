@@ -6,6 +6,7 @@ class Cursor;
 class GuiItem;
 class GuiElement;
 struct GLFWwindow;
+class Item;
 using namespace std;
 
 class Gui {
@@ -19,9 +20,14 @@ private:
 
 	Cursor* cursor;
 
+	Item* grabbedItem = nullptr;
+
 public:
 	Gui(GLFWwindow* window);
 	~Gui();
+
+	void setGrabbedItem(Item* grabbed) { grabbedItem = grabbed; };
+	Item* getGrabbedItem() { return grabbedItem; };
 
 	list<GuiElement*> getGuiElements();
 	list<GuiItem*>* getVisiblePanels() { return &visiblePanels; };

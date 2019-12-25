@@ -2,7 +2,7 @@
 #include "GuiElementFactory.h"
 
 GuiItem::~GuiItem() {
-	while (!children.empty()) {
+	/*while (!children.empty()) {
 		GuiItem* gui = children.front();
 		children.pop_front();
 		delete gui;
@@ -13,7 +13,7 @@ GuiItem::~GuiItem() {
 		children.pop_front();
 		buff.push_back(icon);
 	}
-	GuiElementFactory::cleanGuis(buff);
+	GuiElementFactory::cleanGuis(buff);*/
 }
 
 void GuiItem::addChildren(list<GuiItem*> children) {

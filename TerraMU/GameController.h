@@ -29,7 +29,6 @@ private:
 	static vec2 lastMouseClick;
 
 	static Player* player;
-	static list<Action*> actions;
 
 	static void processPanel(GuiItem* panel);
 
@@ -43,9 +42,9 @@ public:
 
 	static void update(float deltaTime);
 
-	static void addAction(Action* action) { actions.push_back(action); };
+	/*static void addAction(Action* action) { actions.push_back(action); };
 	static void setActions(list<Action*> actions);
-	static void clearActions();
+	static void clearActions();*/
 
 	static void setMap(Map* map) { GameController::map = map; };
 	static void setGui(Gui* gui) { GameController::gui = gui; };
@@ -56,5 +55,6 @@ public:
 	static Map* getMap() { return GameController::map; };
 	static Player* getPlayer() { return GameController::player; };
 	static Gui* getGui() { return gui; };
+	static vec2 getMousePos() { return mousePosition; };
 
 };

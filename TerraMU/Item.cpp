@@ -5,6 +5,7 @@
 #include "PickUpItemAction.h"
 #include "Converter.h"
 #include "GameController.h"
+#include "Player.h"
 
 Item::Item(string texturePath, string name) {
 	dropped = new DroppedItem(texturePath, name, vec3(0.0f), 0.0f, 0.0f, 0.0f, GameController::WORLD_SCALE);
@@ -18,5 +19,5 @@ Item::~Item() {
 
 void Item::interact() {
 	vec2 pos = Converter::fromOpenGLToMap(vec2(dropped->getPosition().x, dropped->getPosition().y));
-	GameController::setActions({new GoAction(pos.x, pos.y), new PickUpItemAction(this)});
+	GameController::getPlayer()->setActions({new GoAction(pos.x, pos.y), new PickUpItemAction(this)});
 }

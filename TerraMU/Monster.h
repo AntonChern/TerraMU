@@ -32,16 +32,15 @@ protected:
 	int movingPeriod;
 	int time;
 	bool isAnimated;
-
-	int maxHealth;
 public:
 	Monster(Entity* avatar, float speed, float visibilityRadius, int maxHealth, bool isAnimated, float movingProbability, int movingPeriod) :
-		Creature(avatar, speed, visibilityRadius), maxHealth(maxHealth), isAnimated(isAnimated), movingProbability(movingProbability), movingPeriod(movingPeriod)
+		Creature(avatar, speed, visibilityRadius, maxHealth), isAnimated(isAnimated), movingProbability(movingProbability), movingPeriod(movingPeriod)
 	{ this->state = new Pacific(this); if (isAnimated) { avatar->getAnimation()->play(); } time = movingPeriod; health = maxHealth; };
 
 	void goToAttack();
-	void update(float deltaTime);
+	//void update(float deltaTime);
 	void hookStopAnimation();
+	void hookUpdate();
 
 	bool getIsAnimated() { return this->isAnimated; };
 	vec2 getTarget() { return this->target; };
@@ -53,6 +52,7 @@ public:
 	void nullTime() { this->time = 0; };
 	bool seesPlayerIn(float radius);
 	list<vec2>* getWay() { return Creature::way; };
+	list<Action*> getActions() { return Creature::actions; };
 	//void shortenPath();
 
 	void hit();

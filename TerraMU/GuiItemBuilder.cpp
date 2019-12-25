@@ -38,7 +38,8 @@ GuiItem* GuiItemBuilder::buildInventory() {
 	SlotArray* slots = new SlotArray(columns, rows, vec3(position.x, position.y + scale.y * (118.0f / 336.0f - 0.5f), position.z),
 		0.0f, 0.0f, 0.0f, vec3(200.0f / 216.0f * scale.x, 160.0f / 336.0f * scale.y, 1.0f));
 
-	GameController::getPlayer()->setInventorySubscriber(new InventorySubscriber(GameController::getPlayer(), slots->getSlots()));
+	//GameController::getPlayer()->setInventorySubscriber(new InventorySubscriber(GameController::getPlayer(), slots->getSlots()));
+	GameController::getPlayer()->setSlots(slots->getSlots());
 
 	GuiItem* head = new Slot(vec3(position.x, position.y + scale.y * (0.5f - 28.0f / 336.0f), position.z),
 		0.0f, 0.0f, 0.0f, vec3(40.0f / 216.0f * scale.x, 40.0f / 336.0f * scale.y, 1.0f));

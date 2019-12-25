@@ -146,6 +146,7 @@
     <ClCompile Include="FramedLabel.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GoAction.cpp" />
+    <ClCompile Include="GrabAction.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="GuiElementFactory.cpp" />
     <ClCompile Include="GuiItem.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="GoAction.h" />
+    <ClInclude Include="GrabAction.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="GuiElementFactory.h" />
     <ClInclude Include="GuiItem.h" />
@@ -246,6 +248,7 @@
     <Text Include="guiFragmentShader.txt" />
     <Text Include="guiVertexShader.txt" />
     <Text Include="labirint.txt" />
+    <Text Include="Lorenzia_128_1.txt" />
     <Text Include="StaticFragmentShader.txt" />
     <Text Include="StaticVertexShader.txt" />
     <Text Include="StreamFragmentShader.txt" />

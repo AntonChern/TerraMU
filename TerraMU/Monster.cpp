@@ -6,6 +6,7 @@
 #include "ShortGoAction.h"
 #include "HitAction.h"
 #include "Player.h"
+#include "Action.h"
 
 bool Monster::seesPlayerIn(float radius) {
 	vec3 playerPosition = GameController::getPlayer()->getAvatar()->getPosition();
@@ -32,16 +33,28 @@ void Monster::goToAttack() {
 
 	vec2 origin = Converter::fromOpenGLToMap(vec2(avatar->getPosition().x, avatar->getPosition().y - (float)avatar->getScale().y / (float)2));
 	if (WayHandler::existsPath((float)visibilityRadius / (float)GameController::getMap()->getScale().x * GameController::getMap()->getColumns(), origin, target)) {
-		//Creature::go(target.x, target.y);
-		//shortenPath();
 		Creature::shortGo(target.x, target.y);
+		actions.push_back(new HitAction(GameController::getPlayer()));
 	} else {
 		vec2 newTarget = WayHandler::getOptimalEnd((float)visibilityRadius / (float)GameController::getMap()->getScale().x * GameController::getMap()->getColumns(), origin, target);
 		Creature::go(newTarget.x, newTarget.y);
 	}
 }
 
-void Monster::update(float deltaTime) {
+//void Monster::update(float deltaTime) {
+//	delete state;
+//	if (this->seesPlayerIn(visibilityRadius)) {
+//		state = new Angry(this);
+//	}
+//	else {
+//		state = new Pacific(this);
+//	}
+//
+//	state->execute();
+//	Creature::update(deltaTime);
+//}
+
+void Monster::hookUpdate() {
 	delete state;
 	if (this->seesPlayerIn(visibilityRadius)) {
 		state = new Angry(this);
@@ -51,7 +64,6 @@ void Monster::update(float deltaTime) {
 	}
 
 	state->execute();
-	Creature::update(deltaTime);
 }
 
 void Monster::State::execute() {
@@ -93,21 +105,10 @@ void Monster::Angry::execute() {
 	vec2 monsterPosition = Converter::fromOpenGLToMap(vec2(monster->getAvatar()->getPosition().x,
 		monster->getAvatar()->getPosition().y - (float)monster->getAvatar()->getScale().y / 2));
 
-	if (!(monster->getTarget() == playerPosition && WayHandler::isWalkable(monster->getWay(), monsterPosition, initial))) {
+	if (!(monster->getTarget() == playerPosition && WayHandler::isWalkable(monster->getWay(), monsterPosition, initial) && !monster->getActions().empty())) {
 		monster->goToAttack();
 	}
 }
-
-//void Monster::shortenPath() {
-//	if (seesPlayerIn((float)GameController::getMap()->getScale().x / (float)GameController::getMap()->getColumns())) {
-//		nullWay();
-//	} else {
-//		float distance = 1.0f;
-//		vec2 final = way->back();
-//		float coef = 1.0f - (float)distance / (float)std::sqrt(final.x * final.x + final.y * final.y);
-//		way->back() *= coef;
-//	}
-//}
 
 void Monster::hit() {
 	health -= GameController::getPlayer()->getStrength();
@@ -116,7 +117,7 @@ void Monster::hit() {
 void Monster::interact(float x, float y) {
 	ShortGoAction* shortGoAction = new ShortGoAction();
 	shortGoAction->setPosition(x, y);
-	GameController::addAction(shortGoAction);
+	GameController::getPlayer()->addAction(shortGoAction);
 	HitAction* hitAction = new HitAction(this);
-	GameController::addAction(hitAction);
+	GameController::getPlayer()->addAction(hitAction);
 }
